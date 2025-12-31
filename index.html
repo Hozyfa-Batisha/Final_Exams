@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Management Exam</title>
+    <title>Exam Selection</title>
     <style>
         * {
             margin: 0;
@@ -18,12 +18,117 @@
             padding: 20px;
         }
 
-        .container {
+        /* Selection Screen */
+        .selection-container {
+            max-width: 900px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .selection-title {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .selection-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            margin-bottom: 50px;
+        }
+
+        .exam-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .exam-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .exam-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .exam-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .exam-description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .exam-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Exam Screen (Hidden Initially) */
+        .exam-container {
+            display: none;
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
             grid-template-columns: 250px 1fr;
             gap: 20px;
+        }
+
+        .exam-container.active {
+            display: grid;
         }
 
         .sidebar {
@@ -34,6 +139,24 @@
             position: sticky;
             top: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 10px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
         }
 
         .sidebar h2 {
@@ -293,7 +416,7 @@
         }
 
         @media (max-width: 768px) {
-            .container {
+            .exam-container {
                 grid-template-columns: 1fr;
             }
 
@@ -305,13 +428,69 @@
             .nav-buttons {
                 grid-template-columns: repeat(4, 1fr);
             }
+
+            .exam-cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Selection Screen -->
+    <div class="selection-container" id="selectionScreen">
+        <h1 class="selection-title">📚 Choose Your Exam</h1>
+        <p class="selection-subtitle">Select the subject you want to practice</p>
+
+        <div class="exam-cards">
+            <!-- Project Management Card -->
+            <div class="exam-card" onclick="selectExam('pm')">
+                <div class="exam-icon">📊</div>
+                <h2 class="exam-title">Project Management</h2>
+                <p class="exam-description">
+                    Test your knowledge in project management principles, methodologies, 
+                    and best practices including Agile, Scrum, and traditional approaches.
+                </p>
+                <div class="exam-stats">
+                    <div class="stat">
+                        <div class="stat-number">200</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">11</div>
+                        <div class="stat-label">Levels</div>
+                    </div>
+                </div>
+                <button class="start-btn">Start Exam →</button>
+            </div>
+
+            <!-- Information Systems Card -->
+            <div class="exam-card" onclick="selectExam('is')">
+                <div class="exam-icon">💻</div>
+                <h2 class="exam-title">Information Systems</h2>
+                <p class="exam-description">
+                    Challenge yourself with questions on IS fundamentals, databases, 
+                    networks, security, and emerging technologies.
+                </p>
+                <div class="exam-stats">
+                    <div class="stat">
+                        <div class="stat-number">100</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Chapters</div>
+                    </div>
+                </div>
+                <button class="start-btn">Start Exam →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Screen -->
+    <div class="exam-container" id="examScreen">
         <!-- Sidebar with Quick Navigation -->
         <div class="sidebar">
+            <button class="back-btn" onclick="backToSelection()">← Back to Selection</button>
             <h2>Quick Navigation</h2>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
@@ -323,7 +502,7 @@
         <!-- Main Content Area -->
         <div class="main-content">
             <div class="exam-header">
-                <h1>Project Management Exam</h1>
+                <h1 id="examTitle">Exam</h1>
             </div>
 
             <!-- Questions Container -->
@@ -337,13 +516,12 @@
         </div>
     </div>
 
-    <!-- IMPORT EXTERNAL QUESTIONS FILE -->
+    <!-- Import questions data -->
     <script src="questions.js"></script>
 
     <script>
-        // ============================================
-        // EXAM LOGIC
-        // ============================================
+        // Global variables
+        let currentExam = null;
         let currentQuestion = 1;
         let totalQuestions = 0;
         let answeredQuestions = new Set();
@@ -371,6 +549,50 @@
             });
             
             return questions;
+        }
+
+        // Select exam type
+        function selectExam(examType) {
+            currentExam = examType;
+            
+            // Parse questions based on exam type
+            const allQuestions = parseQuestionsData(questionsRawData);
+            
+            if (examType === 'pm') {
+                // Filter Project Management questions (L1-L11)
+                questionsData = allQuestions.filter(q => q.level.startsWith('L'));
+                document.getElementById('examTitle').textContent = 'Project Management Exam';
+            } else if (examType === 'is') {
+                // Filter Information Systems questions (IS)
+                questionsData = allQuestions.filter(q => q.level === 'IS');
+                document.getElementById('examTitle').textContent = 'Information Systems Exam';
+            }
+            
+            // Hide selection screen and show exam screen
+            document.getElementById('selectionScreen').style.display = 'none';
+            document.getElementById('examScreen').classList.add('active');
+            
+            // Initialize exam
+            initExam();
+        }
+
+        // Back to selection screen
+        function backToSelection() {
+            if (confirm('Are you sure you want to go back? Your progress will be lost.')) {
+                // Reset everything
+                currentExam = null;
+                currentQuestion = 1;
+                answeredQuestions.clear();
+                questionsData = [];
+                
+                // Show selection screen and hide exam screen
+                document.getElementById('selectionScreen').style.display = 'block';
+                document.getElementById('examScreen').classList.remove('active');
+                
+                // Clear containers
+                document.getElementById('questionsContainer').innerHTML = '';
+                document.getElementById('navButtons').innerHTML = '';
+            }
         }
 
         // Generate HTML for questions
@@ -410,9 +632,6 @@
 
         // Initialize the exam
         function initExam() {
-            // Parse the questions from the external file
-            questionsData = parseQuestionsData(questionsRawData);
-            
             generateQuestions();
             const questions = document.querySelectorAll('.question-container');
             totalQuestions = questions.length;
@@ -534,9 +753,6 @@
             document.getElementById('progressText').textContent = 
                 `${answeredQuestions.size} / ${totalQuestions} Answered`;
         }
-
-        // Initialize when page loads
-        window.addEventListener('DOMContentLoaded', initExam);
     </script>
 </body>
 </html>
