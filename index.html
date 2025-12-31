@@ -452,12 +452,12 @@
                 </p>
                 <div class="exam-stats">
                     <div class="stat">
-                        <div class="stat-number">200</div>
+                        <div class="stat-number">180</div>
                         <div class="stat-label">Questions</div>
                     </div>
                     <div class="stat">
                         <div class="stat-number">11</div>
-                        <div class="stat-label">Levels</div>
+                        <div class="stat-label">Lectures</div>
                     </div>
                 </div>
                 <button class="start-btn">Start Exam →</button>
@@ -516,8 +516,9 @@
         </div>
     </div>
 
-    <!-- Import questions data -->
-    <script src="questions.js"></script>
+    <!-- Import questions data from separate files -->
+    <script src="pm_questions.js"></script>
+    <script src="is_questions.js"></script>
 
     <script>
         // Global variables
@@ -555,17 +556,29 @@
         function selectExam(examType) {
             currentExam = examType;
             
-            // Parse questions based on exam type
-            const allQuestions = parseQuestionsData(questionsRawData);
-            
+            // Load questions based on exam type
             if (examType === 'pm') {
-                // Filter Project Management questions (L1-L11)
-                questionsData = allQuestions.filter(q => q.level.startsWith('L'));
+                // Check if PM questions are loaded
+                if (typeof pmQuestionsData === 'undefined') {
+                    alert('Error: pm_questions.js file not found! Please make sure it exists.');
+                    return;
+                }
+                questionsData = parseQuestionsData(pmQuestionsData);
                 document.getElementById('examTitle').textContent = 'Project Management Exam';
             } else if (examType === 'is') {
-                // Filter Information Systems questions (IS)
-                questionsData = allQuestions.filter(q => q.level === 'IS');
+                // Check if IS questions are loaded
+                if (typeof isQuestionsData === 'undefined') {
+                    alert('Error: is_questions.js file not found! Please make sure it exists.');
+                    return;
+                }
+                questionsData = parseQuestionsData(isQuestionsData);
                 document.getElementById('examTitle').textContent = 'Information Systems Exam';
+            }
+            
+            // Check if questions were loaded successfully
+            if (questionsData.length === 0) {
+                alert('Error: No questions found! Please check your question files.');
+                return;
             }
             
             // Hide selection screen and show exam screen
