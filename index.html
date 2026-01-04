@@ -20,7 +20,7 @@
 
         /* Selection Screen */
         .selection-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 50px auto;
             text-align: center;
         }
@@ -40,15 +40,15 @@
 
         .exam-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
             margin-top: 40px;
         }
 
         .exam-card {
             background: white;
             border-radius: 15px;
-            padding: 40px;
+            padding: 35px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -65,7 +65,7 @@
         }
 
         .exam-title {
-            font-size: 28px;
+            font-size: 24px;
             color: #333;
             margin-bottom: 15px;
             font-weight: bold;
@@ -73,9 +73,10 @@
 
         .exam-description {
             color: #666;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
             margin-bottom: 20px;
+            min-height: 80px;
         }
 
         .exam-stats {
@@ -118,38 +119,44 @@
             transform: scale(1.05);
         }
 
-        /* Exam Screen (Hidden Initially) */
+        /* Optimized Exam Screen Layout */
         .exam-container {
             display: none;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            grid-template-columns: 250px 1fr;
-            gap: 20px;
+            position: relative;
         }
 
         .exam-container.active {
-            display: grid;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
+        /* Sidebar - Fixed Position */
         .sidebar {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
-            height: fit-content;
+            width: 280px;
             position: sticky;
             top: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
         }
 
         .back-btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: #f5f5f5;
             border: 2px solid #ddd;
             border-radius: 8px;
             cursor: pointer;
             margin-bottom: 20px;
             font-size: 14px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
@@ -163,12 +170,13 @@
             color: #667eea;
             margin-bottom: 15px;
             font-size: 18px;
+            text-align: center;
         }
 
         .progress-bar {
             background: #e0e0e0;
             border-radius: 10px;
-            height: 20px;
+            height: 22px;
             overflow: hidden;
             margin-bottom: 10px;
         }
@@ -178,6 +186,12 @@
             height: 100%;
             width: 0%;
             transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
         }
 
         .progress-text {
@@ -185,28 +199,46 @@
             color: #666;
             font-size: 14px;
             margin-bottom: 20px;
+            font-weight: 600;
         }
 
         .nav-buttons {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 8px;
-            max-height: 500px;
+            max-height: 400px;
             overflow-y: auto;
+            padding: 5px;
+        }
+
+        .nav-buttons::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-buttons::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .nav-buttons::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
         }
 
         .nav-btn {
             padding: 10px;
             border: 2px solid #e0e0e0;
             background: white;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
         .nav-btn:hover {
             background: #f5f5f5;
+            transform: scale(1.05);
         }
 
         .nav-btn.answered {
@@ -219,19 +251,26 @@
             background: #667eea;
             color: white;
             border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
         }
 
+        /* Main Content - Optimized */
         .main-content {
             background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-height: 600px;
         }
 
         .exam-header {
-            border-bottom: 2px solid #667eea;
+            border-bottom: 3px solid #667eea;
             padding-bottom: 15px;
             margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .exam-header h1 {
@@ -239,9 +278,18 @@
             font-size: 28px;
         }
 
+        .question-counter {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .question-container {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         .question-container.active {
@@ -251,7 +299,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -260,43 +308,47 @@
         }
 
         .question-header {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
         }
 
         .question-number {
             color: #667eea;
             font-weight: bold;
             font-size: 14px;
+            margin-bottom: 10px;
         }
 
         .question-text {
-            font-size: 18px;
+            font-size: 19px;
             color: #333;
-            margin-top: 10px;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-weight: 500;
         }
 
         .options {
-            margin: 20px 0;
+            margin: 25px 0;
         }
 
         .option {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin: 10px 0;
+            padding: 16px 18px;
+            margin: 12px 0;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            background: white;
         }
 
         .option:hover:not(.disabled) {
-            background: #f5f5f5;
+            background: #f8f9fa;
             border-color: #667eea;
+            transform: translateX(5px);
         }
 
         .option.disabled {
@@ -308,6 +360,7 @@
             width: 20px;
             height: 20px;
             cursor: pointer;
+            accent-color: #667eea;
         }
 
         .option.disabled input[type="radio"] {
@@ -319,6 +372,7 @@
             color: #333;
             cursor: pointer;
             flex: 1;
+            line-height: 1.5;
         }
 
         .option.disabled .option-label {
@@ -327,19 +381,23 @@
 
         .option.correct {
             background: #d4edda;
-            border-color: #4caf50;
+            border-color: #28a745;
+            border-width: 3px;
         }
 
         .option.incorrect {
             background: #f8d7da;
             border-color: #dc3545;
+            border-width: 3px;
         }
 
         .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
+            margin-top: 20px;
+            padding: 16px 20px;
+            border-radius: 10px;
             display: none;
+            font-weight: 600;
+            font-size: 15px;
         }
 
         .feedback.show {
@@ -361,84 +419,134 @@
         .feedback.correct {
             background: #d4edda;
             color: #155724;
-            border: 1px solid #c3e6cb;
+            border: 2px solid #28a745;
         }
 
         .feedback.incorrect {
             background: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
+            border: 2px solid #dc3545;
         }
 
         .navigation-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
         }
 
         .nav-button {
-            padding: 10px 25px;
+            padding: 12px 30px;
             border: 2px solid #667eea;
             background: white;
             color: #667eea;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .nav-button:hover {
+        .nav-button:hover:not(:disabled) {
             background: #667eea;
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
         }
 
         .nav-button:disabled {
             border-color: #ccc;
             color: #ccc;
             cursor: not-allowed;
+            opacity: 0.5;
         }
 
         .nav-button:disabled:hover {
             background: white;
             color: #ccc;
+            transform: none;
+            box-shadow: none;
         }
 
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .exam-container {
-                grid-template-columns: 1fr;
-            }
-
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
             .exam-container.active {
-                display: flex;
                 flex-direction: column;
             }
 
             .sidebar {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                top: auto;
-                border-radius: 15px 15px 0 0;
-                max-height: 50vh;
-                overflow-y: auto;
-                z-index: 1000;
-                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+                position: relative;
+                width: 100%;
+                top: 0;
+                max-height: none;
+                order: 2;
+                margin-top: 20px;
             }
 
             .main-content {
-                margin-bottom: 200px; /* Space for fixed sidebar */
+                order: 1;
             }
 
             .nav-buttons {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(6, 1fr);
+                max-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .selection-title {
+                font-size: 32px;
             }
 
             .exam-cards {
                 grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .exam-header h1 {
+                font-size: 22px;
+            }
+
+            .question-text {
+                font-size: 17px;
+            }
+
+            .nav-buttons {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .selection-container {
+                margin: 20px auto;
+            }
+
+            .exam-card {
+                padding: 25px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .question-header {
+                padding: 15px;
+            }
+
+            .option {
+                padding: 12px 15px;
+            }
+
+            .nav-buttons {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -491,6 +599,27 @@
                 </div>
                 <button class="start-btn">Start Exam →</button>
             </div>
+
+            <!-- Systems Analysis and Design Card -->
+            <div class="exam-card" onclick="selectExam('sad')">
+                <div class="exam-icon">🔧</div>
+                <h2 class="exam-title">Systems Analysis & Design</h2>
+                <p class="exam-description">
+                    Master concepts in SDLC, Agile methodologies, UML diagrams, 
+                    requirements analysis, and system implementation strategies.
+                </p>
+                <div class="exam-stats">
+                    <div class="stat">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Topics</div>
+                    </div>
+                </div>
+                <button class="start-btn">Start Exam →</button>
+            </div>
         </div>
     </div>
 
@@ -500,6 +629,7 @@
         <div class="main-content">
             <div class="exam-header">
                 <h1 id="examTitle">Exam</h1>
+                <div class="question-counter" id="questionCounter">Question 1</div>
             </div>
 
             <!-- Questions Container -->
@@ -512,7 +642,7 @@
             </div>
         </div>
 
-        <!-- Sidebar with Quick Navigation (moves to bottom on mobile) -->
+        <!-- Sidebar with Quick Navigation -->
         <div class="sidebar">
             <button class="back-btn" onclick="backToSelection()">← Back to Selection</button>
             <h2>Quick Navigation</h2>
@@ -527,6 +657,7 @@
     <!-- Import questions data from separate files -->
     <script src="pm_questions.js"></script>
     <script src="is_questions.js"></script>
+    <script src="sad_questions.js"></script>
 
     <script>
         // Global variables
@@ -579,6 +710,13 @@
                 }
                 questionsData = parseQuestionsData(isQuestionsData);
                 document.getElementById('examTitle').textContent = 'Information Systems Exam';
+            } else if (examType === 'sad') {
+                if (typeof sadQuestionsData === 'undefined') {
+                    alert('Error: sad_questions.js file not found! Please make sure it exists.');
+                    return;
+                }
+                questionsData = parseQuestionsData(sadQuestionsData);
+                document.getElementById('examTitle').textContent = 'Systems Analysis & Design Exam';
             }
             
             if (questionsData.length === 0) {
@@ -618,7 +756,7 @@
                 const questionHTML = `
                     <div class="question-container" data-question="${questionNum}" data-correct="${q.correct}">
                         <div class="question-header">
-                            <div class="question-number">Question ${questionNum} - ${q.level}</div>
+                            <div class="question-number">Question ${questionNum} of ${questionsData.length}</div>
                             <div class="question-text">${q.question}</div>
                         </div>
                         <div class="options">
@@ -680,6 +818,9 @@
                     navBtns[questionNum - 1].classList.add('active');
                 }
                 currentQuestion = questionNum;
+                
+                // Update question counter
+                document.getElementById('questionCounter').textContent = `Question ${questionNum} of ${totalQuestions}`;
                 
                 document.getElementById('prevBtn').disabled = currentQuestion === 1;
                 document.getElementById('nextBtn').disabled = currentQuestion === totalQuestions;
@@ -758,7 +899,9 @@
         // Update progress bar
         function updateProgress() {
             const progress = totalQuestions > 0 ? (answeredQuestions.size / totalQuestions) * 100 : 0;
-            document.getElementById('progressFill').style.width = progress + '%';
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = progress + '%';
+            progressFill.textContent = progress > 5 ? Math.round(progress) + '%' : '';
             document.getElementById('progressText').textContent = 
                 `${answeredQuestions.size} / ${totalQuestions} Answered`;
         }
