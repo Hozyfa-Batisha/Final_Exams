@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
             line-height: 1.8;
         }
@@ -21,14 +21,14 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
         }
         
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 50px 40px;
             text-align: center;
@@ -37,7 +37,7 @@
         .header h1 {
             font-size: 2.8em;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
         
         .header p {
@@ -47,38 +47,59 @@
         
         .content {
             padding: 40px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
         }
         
         .chapter {
             margin-bottom: 50px;
             padding: 35px;
             border-radius: 15px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
         
-        .chapter:nth-child(2) {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        .chapter:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chapter:nth-child(1) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-left: 6px solid #00d2ff;
         }
         
         .chapter:nth-child(3) {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-        
-        .chapter:nth-child(4) {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 6px solid #ff6b6b;
         }
         
         .chapter:nth-child(5) {
-            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            background: linear-gradient(135deg, #c3cfe2 0%, #c3cfe2 100%);
+            border-left: 6px solid #667eea;
         }
         
-        .chapter:nth-child(6) {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        .chapter:nth-child(7) {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            border-left: 6px solid #00b894;
+        }
+        
+        .chapter:nth-child(9) {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            border-left: 6px solid #a29bfe;
+        }
+        
+        .chapter:nth-child(11) {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-left: 6px solid #fdcb6e;
+        }
+        
+        .chapter:nth-child(13) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-left: 6px solid #fd79a8;
         }
         
         .additional-section {
-            background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border-left: 6px solid #ff6348;
             padding: 35px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
@@ -86,30 +107,31 @@
         }
         
         .chapter h2 {
-            color: #ffffff;
+            color: #2d3436;
             font-size: 2.2em;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid rgba(255,255,255,0.3);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            border-bottom: 3px solid rgba(0,0,0,0.15);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
         
         .chapter h3 {
-            color: #ffffff;
+            color: #2d3436;
             font-size: 1.5em;
             margin-top: 25px;
             margin-bottom: 15px;
             padding: 12px 20px;
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.6);
             border-radius: 10px;
-            border-left: 5px solid rgba(255,255,255,0.5);
+            border-left: 5px solid rgba(0,0,0,0.3);
         }
         
         .chapter p {
             color: #2d3436;
             margin-bottom: 15px;
-            font-size: 1.1em;
-            background: rgba(255,255,255,0.8);
+            font-size: 1.05em;
+            line-height: 1.8;
+            background: rgba(255,255,255,0.5);
             padding: 15px;
             border-radius: 8px;
         }
@@ -117,9 +139,10 @@
         .chapter ul {
             margin-left: 20px;
             margin-bottom: 20px;
-            background: rgba(255,255,255,0.8);
             padding: 20px;
+            background: rgba(255,255,255,0.5);
             border-radius: 8px;
+            border-left: 3px solid rgba(0,0,0,0.2);
         }
         
         .chapter li {
@@ -130,22 +153,34 @@
         }
         
         .chapter li strong {
-            color: #d63031;
+            color: #e74c3c;
+            font-weight: 600;
         }
         
         .divider {
             height: 4px;
-            background: linear-gradient(90deg, transparent, #1e3c72, transparent);
+            background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
             margin: 50px 0;
+            border-radius: 2px;
         }
         
         .highlight-box {
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.8);
             padding: 25px;
             border-radius: 12px;
             margin: 25px 0;
-            border-left: 6px solid rgba(255,255,255,0.7);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 3px solid rgba(255,255,255,0.9);
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .highlight-box h3 {
+            background: rgba(255,255,255,0.7);
+            color: #e74c3c;
+            border-left-color: #e74c3c;
+        }
+        
+        .highlight-box ul {
+            background: rgba(255,255,255,0.4);
         }
         
         .numbered-list {
@@ -166,8 +201,8 @@
             position: absolute;
             left: 0;
             top: 0;
-            background: rgba(255,255,255,0.9);
-            color: #1e3c72;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             width: 35px;
             height: 35px;
             border-radius: 50%;
@@ -176,7 +211,7 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.1em;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
         }
         
         .analogy-box {
@@ -184,24 +219,170 @@
             padding: 30px;
             border-radius: 15px;
             margin: 30px 0;
-            border: 3px solid rgba(255,255,255,0.5);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 4px solid #f39c12;
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
         }
         
         .analogy-box h3 {
-            background: rgba(255,255,255,0.4);
-            color: #2d3436;
+            background: rgba(255,255,255,0.6);
+            color: #d35400;
+            border-left-color: #e67e22;
         }
         
         .analogy-box p {
-            background: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.5);
             color: #2d3436;
             font-weight: 500;
         }
         
         .additional-section h2 {
-            color: #ffffff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #2d3436;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+            border-bottom: 3px solid rgba(0,0,0,0.15);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .additional-section h3 {
+            color: #2d3436;
+            background: rgba(255,255,255,0.6);
+            border-left: 5px solid rgba(0,0,0,0.3);
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .additional-section p {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+            line-height: 1.8;
+            background: rgba(255,255,255,0.5);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .additional-section ul {
+            background: rgba(255,255,255,0.5);
+            margin-left: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid rgba(0,0,0,0.2);
+        }
+        
+        .additional-section li {
+            color: #2d3436;
+            margin-bottom: 12px;
+            padding-left: 10px;
+            font-size: 1.05em;
+        }
+        
+        .additional-section li strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .additional-section .highlight-box {
+            background: rgba(255,255,255,0.8);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 3px solid rgba(255,255,255,0.9);
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .additional-section .highlight-box h3 {
+            background: rgba(255,255,255,0.7);
+            color: #e74c3c;
+            border-left-color: #e74c3c;
+        }
+        
+        .additional-section .highlight-box ul {
+            background: rgba(255,255,255,0.4);
+        }
+        
+        .additional-section .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .additional-section .numbered-list li {
+            counter-increment: item;
+            padding-left: 50px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .additional-section .numbered-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Colorful scrollbar */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: linear-gradient(180deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            border: 2px solid #fff;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .chapter {
+                padding: 20px;
+            }
+            
+            .chapter h2 {
+                font-size: 1.8em;
+            }
+            
+            .chapter h3 {
+                font-size: 1.3em;
+            }
         }
     </style>
 </head>
@@ -408,9 +589,15 @@
                 </div>
             </div>
             
-            <div class="analogy-box">
-                <h3>🏗️ Illustrative Analogy</h3>
-                <p>System analysis and design is like building a skyscraper; analysis is understanding the needs of residents and climate, design is the precise architectural blueprint, while implementation is the actual construction process that must follow the blueprint to ensure the building's stability and safety.</p>
+            <div class="additional-section">
+                <div class="highlight-box">
+                    <h3>🗝️ Illustrative Analogy</h3>
+                    <p>
+                        System analysis and design is like building a skyscraper; analysis is understanding the needs of residents and climate, 
+                        design is the precise architectural blueprint, while implementation is the actual construction process that must follow 
+                        the blueprint to ensure the building's stability and safety.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
