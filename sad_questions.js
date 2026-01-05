@@ -3,11 +3,11 @@
 
 const sadQuestionsData = `
 SAD|Which implementation approach replaces the old system with the new one at once?|Pilot|Parallel|Direct|C
-SAD|Which implementation approach runs both old and new systems simultaneously?|Phased|Direct|Pilot|D
+SAD|Which implementation approach runs both old and new systems simultaneously?|Parallel|Direct|Pilot|A
 SAD|The phased approach to system implementation:|Replaces all components at once|Introduces the system in modules or stages|Runs both systems together|B
 SAD|The pilot implementation is best described as:|Installing the system company-wide|Testing the system in a limited area first|Replacing both systems at once|B
 SAD|Which of the following has the highest implementation risk?|Direct implementation|Parallel implementation|Phased implementation|A
-SAD|The most expensive implementation approach is generally:|Pilot|Phased|Direct|D
+SAD|The most expensive implementation approach is generally:|Pilot|Parallel|Direct|B
 SAD|A packaged system is best suited when:|Requirements are unique|Budget is low and speed is critical|Full customization is required|B
 SAD|A custom-developed system is preferred when:|Standard features are sufficient|High level of flexibility is required|The company lacks technical staff|B
 SAD|Which type of system offers vendor support and periodic updates?|Custom system|Packaged system|Legacy system|B
