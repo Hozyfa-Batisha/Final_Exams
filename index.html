@@ -971,13 +971,13 @@
                 questionsData = parseQuestionsData(sadQuestionsData);
                 document.getElementById('examTitle').textContent = 'Systems Analysis & Design Exam';
             } else if (examType === 'oop') {
-                if (typeof oopQuestionsData === 'undefined') {
-                    alert('Error: oop_questions.js file not found! Please make sure it exists.');
-                    return;
-                }
-                questionsData = parseQuestionsData(csQuestionsData);
-                document.getElementById('examTitle').textContent = 'Computing Fundamentals Exam';
-            } else if (examType === 'cs') {
+               if (typeof oopQuestionsData === 'undefined') {
+                   alert('Error: oop_questions.js file not found! Please make sure it exists.');
+                   return;
+               }
+               questionsData = parseQuestionsData(oopQuestionsData);
+               document.getElementById('examTitle').textContent = 'Object-Oriented Programming Exam';
+           } else if (examType === 'cs') {
                 if (typeof oopQuestionsData === 'undefined') {
                     alert('Error: cs_questions.js file not found! Please make sure it exists.');
                     return;
