@@ -109,5 +109,3 @@ OOP|What's wrong: class A extends B, C { }|No error|Multiple inheritance not all
 OOP|Error: int x; System.out.println(x);|No error|Variable not initialized|Compilation error|B|Local variables must be initialized before use. This causes a compilation error: "variable x might not have been initialized".
 OOP|Find error: class A { public static void main(String[] args) { int x = 5/0; } }|No error|ArithmeticException at runtime|Compilation error|B|Division by zero compiles fine but throws ArithmeticException at runtime when executed.
 `;
-
-export default oopQuestionsData;
