@@ -1,110 +1,113 @@
 // Object-Oriented Programming Question Bank - Java Focus
 // Categories: Trace Output, Trace Errors, General Concepts, Programming Questions
+// Format: Category|Question|OptionA|OptionB|OptionC|CorrectAnswer|Explanation
 
 const oopQuestionsData = `
-OOP|What is the output of: System.out.println("5" + 2 + 3);|8|523|53|B
-OOP|What is the output of: System.out.println(2 + 3 + "5");|235|55|Error|B
-OOP|What will be printed: System.out.println('A' + 1);|A1|66|B|B
-OOP|What is the result of: 17 / 5 in Java?|3.4|3|Error|B
-OOP|What is the output: System.out.println(10 % 3);|1|3|0|A
-OOP|Which identifier is valid in Java?|1variable|_variable|class#1|B
-OOP|What is the output: System.out.println("Hello".length());|4|5|6|B
-OOP|What will this print: int x = 5; System.out.println(x++);|5|6|Error|A
-OOP|What is the output: System.out.println(true && false);|true|false|1|B
-OOP|What does Math.sqrt(16) return?|4.0|4|16|A
-OOP|What is encapsulation in OOP?|Hiding data using access modifiers|Inheriting properties|Creating multiple methods|A
-OOP|Which keyword is used to inherit a class in Java?|implements|inherits|extends|C
-OOP|What is polymorphism?|One class, one form|One interface, multiple implementations|Multiple classes, one method|B
-OOP|What is the purpose of a constructor?|To destroy objects|To initialize objects|To call methods|B
-OOP|Can a constructor have a return type?|Yes, any type|Yes, only void|No, never|C
-OOP|What is method overloading?|Same method name, different parameters|Same method name, same parameters|Different method names|A
-OOP|What is the 'this' keyword used for?|Reference to current object|Reference to parent class|Reference to child class|A
-OOP|Which access modifier allows access only within the same class?|public|protected|private|C
-OOP|What is an abstract class?|Class that cannot be instantiated|Class with only static methods|Class without methods|A
-OOP|What is the difference between == and .equals()?|No difference|== checks reference, .equals() checks content|== checks content, .equals() checks reference|B
-OOP|Can static methods access instance variables directly?|Yes, always|No, never|Only with 'this' keyword|B
-OOP|What is inheritance?|Acquiring properties from parent class|Creating new methods|Hiding data|A
-OOP|What does the 'super' keyword do?|Calls parent class constructor/methods|Calls child class methods|Creates new object|A
-OOP|Can we override static methods in Java?|Yes, always|No, they are hidden|Only in abstract classes|B
-OOP|What is the purpose of the 'final' keyword?|To prevent modification|To allow modification|To create variables|A
-OOP|How many classes can Java class extend?|Multiple|One|None|B
-OOP|What is an interface in Java?|A class with implementation|A blueprint with abstract methods|A concrete class|B
-OOP|Can an interface have variables?|No|Yes, only static final|Yes, any type|B
-OOP|What is the default value of an int variable?|null|0|undefined|B
-OOP|What is the default value of a boolean variable?|true|false|0|B
-OOP|What does the output show: class A { static int x = 5; } A obj1 = new A(); obj1.x = 10; A obj2 = new A(); System.out.println(obj2.x);|5|10|Error|B
-OOP|What is printed: String s = null; System.out.println(s.length());|0|NullPointerException|null|B
-OOP|What happens: int[] arr = new int[3]; System.out.println(arr[3]);|0|ArrayIndexOutOfBoundsException|3|B
-OOP|What is the output: System.out.println(10 / 0);|0|Infinity|ArithmeticException|C
-OOP|What prints: String s1 = "Java"; String s2 = "Java"; System.out.println(s1 == s2);|true|false|Error|A
-OOP|What is the result: String s1 = new String("Java"); String s2 = new String("Java"); System.out.println(s1 == s2);|true|false|Error|B
-OOP|What outputs: int x = 5; int y = x++ + ++x; System.out.println(y);|11|12|10|B
-OOP|What is printed: int x = 10; if(x = 5) System.out.println("True");|True|Compilation error|False|B
-OOP|What outputs: for(int i=0; i<3; i++) { if(i==1) continue; System.out.print(i); }|012|02|01|B
-OOP|What prints: int[] arr = {1,2,3}; System.out.println(arr[1]);|1|2|3|B
-OOP|What is the output: System.out.println("Hello".substring(1,3));|He|el|ll|B
-OOP|Trace: class A { int x = 5; void m() { int x = 10; System.out.println(x); } } new A().m();|5|10|Error|B
-OOP|What outputs: class A { static { System.out.print("A"); } public A() { System.out.print("B"); } } new A();|B|AB|A|B
-OOP|Trace: int x = 5; System.out.println(x > 3 ? "Yes" : "No");|Yes|No|Error|A
-OOP|What prints: class A { A() { this(5); } A(int x) { System.out.print(x); } } new A();|0|5|Error|B
-OOP|Trace output: class A { void show() { System.out.print("A"); } } class B extends A { void show() { System.out.print("B"); } } A obj = new B(); obj.show();|A|B|Error|B
-OOP|What is printed: int x = 5, y = 10; x = y; y = 20; System.out.println(x);|5|10|20|B
-OOP|Trace: String s = "Hello"; s.toUpperCase(); System.out.println(s);|HELLO|Hello|hello|B
-OOP|What outputs: int x = 5; System.out.println(++x + x++);|11|12|13|B
-OOP|Trace: class A { int i; static int j; A(int x) { i = x; j++; } } A a1 = new A(3); A a2 = new A(5); System.out.print(a1.i + "," + A.j);|3,2|5,2|3,1|A
-OOP|What is the error: class A { public static void main(String[] args) { System.out.println(args[0]); } } // Run without arguments|No error|ArrayIndexOutOfBoundsException|NullPointerException|B
-OOP|Find error: class A { void m1() { System.out.println("A"); } } class B extends A { int m1() { return 5; } }|No error|Compilation error - incompatible return type|Runtime error|B
-OOP|What's wrong: abstract class A { abstract void show() { System.out.println("A"); } }|No error|Abstract methods cannot have body|Syntax error|B
-OOP|Error in: class A { private A() {} } class B { A obj = new A(); }|No error|Constructor is private|Cannot create object|B
-OOP|Find error: interface A { void show(); } class B implements A { }|No error|Must implement abstract method|Syntax error|B
-OOP|What's wrong: class A { final void show() {} } class B extends A { void show() {} }|No error|Cannot override final method|Runtime error|B
-OOP|Error: class A { static int x; void m() { x = 5; } }|No error|Static variable accessed incorrectly|x must be final|A
-OOP|Find error: class A { void m1(int x) {} void m1(int y) {} }|No error|Duplicate method|Parameter names don't matter|B
-OOP|What's wrong: class A { int x = 10; { x = 20; } static { x = 30; } }|No error|Cannot access instance variable in static block|Syntax error|B
-OOP|Error: String s = "Hello"; s = null; System.out.println(s.length());|No error|NullPointerException at runtime|Compilation error|B
-OOP|Which statement correctly creates an array?|int[] arr = new int[5];|int arr[] = {1,2,3,4,5};|int[] arr = new int[] {1,2,3};|A
-OOP|How do you correctly declare a constant in Java?|final int MAX = 100;|const int MAX = 100;|static int MAX = 100;|A
-OOP|Which loop executes at least once?|for loop|while loop|do-while loop|C
-OOP|What is the correct way to compare two strings?|str1 == str2|str1.equals(str2)|str1.compareTo(str2) == 0|B
-OOP|Which keyword is used to prevent inheritance?|static|final|private|B
-OOP|What is the size of int in Java?|2 bytes|4 bytes|8 bytes|B
-OOP|Which is not a valid access modifier?|public|protected|package|C
-OOP|What does JVM stand for?|Java Virtual Machine|Java Variable Method|Java Verified Module|A
-OOP|Which package is imported by default?|java.util|java.lang|java.io|B
-OOP|What is autoboxing?|Automatic conversion primitive to wrapper|Automatic inheritance|Automatic method calling|A
-OOP|Which collection allows duplicates and maintains insertion order?|HashSet|ArrayList|TreeSet|B
-OOP|What is the parent class of all classes in Java?|System|Main|Object|C
-OOP|Which exception is checked?|NullPointerException|IOException|ArithmeticException|B
-OOP|What keyword is used for exception handling?|try-catch|if-else|switch|A
-OOP|Which loop is best when iterations are unknown?|for|while|enhanced for|B
-OOP|Write a method header that takes two integers and returns their sum|int sum(int a, int b)|void sum(int a, int b)|double sum(int a, int b)|A
-OOP|How do you create an object of class Student?|Student s = new Student();|new Student s();|Student s;|A
-OOP|Which correctly defines a class variable?|static int count;|int count;|final int count;|A
-OOP|How to call a parent class method?|super.methodName();|this.methodName();|parent.methodName();|A
-OOP|Which creates an ArrayList of Integers?|ArrayList<Integer> list = new ArrayList<>();|ArrayList<int> list = new ArrayList<>();|ArrayList list = new ArrayList<Integer>();|A
-OOP|What is the correct constructor syntax?|public ClassName() {}|void ClassName() {}|ClassName void() {}|A
-OOP|How do you read user input using Scanner?|Scanner sc = new Scanner(System.in);|Scanner sc = new Scanner();|Input sc = new Scanner(System.in);|A
-OOP|Which creates a random integer from 1 to 10?|Random r = new Random(); int x = r.nextInt(10) + 1;|Random r = new Random(); int x = r.nextInt(11);|Random r = new Random(); int x = r.nextInt(10);|A
-OOP|How to check if a number is even?|if(num % 2 == 0)|if(num / 2 == 0)|if(num % 2 == 1)|A
-OOP|Which correctly implements getter method?|public int getAge() { return age; }|public void getAge() { return age; }|int getAge() { return age; }|A
-OOP|What does this code do: class A { private int x; public void setX(int x) { this.x = x; } }|Sets instance variable x|Creates new variable|Throws error|A
-OOP|Complete: To make a method accessible only within package use ___ modifier|default (no modifier)|public|private|A
-OOP|Which statement creates a 2D array?|int[][] arr = new int[3][4];|int arr[][] = {3,4};|int[] arr = new int[3,4];|A
-OOP|How to convert String to int?|Integer.parseInt("123")|Integer.valueOf("123").intValue()|Both A and B|C
-OOP|Which loop syntax is correct?|for(int i=0; i<5; i++)|for(int i=0, i<5, i++)|for(i=0; i<5; i++)|A
-OOP|Trace: class Test { public static void main(String[] args) { int[] arr = {5,3,8,1}; System.out.println(arr[0] + arr[3]); } }|6|9|4|A
-OOP|What prints: class A { void show(int x) { System.out.print(x); } void show(String x) { System.out.print(x); } } new A().show(5);|5|Error|5.0|A
-OOP|Trace: int sum = 0; for(int i=1; i<=3; i++) { sum += i; } System.out.println(sum);|3|6|7|B
-OOP|What outputs: class A { int x; A(int x) { this.x = x; } } A obj = new A(10); System.out.println(obj.x);|0|10|Error|B
-OOP|Trace: boolean flag = true; if(!flag) System.out.print("A"); else System.out.print("B");|A|B|Error|B
-OOP|What is printed: String[] arr = {"Java", "Python", "C++"}; System.out.println(arr.length);|2|3|4|B
-OOP|Trace: int x = 10, y = 20; int temp = x; x = y; y = temp; System.out.println(x + "," + y);|10,20|20,10|20,20|B
-OOP|What outputs: class A { static void m() { System.out.print("Static"); } } A.m();|Static|Error|null|A
-OOP|Trace: int x = 5; while(x > 0) { System.out.print(x + " "); x--; }|5 4 3 2 1|1 2 3 4 5|Infinite loop|A
-OOP|What prints: String s = "Hello"; System.out.println(s.charAt(0));|H|e|0|A
-OOP|Trace error: class A { int x = 5; } class B { System.out.println(new A().x); }|No error|Statements outside method|Runtime error|B
-OOP|Find error: class A { void show() {} void show() {} }|No error|Duplicate method|Overloading error|B
-OOP|What's wrong: class A extends B, C { }|No error|Multiple inheritance not allowed|Syntax error|B
-OOP|Error: int x; System.out.println(x);|No error|Variable not initialized|Compilation error|B
-OOP|Find error: class A { public static void main(String[] args) { int x = 5/0; } }|No error|ArithmeticException at runtime|Compilation error|B
+OOP|What is the output of: System.out.println("5" + 2 + 3);|8|523|53|B|String concatenation works left to right. "5" + 2 becomes "52", then "52" + 3 becomes "523". When a String is involved, + performs concatenation instead of addition.
+OOP|What is the output of: System.out.println(2 + 3 + "5");|235|55|Error|B|Operators evaluate left to right. First 2 + 3 = 5 (numeric addition), then 5 + "5" = "55" (string concatenation). Numbers are added first before encountering the string.
+OOP|What will be printed: System.out.println('A' + 1);|A1|66|B|B|Characters are treated as their ASCII values in arithmetic operations. 'A' has ASCII value 65, so 65 + 1 = 66. The result is printed as an integer.
+OOP|What is the result of: 17 / 5 in Java?|3.4|3|Error|B|Integer division truncates the decimal part. When both operands are integers, Java performs integer division, giving 3 instead of 3.4.
+OOP|What is the output: System.out.println(10 % 3);|1|3|0|A|The modulo operator (%) returns the remainder after division. 10 divided by 3 is 3 with remainder 1, so 10 % 3 = 1.
+OOP|Which identifier is valid in Java?|1variable|_variable|class#1|B|Identifiers cannot start with a digit (rules out 1variable) or contain special characters like # (rules out class#1). Underscore is valid at the start.
+OOP|What is the output: System.out.println("Hello".length());|4|5|6|B|The length() method returns the number of characters in a string. "Hello" has 5 characters: H-e-l-l-o.
+OOP|What will this print: int x = 5; System.out.println(x++);|5|6|Error|A|Post-increment (x++) prints the current value first (5), then increments x to 6. The increment happens after the value is used.
+OOP|What is the output: System.out.println(true && false);|true|false|1|B|The AND operator (&&) returns true only if both operands are true. Since one operand is false, the result is false.
+OOP|What does Math.sqrt(16) return?|4.0|4|16|A|Math.sqrt() returns a double type. The square root of 16 is 4, but it's returned as 4.0 (double precision).
+OOP|What is encapsulation in OOP?|Hiding data using access modifiers|Inheriting properties|Creating multiple methods|A|Encapsulation is the bundling of data and methods that operate on that data within a single unit (class), while restricting direct access using access modifiers like private.
+OOP|Which keyword is used to inherit a class in Java?|implements|inherits|extends|C|The 'extends' keyword is used for class inheritance. 'implements' is used for interfaces, and 'inherits' is not a Java keyword.
+OOP|What is polymorphism?|One class, one form|One interface, multiple implementations|Multiple classes, one method|B|Polymorphism means "many forms." It allows one interface to be used for different implementations, like method overriding and overloading.
+OOP|What is the purpose of a constructor?|To destroy objects|To initialize objects|To call methods|B|Constructors are special methods called when an object is created. They initialize the object's state and set up initial values for instance variables.
+OOP|Can a constructor have a return type?|Yes, any type|Yes, only void|No, never|C|Constructors never have a return type, not even void. They implicitly return the instance of the class being created.
+OOP|What is method overloading?|Same method name, different parameters|Same method name, same parameters|Different method names|A|Method overloading allows multiple methods with the same name but different parameter lists (different number, type, or order of parameters).
+OOP|What is the 'this' keyword used for?|Reference to current object|Reference to parent class|Reference to child class|A|The 'this' keyword refers to the current instance of the class. It's used to access instance variables and methods, and to distinguish between instance and local variables.
+OOP|Which access modifier allows access only within the same class?|public|protected|private|C|The 'private' modifier restricts access to within the declaring class only. It's the most restrictive access level.
+OOP|What is an abstract class?|Class that cannot be instantiated|Class with only static methods|Class without methods|A|An abstract class cannot be instantiated directly. It may contain abstract methods (without implementation) that must be implemented by subclasses.
+OOP|What is the difference between == and .equals()?|No difference|== checks reference, .equals() checks content|== checks content, .equals() checks reference|B|The == operator compares object references (memory addresses), while .equals() method compares the actual content/values of objects.
+OOP|Can static methods access instance variables directly?|Yes, always|No, never|Only with 'this' keyword|B|Static methods belong to the class, not instances. They cannot directly access instance variables because they don't have access to 'this' reference.
+OOP|What is inheritance?|Acquiring properties from parent class|Creating new methods|Hiding data|A|Inheritance allows a class to acquire properties and methods from a parent class, promoting code reuse and establishing an "is-a" relationship.
+OOP|What does the 'super' keyword do?|Calls parent class constructor/methods|Calls child class methods|Creates new object|A|The 'super' keyword is used to access parent class constructors and methods. It's commonly used to call the parent constructor or override methods.
+OOP|Can we override static methods in Java?|Yes, always|No, they are hidden|Only in abstract classes|B|Static methods cannot be overridden; they are hidden. Method hiding occurs when a subclass defines a static method with the same signature as in the parent class.
+OOP|What is the purpose of the 'final' keyword?|To prevent modification|To allow modification|To create variables|A|The 'final' keyword prevents modification: final variables become constants, final methods cannot be overridden, and final classes cannot be inherited.
+OOP|How many classes can Java class extend?|Multiple|One|None|B|Java supports single inheritance only. A class can extend only one parent class, but can implement multiple interfaces.
+OOP|What is an interface in Java?|A class with implementation|A blueprint with abstract methods|A concrete class|B|An interface is a contract that defines abstract methods (without implementation). Classes implementing the interface must provide implementations for all its methods.
+OOP|Can an interface have variables?|No|Yes, only static final|Yes, any type|B|Interface variables are implicitly public, static, and final. They are constants that must be initialized when declared.
+OOP|What is the default value of an int variable?|null|0|undefined|B|For instance and static variables, primitive type int has a default value of 0. Local variables must be explicitly initialized.
+OOP|What is the default value of a boolean variable?|true|false|0|B|The default value for boolean instance/static variables is false. Local boolean variables must be explicitly initialized.
+OOP|What does the output show: class A { static int x = 5; } A obj1 = new A(); obj1.x = 10; A obj2 = new A(); System.out.println(obj2.x);|5|10|Error|B|Static variables are shared among all instances of a class. When obj1 changes x to 10, obj2 sees the same changed value because both reference the same static variable.
+OOP|What is printed: String s = null; System.out.println(s.length());|0|NullPointerException|null|B|Attempting to call a method on a null reference throws a NullPointerException at runtime. The object doesn't exist, so its methods cannot be invoked.
+OOP|What happens: int[] arr = new int[3]; System.out.println(arr[3]);|0|ArrayIndexOutOfBoundsException|3|B|Array indices go from 0 to length-1. Accessing index 3 in an array of length 3 (valid indices: 0,1,2) throws ArrayIndexOutOfBoundsException.
+OOP|What is the output: System.out.println(10 / 0);|0|Infinity|ArithmeticException|C|Division by zero for integers throws an ArithmeticException at runtime. Java doesn't allow integer division by zero.
+OOP|What prints: String s1 = "Java"; String s2 = "Java"; System.out.println(s1 == s2);|true|false|Error|A|String literals are stored in the string pool. Both s1 and s2 point to the same object in the pool, so == returns true.
+OOP|What is the result: String s1 = new String("Java"); String s2 = new String("Java"); System.out.println(s1 == s2);|true|false|Error|B|The 'new' keyword creates separate String objects in heap memory. s1 and s2 have different references, so == returns false even though content is same.
+OOP|What outputs: int x = 5; int y = x++ + ++x; System.out.println(y);|11|12|10|B|First x++ uses 5 then increments to 6. Then ++x increments to 7 and uses 7. So y = 5 + 7 = 12.
+OOP|What is printed: int x = 10; if(x = 5) System.out.println("True");|True|Compilation error|False|B|The if condition uses assignment (=) instead of comparison (==). Assignment returns int, not boolean, causing a compilation error.
+OOP|What outputs: for(int i=0; i<3; i++) { if(i==1) continue; System.out.print(i); }|012|02|01|B|The continue statement skips the rest of the loop body. When i=1, continue is executed, so 1 is not printed. Only 0 and 2 are printed.
+OOP|What prints: int[] arr = {1,2,3}; System.out.println(arr[1]);|1|2|3|B|Array indices start at 0. arr[0]=1, arr[1]=2, arr[2]=3. Therefore arr[1] returns 2.
+OOP|What is the output: System.out.println("Hello".substring(1,3));|He|el|ll|B|substring(start, end) returns characters from index start to end-1. Index 1 is 'e', index 2 is 'l', so substring(1,3) returns "el".
+OOP|Trace: class A { int x = 5; void m() { int x = 10; System.out.println(x); } } new A().m();|5|10|Error|B|Local variable x in method m() shadows the instance variable x. The method prints the local variable value 10, not the instance variable 5.
+OOP|What outputs: class A { static { System.out.print("A"); } public A() { System.out.print("B"); } } new A();|B|AB|A|B|Static blocks execute once when the class is loaded, before any constructor. First "A" is printed (static block), then "B" (constructor). Output: AB.
+OOP|Trace: int x = 5; System.out.println(x > 3 ? "Yes" : "No");|Yes|No|Error|A|The ternary operator evaluates the condition x > 3. Since 5 > 3 is true, it returns "Yes".
+OOP|What prints: class A { A() { this(5); } A(int x) { System.out.print(x); } } new A();|0|5|Error|B|The no-arg constructor calls this(5), which invokes the parameterized constructor with argument 5. This prints 5.
+OOP|Trace output: class A { void show() { System.out.print("A"); } } class B extends A { void show() { System.out.print("B"); } } A obj = new B(); obj.show();|A|B|Error|B|This demonstrates runtime polymorphism. Although obj is declared as type A, it references a B object. The overridden show() method in B is called, printing "B".
+OOP|What is printed: int x = 5, y = 10; x = y; y = 20; System.out.println(x);|5|10|20|B|First x is assigned the value of y (10). Then y is changed to 20, but x retains its assigned value of 10.
+OOP|Trace: String s = "Hello"; s.toUpperCase(); System.out.println(s);|HELLO|Hello|hello|B|Strings are immutable in Java. toUpperCase() returns a new string but doesn't modify the original. Since the result isn't assigned back to s, s remains "Hello".
+OOP|What outputs: int x = 5; System.out.println(++x + x++);|11|12|13|B|First ++x increments x to 6 and uses 6. Then x++ uses 6 and increments to 7. So 6 + 6 = 12. (x is now 7).
+OOP|Trace: class A { int i; static int j; A(int x) { i = x; j++; } } A a1 = new A(3); A a2 = new A(5); System.out.print(a1.i + "," + A.j);|3,2|5,2|3,1|A|a1.i is instance variable, set to 3. Static variable j is incremented twice (once per constructor call), so j = 2. Output: 3,2.
+OOP|What is the error: class A { public static void main(String[] args) { System.out.println(args[0]); } } // Run without arguments|No error|ArrayIndexOutOfBoundsException|NullPointerException|B|The args array has length 0 when no arguments are provided. Accessing args[0] throws ArrayIndexOutOfBoundsException.
+OOP|Find error: class A { void m1() { System.out.println("A"); } } class B extends A { int m1() { return 5; } }|No error|Compilation error - incompatible return type|Runtime error|B|Method overriding requires the same return type (or covariant return). Changing return type from void to int violates overriding rules.
+OOP|What's wrong: abstract class A { abstract void show() { System.out.println("A"); } }|No error|Abstract methods cannot have body|Syntax error|B|Abstract methods are declarations only, without implementation. They cannot have a method body. The body must be provided in a concrete subclass.
+OOP|Error in: class A { private A() {} } class B { A obj = new A(); }|No error|Constructor is private|Cannot create object|B|Private constructor cannot be accessed outside the class. Class B cannot instantiate A because the constructor is not accessible.
+OOP|Find error: interface A { void show(); } class B implements A { }|No error|Must implement abstract method|Syntax error|B|When a class implements an interface, it must provide implementations for all abstract methods. Class B must implement show() method.
+OOP|What's wrong: class A { final void show() {} } class B extends A { void show() {} }|No error|Cannot override final method|Runtime error|B|Final methods cannot be overridden. When a method is marked final in the parent class, subclasses cannot override it.
+OOP|Error: class A { static int x; void m() { x = 5; } }|No error|Static variable accessed incorrectly|x must be final|A|Static variables can be accessed from instance methods without any issue. This code has no error.
+OOP|Find error: class A { void m1(int x) {} void m1(int y) {} }|No error|Duplicate method|Parameter names don't matter|B|Method overloading is based on parameter types and count, not parameter names. Both methods have same signature (int), so it's a duplicate method error.
+OOP|What's wrong: class A { int x = 10; { x = 20; } static { x = 30; } }|No error|Cannot access instance variable in static block|Syntax error|B|Static blocks cannot access instance variables because they execute at class loading time, before any objects are created.
+OOP|Error: String s = "Hello"; s = null; System.out.println(s.length());|No error|NullPointerException at runtime|Compilation error|B|The code compiles fine, but at runtime, calling length() on null reference throws NullPointerException.
+OOP|Which statement correctly creates an array?|int[] arr = new int[5];|int arr[] = {1,2,3,4,5};|int[] arr = new int[] {1,2,3};|A|All three are valid syntax, but option A (int[] arr = new int[5];) is the most common and recommended way to declare an array with a specific size.
+OOP|How do you correctly declare a constant in Java?|final int MAX = 100;|const int MAX = 100;|static int MAX = 100;|A|The 'final' keyword is used to declare constants in Java. 'const' is a reserved word but not used. Static alone doesn't make it constant.
+OOP|Which loop executes at least once?|for loop|while loop|do-while loop|C|The do-while loop checks the condition after executing the body, guaranteeing at least one execution. For and while loops check condition first.
+OOP|What is the correct way to compare two strings?|str1 == str2|str1.equals(str2)|str1.compareTo(str2) == 0|B|Use .equals() to compare string content. The == operator compares references, not content. compareTo() works but equals() is more direct.
+OOP|Which keyword is used to prevent inheritance?|static|final|private|B|The 'final' keyword before a class declaration prevents it from being inherited. Final classes cannot have subclasses.
+OOP|What is the size of int in Java?|2 bytes|4 bytes|8 bytes|B|In Java, int is always 4 bytes (32 bits) regardless of platform. This ensures portability across different systems.
+OOP|Which is not a valid access modifier?|public|protected|package|C|Java has four access levels: private, default (no modifier), protected, and public. 'package' is not an access modifier keyword.
+OOP|What does JVM stand for?|Java Virtual Machine|Java Variable Method|Java Verified Module|A|JVM (Java Virtual Machine) is the runtime environment that executes Java bytecode, providing platform independence.
+OOP|Which package is imported by default?|java.util|java.lang|java.io|B|The java.lang package is automatically imported in every Java program. It contains fundamental classes like String, System, Math, etc.
+OOP|What is autoboxing?|Automatic conversion primitive to wrapper|Automatic inheritance|Automatic method calling|A|Autoboxing is the automatic conversion of primitive types to their corresponding wrapper classes (e.g., int to Integer) and vice versa (unboxing).
+OOP|Which collection allows duplicates and maintains insertion order?|HashSet|ArrayList|TreeSet|B|ArrayList maintains insertion order and allows duplicate elements. HashSet doesn't maintain order, TreeSet sorts elements.
+OOP|What is the parent class of all classes in Java?|System|Main|Object|C|Every class in Java directly or indirectly inherits from java.lang.Object. It's the root of the class hierarchy.
+OOP|Which exception is checked?|NullPointerException|IOException|ArithmeticException|B|IOException is a checked exception that must be caught or declared. NullPointerException and ArithmeticException are unchecked (runtime) exceptions.
+OOP|What keyword is used for exception handling?|try-catch|if-else|switch|A|The try-catch block is used for exception handling. Code that might throw exceptions goes in try, and exception handling code goes in catch.
+OOP|Which loop is best when iterations are unknown?|for|while|enhanced for|B|While loops are best when the number of iterations is not known beforehand. For loops are better when iteration count is known.
+OOP|Write a method header that takes two integers and returns their sum|int sum(int a, int b)|void sum(int a, int b)|double sum(int a, int b)|A|The method should return an int (sum of two ints), so return type is int. Method name is sum with two int parameters.
+OOP|How do you create an object of class Student?|Student s = new Student();|new Student s();|Student s;|A|Objects are created using: ClassName variable = new ClassName(); The 'new' keyword allocates memory and calls the constructor.
+OOP|Which correctly defines a class variable?|static int count;|int count;|final int count;|A|Class variables (shared by all instances) are declared with the 'static' keyword. Without static, it's an instance variable.
+OOP|How to call a parent class method?|super.methodName();|this.methodName();|parent.methodName();|A|The 'super' keyword is used to access parent class methods and constructors. 'this' refers to current object, 'parent' is not a keyword.
+OOP|Which creates an ArrayList of Integers?|ArrayList<Integer> list = new ArrayList<>();|ArrayList<int> list = new ArrayList<>();|ArrayList list = new ArrayList<Integer>();|A|Generics require wrapper classes (Integer), not primitives (int). Diamond operator <> on right side is preferred modern syntax.
+OOP|What is the correct constructor syntax?|public ClassName() {}|void ClassName() {}|ClassName void() {}|A|Constructors have no return type (not even void), same name as class, and can have access modifiers. Option A is correct.
+OOP|How do you read user input using Scanner?|Scanner sc = new Scanner(System.in);|Scanner sc = new Scanner();|Input sc = new Scanner(System.in);|A|Scanner is created with System.in as parameter to read from standard input. Scanner is the class name, not Input.
+OOP|Which creates a random integer from 1 to 10?|Random r = new Random(); int x = r.nextInt(10) + 1;|Random r = new Random(); int x = r.nextInt(11);|Random r = new Random(); int x = r.nextInt(10);|A|nextInt(n) returns 0 to n-1. nextInt(10) gives 0-9, adding 1 gives 1-10. nextInt(11) would give 0-10.
+OOP|How to check if a number is even?|if(num % 2 == 0)|if(num / 2 == 0)|if(num % 2 == 1)|A|Even numbers are divisible by 2 with remainder 0. Use modulo operator: num % 2 == 0 checks if remainder is 0.
+OOP|Which correctly implements getter method?|public int getAge() { return age; }|public void getAge() { return age; }|int getAge() { return age; }|A|Getter methods should be public, have return type matching the variable, and return the variable. Void cannot have return statement.
+OOP|What does this code do: class A { private int x; public void setX(int x) { this.x = x; } }|Sets instance variable x|Creates new variable|Throws error|A|This is a setter method. The 'this' keyword distinguishes between instance variable x and parameter x, setting the instance variable.
+OOP|Complete: To make a method accessible only within package use ___ modifier|default (no modifier)|public|private|A|Default (no modifier) access allows access within the same package only. Public allows everywhere, private only within class.
+OOP|Which statement creates a 2D array?|int[][] arr = new int[3][4];|int arr[][] = {3,4};|int[] arr = new int[3,4];|A|2D arrays need two dimensions: int[][] arr = new int[rows][columns]; This creates 3 rows and 4 columns.
+OOP|How to convert String to int?|Integer.parseInt("123")|Integer.valueOf("123").intValue()|Both A and B|C|Both methods work. parseInt() directly returns int, while valueOf() returns Integer object which can be converted to int. Both are valid.
+OOP|Which loop syntax is correct?|for(int i=0; i<5; i++)|for(int i=0, i<5, i++)|for(i=0; i<5; i++)|A|For loop syntax uses semicolons: for(initialization; condition; update). Commas separate multiple declarations in initialization only.
+OOP|Trace: class Test { public static void main(String[] args) { int[] arr = {5,3,8,1}; System.out.println(arr[0] + arr[3]); } }|6|9|4|A|arr[0] is 5, arr[3] is 1. Addition: 5 + 1 = 6. Array indices: 0=5, 1=3, 2=8, 3=1.
+OOP|What prints: class A { void show(int x) { System.out.print(x); } void show(String x) { System.out.print(x); } } new A().show(5);|5|Error|5.0|A|Method overloading: show(int) is called with argument 5 (integer). It prints the integer 5.
+OOP|Trace: int sum = 0; for(int i=1; i<=3; i++) { sum += i; } System.out.println(sum);|3|6|7|B|Loop iterations: i=1, sum=1; i=2, sum=3; i=3, sum=6. Final sum is 1+2+3 = 6.
+OOP|What outputs: class A { int x; A(int x) { this.x = x; } } A obj = new A(10); System.out.println(obj.x);|0|10|Error|B|Constructor sets instance variable x to 10 using parameter. obj.x accesses this instance variable, printing 10.
+OOP|Trace: boolean flag = true; if(!flag) System.out.print("A"); else System.out.print("B");|A|B|Error|B|!flag negates true to false. Since condition is false, else block executes, printing "B".
+OOP|What is printed: String[] arr = {"Java", "Python", "C++"}; System.out.println(arr.length);|2|3|4|B|The array has 3 elements. length property (no parentheses for arrays) returns 3.
+OOP|Trace: int x = 10, y = 20; int temp = x; x = y; y = temp; System.out.println(x + "," + y);|10,20|20,10|20,20|B|Classic swap using temporary variable. After swap, x=20 and y=10. Output: "20,10".
+OOP|What outputs: class A { static void m() { System.out.print("Static"); } } A.m();|Static|Error|null|A|Static methods can be called using ClassName.methodName() without creating an object. Prints "Static".
+OOP|Trace: int x = 5; while(x > 0) { System.out.print(x + " "); x--; }|5 4 3 2 1|1 2 3 4 5|Infinite loop|A|Loop prints x then decrements. Iterations: 5, 4, 3, 2, 1. Stops when x becomes 0 (condition false).
+OOP|What prints: String s = "Hello"; System.out.println(s.charAt(0));|H|e|0|A|charAt(index) returns the character at specified index. Index 0 is the first character 'H'.
+OOP|Trace error: class A { int x = 5; } class B { System.out.println(new A().x); }|No error|Statements outside method|Runtime error|B|Statements like println must be inside a method, constructor, or initializer block. Cannot exist directly in class body.
+OOP|Find error: class A { void show() {} void show() {} }|No error|Duplicate method|Overloading error|B|Two methods with identical signatures (same name, same parameters) is a duplicate method error. For overloading, parameters must differ.
+OOP|What's wrong: class A extends B, C { }|No error|Multiple inheritance not allowed|Syntax error|B|Java does not support multiple inheritance for classes. A class can extend only one class, but can implement multiple interfaces.
+OOP|Error: int x; System.out.println(x);|No error|Variable not initialized|Compilation error|B|Local variables must be initialized before use. This causes a compilation error: "variable x might not have been initialized".
+OOP|Find error: class A { public static void main(String[] args) { int x = 5/0; } }|No error|ArithmeticException at runtime|Compilation error|B|Division by zero compiles fine but throws ArithmeticException at runtime when executed.
 `;
+
+export default oopQuestionsData;
