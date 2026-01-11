@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Administration Fundamentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .part-title {
+            font-size: 2.2em;
+            color: #2d3436;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .chapter {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chapter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Different gradient for each chapter */
+        .chapter:nth-child(2) {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .chapter:nth-child(3) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .chapter:nth-child(4) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .chapter:nth-child(5) {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+
+        .chapter:nth-child(6) {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        }
+
+        .chapter:nth-child(7) {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .part2-chapter {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .chapter h2 {
+            color: #2d3436;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid rgba(0,0,0,0.1);
+        }
+
+        .chapter h3 {
+            color: #2d3436;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .chapter p {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .chapter ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .chapter li {
+            color: #2d3436;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            font-size: 1.05em;
+        }
+
+        .chapter li strong {
+            color: #0984e3;
+        }
+
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 40px 0;
+        }
+
+        .highlight-box {
+            background: rgba(255,255,255,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #00b894;
+        }
+
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .numbered-list li {
+            counter-increment: item;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .numbered-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #0f2027;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Business Administration Fundamentals</h1>
+            <p>Comprehensive Study Guide 2026</p>
+        </div>
+
+        <div class="content">
+            <div class="part-title">Part I: Business Administration Fundamentals</div>
+
+            <div class="chapter">
+                <h2>Chapter 1: Introduction to Business Administration</h2>
+                
+                <h3>• 1.1 Concept of Business Administration:</h3>
+                <p>Business administration is the foundation of economic activity and human progress, involving the planning, organizing, leading, and controlling of resources to achieve goals efficiently and sustainably. It focuses on a dual mission: maximizing profitability while ensuring the organization adapts to provide value to society. For example, a company like Apple balances high-level innovation with strict operational supply chain management to function effectively.</p>
+                
+                <h3>• 1.3 Objectives of Business:</h3>
+                <p>These are categorized into four areas:</p>
+                <ul class="numbered-list">
+                    <li><strong>Economic:</strong> Generating profits to ensure survival and measure efficiency.</li>
+                    <li><strong>Social:</strong> Providing quality products at fair prices and engaging in Corporate Social Responsibility (CSR).</li>
+                    <li><strong>Organizational:</strong> Fostering internal growth, innovation, and stability.</li>
+                    <li><strong>Individual:</strong> Meeting employee goals such as career development and job satisfaction.</li>
+                </ul>
+                
+                <h3>• 1.4 Importance of Administration:</h3>
+                <p>Effective administration is vital for economic stability, job creation, and technological adaptation (such as adopting AI and automation). It ensures that profit is balanced with ethical and environmental responsibilities.</p>
+                
+                <h3>• 1.5 Detailed Objectives:</h3>
+                <p>This section reiterates that administration integrates economic goals (cost efficiency) with social goals (ethical behavior) to produce progress rather than just profit.</p>
+                
+                <h3>• 1.6 Levels of Management:</h3>
+                <p>Organizations operate through three interdependent tiers:</p>
+                <ul>
+                    <li><strong>Top Management (CEO/Directors):</strong> Defines long-term strategy and corporate vision.</li>
+                    <li><strong>Middle Management (Dept. Managers):</strong> Translates high-level strategy into tactical, operational plans.</li>
+                    <li><strong>Lower/Operational Management (Supervisors):</strong> Directs daily tasks and monitors worker productivity.</li>
+                </ul>
+            </div>
+
+            <div class="chapter">
+                <h2>Chapter 2: Principles of Management</h2>
+                
+                <h3>• 2.3 Decision-Making Process:</h3>
+                <p>This is a systematic seven-step process: 1. Identifying the problem, 2. Analyzing the data, 3. Developing alternatives, 4. Evaluating those options for risk, 5. Choosing the best solution, 6. Implementation, and 7. Evaluating the final results for feedback.</p>
+                
+                <h3>• 2.5 Organizational Hierarchies and Structures:</h3>
+                <p>Structure determines the flow of information and accountability. Common types include:</p>
+                <ul>
+                    <li><strong>Functional:</strong> Grouped by specialty (e.g., finance, marketing).</li>
+                    <li><strong>Divisional:</strong> Divided by products or geography.</li>
+                    <li><strong>Matrix:</strong> Features dual reporting lines to combine functions and divisions.</li>
+                    <li><strong>Flat:</strong> Fewer layers to encourage faster innovation.</li>
+                    <li><strong>Network:</strong> Relies on digital collaboration and outsourcing.</li>
+                </ul>
+            </div>
+
+            <div class="chapter">
+                <h2>Chapter 4: Marketing and Strategic Management</h2>
+                
+                <h3>• 4.4 Competitive Strategies and SWOT Analysis:</h3>
+                <p>Strategic management positions a company to defend against rivals. Michael Porter's three generic strategies include Cost Leadership (lowest cost), Differentiation (unique value), and Focus (targeting a niche). To support this, SWOT Analysis evaluates internal Strengths/Weaknesses and external Opportunities/Threats. Additionally, Porter's Five Forces (e.g., threat of new entrants, buyer power) helps analyze industry competitiveness.</p>
+            </div>
+
+            <div class="chapter">
+                <h2>Chapter 5: Financial Management and Accounting</h2>
+                
+                <h3>• 5.6 Investment Decision-Making:</h3>
+                <p>Also known as capital budgeting, this involves committing capital to long-term assets to maximize shareholder value. Evaluation techniques include:</p>
+                <ul>
+                    <li><strong>Payback Period (PBP):</strong> Time needed to recover the investment.</li>
+                    <li><strong>Net Present Value (NPV):</strong> The most reliable method, accounting for the time value of money.</li>
+                    <li><strong>Internal Rate of Return (IRR):</strong> The rate at which NPV equals zero.</li>
+                    <li><strong>Profitability Index (PI):</strong> Value per dollar invested.</li>
+                    <li><strong>Accounting Rate of Return (ARR):</strong> Based on accounting profits rather than cash flows.</li>
+                </ul>
+            </div>
+
+            <div class="chapter">
+                <h2>Chapter 6: Ethics, Entrepreneurship, and Innovation</h2>
+                
+                <h3>• 6.1 Business Ethics and Corporate Governance:</h3>
+                <p>Ethics involves distinguishing right from wrong to build trust and reputation. Corporate Governance ensures accountability and transparency through rules that protect the interests of stakeholders.</p>
+                
+                <h3>• 6.5 Startups, Business Models, and Sustainability:</h3>
+                <p>Startups are agile, innovative ventures that use various models: Subscription (Netflix), Freemium (Dropbox), Marketplace (Amazon), or Direct-to-Consumer. Green Entrepreneurship focuses on sustainability through clean technology and the circular economy.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="part-title">Part II: Business Adm - 2026 Summary</div>
+
+            <div class="chapter part2-chapter">
+                <h2>Management and Information Technology</h2>
+                <p>This source focuses on the intersection of management and information technology:</p>
+                <ul>
+                    <li><strong>Business Administration Definition:</strong> The process of overseeing company operations and resources to ensure efficiency, stability, and profitability.</li>
+                    <li><strong>Business Information Systems (BIS):</strong> The strategic combination of technology, people, and processes used to collect and distribute information for better decision-making.</li>
+                    <li><strong>Data vs. Information:</strong> Data is raw, unprocessed facts, while Information is data that has been put into a meaningful context to help people understand the world.</li>
+                    <li><strong>Systems and "IS":</strong> A System is a set of interdependent elements working toward a common purpose. An Information System (IS) specifically transforms raw data into useful assets using hardware, software, and databases.</li>
+                    <li><strong>The SDLC:</strong> The Software Development Life Cycle is a structured framework used to plan, design, build, test, and maintain high-quality software while minimizing costs and risks.</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Business Administration Fundamentals | Study Guide</p>
+        </footer>
+    </div>
+</body>
+</html>
