@@ -532,6 +532,7 @@
             <li><a href="#pdf-stack">Stack/Queue Lab</a></li>
             <li><a href="#pdf-trees">BST Lab</a></li>
             <li><a href="#pdf-arrays">Arrays Lab</a></li>
+            <li><a href="#pdf-linkedlist">Linked List Lab</a></li>
             <li><a href="#arrays">Arrays</a></li>
             <li><a href="#linkedlist">Linked List</a></li>
             <li><a href="#stack">Stack</a></li>
@@ -1285,6 +1286,383 @@ cout &lt;&lt; mat[<span class="nm">1</span>][<span class="nm">2</span>];   <span
         Total ≈ <strong>210,000 operations</strong></p>
         <p><strong>Option (b) is ~238× faster!</strong> General rule: if you search k times and k &gt; log(n), sort once then use binary search every time.</p>
     </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION — PDF CODING: LINKED LIST (Lab 06)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+<div class="section" id="pdf-linkedlist">
+    <div class="section-label label-blue">📄 DS LAB GUIDE · LAB 06</div>
+    <h2>Linked List — Practical Coding Problems</h2>
+    <p>Complete solutions for all practical coding problems from <strong>Lab 06 — Linked Lists</strong> of the DS Lab Guide. These cover node structure, insert, delete, and traversal — the core operations tested in the exam.</p>
+
+    <!-- P1 — Build & Display -->
+    <h3>P1 — Build a Linked List &amp; Display It</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a complete program that builds a Linked List with values <code>{10, 20, 30, 40}</code> inserted at the <strong>END</strong>, then displays it as: <code>10 → 20 → 30 → 40 → NULL</code></p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">struct</span> <span class="tp">Node</span> {
+    <span class="tp">int</span>   data;
+    <span class="tp">Node</span>* next;
+};
+
+<span class="cm">// ── Insert at END ─────────────────────────────────</span>
+<span class="tp">void</span> <span class="fn">insertEnd</span>(<span class="tp">Node</span>*&amp; head, <span class="tp">int</span> val) {
+    <span class="tp">Node</span>* n = <span class="kw">new</span> <span class="tp">Node</span>();
+    n-&gt;data = val;  n-&gt;next = <span class="nm">NULL</span>;
+    <span class="kw">if</span> (head == <span class="nm">NULL</span>) { head = n; <span class="kw">return</span>; }
+    <span class="tp">Node</span>* t = head;
+    <span class="kw">while</span> (t-&gt;next != <span class="nm">NULL</span>) t = t-&gt;next;  <span class="cm">// traverse to last node</span>
+    t-&gt;next = n;
+}   <span class="cm">// Time: O(n) — must reach the tail first</span>
+
+<span class="cm">// ── Display all nodes ─────────────────────────────</span>
+<span class="tp">void</span> <span class="fn">display</span>(<span class="tp">Node</span>* head) {
+    <span class="tp">Node</span>* t = head;
+    <span class="kw">while</span> (t != <span class="nm">NULL</span>) {
+        cout &lt;&lt; t-&gt;data &lt;&lt; <span class="st">" → "</span>;
+        t = t-&gt;next;
+    }
+    cout &lt;&lt; <span class="st">"NULL"</span> &lt;&lt; endl;
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Node</span>* head = <span class="nm">NULL</span>;
+    <span class="fn">insertEnd</span>(head, <span class="nm">10</span>);
+    <span class="fn">insertEnd</span>(head, <span class="nm">20</span>);
+    <span class="fn">insertEnd</span>(head, <span class="nm">30</span>);
+    <span class="fn">insertEnd</span>(head, <span class="nm">40</span>);
+    <span class="fn">display</span>(head);
+    <span class="cm">// Output: 10 → 20 → 30 → 40 → NULL</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+    <div class="info-box">
+        <strong>List state after each insertEnd:</strong><br>
+        insertEnd(10) → HEAD → [10|NULL]<br>
+        insertEnd(20) → HEAD → [10] → [20|NULL]<br>
+        insertEnd(30) → HEAD → [10] → [20] → [30|NULL]<br>
+        insertEnd(40) → HEAD → [10] → [20] → [30] → [40|NULL]
+    </div>
+
+    <!-- P2 — Insert at Beginning -->
+    <h3>P2 — Insert at the Beginning</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write <code>insertBegin()</code> to insert a new node at the <strong>front</strong> of the list. Starting from <code>{10, 20, 30}</code>, insert 5 at the beginning → <code>5 → 10 → 20 → 30 → NULL</code>.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="cm">// ── Insert at BEGINNING ─────────────────────────</span>
+<span class="tp">void</span> <span class="fn">insertBegin</span>(<span class="tp">Node</span>*&amp; head, <span class="tp">int</span> val) {
+    <span class="tp">Node</span>* n = <span class="kw">new</span> <span class="tp">Node</span>();
+    n-&gt;data = val;
+    n-&gt;next = head;   <span class="cm">// new node points to current first node</span>
+    head    = n;      <span class="cm">// head now points to the new node</span>
+}   <span class="cm">// Time: O(1) — no traversal needed!</span>
+
+<span class="cm">// Before: HEAD → [10] → [20] → [30] → NULL</span>
+<span class="cm">// insertBegin(head, 5);</span>
+<span class="cm">// After:  HEAD → [5] → [10] → [20] → [30] → NULL</span>
+
+<span class="cm">// ── Step-by-step trace ────────────────────────────</span>
+<span class="cm">// 1. Create new node n: data=5, next=NULL</span>
+<span class="cm">// 2. n->next = head  (n now points to old [10])</span>
+<span class="cm">// 3. head = n        (head now points to new [5])</span></code></pre>
+    <div class="info-box">
+        <strong>Key insight — O(1) vs O(n):</strong> Inserting at the beginning is always <strong>O(1)</strong> because we only update two pointers. Inserting at the end is <strong>O(n)</strong> because we must traverse to the last node first. If you keep a separate <code>tail</code> pointer, end insertion also becomes O(1).
+    </div>
+
+    <!-- P3 — Insert in Middle -->
+    <h3>P3 — Insert After a Given Position</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Insert a new node with value <code>val</code> after the node at position <code>pos</code> (1-indexed). List: <code>10 → 20 → 30 → NULL</code>. Insert 25 after position 2 → <code>10 → 20 → 25 → 30 → NULL</code>.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="cm">// ── Insert after position pos (1-indexed) ─────────</span>
+<span class="tp">void</span> <span class="fn">insertAfter</span>(<span class="tp">Node</span>* head, <span class="tp">int</span> pos, <span class="tp">int</span> val) {
+    <span class="tp">Node</span>* t = head;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i &lt; pos &amp;&amp; t != <span class="nm">NULL</span>; i++)
+        t = t-&gt;next;                     <span class="cm">// traverse to node at pos</span>
+
+    <span class="kw">if</span> (t == <span class="nm">NULL</span>) { cout &lt;&lt; <span class="st">"Position out of range\n"</span>; <span class="kw">return</span>; }
+
+    <span class="tp">Node</span>* n  = <span class="kw">new</span> <span class="tp">Node</span>();
+    n-&gt;data  = val;
+    n-&gt;next  = t-&gt;next;   <span class="cm">// new node points to what was after t</span>
+    t-&gt;next  = n;          <span class="cm">// t now points to new node</span>
+}   <span class="cm">// Time: O(pos) — traverse up to pos steps</span>
+
+<span class="cm">// Trace: insertAfter(head, 2, 25) on [10→20→30]</span>
+<span class="cm">// i=1: t moves from [10] to [20]  (i reaches pos=2, stop)</span>
+<span class="cm">// n->next = t->next = [30]         (new node → 30)</span>
+<span class="cm">// t->next = n                      (20 → new node)</span>
+<span class="cm">// Result: 10 → 20 → 25 → 30 → NULL ✓</span></code></pre>
+
+    <!-- P4 — Delete at Beginning -->
+    <h3>P4 — Delete the First Node</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write <code>deleteBegin()</code> to remove the first node. List: <code>10 → 20 → 30 → NULL</code> → after delete → <code>20 → 30 → NULL</code>. Don't forget to free memory.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="cm">// ── Delete at BEGINNING ─────────────────────────</span>
+<span class="tp">void</span> <span class="fn">deleteBegin</span>(<span class="tp">Node</span>*&amp; head) {
+    <span class="kw">if</span> (head == <span class="nm">NULL</span>) { cout &lt;&lt; <span class="st">"List is empty!\n"</span>; <span class="kw">return</span>; }
+    <span class="tp">Node</span>* temp = head;       <span class="cm">// save pointer to old head</span>
+    head = head-&gt;next;       <span class="cm">// move head to second node</span>
+    <span class="kw">delete</span> temp;             <span class="cm">// free old head memory</span>
+}   <span class="cm">// Time: O(1)</span>
+
+<span class="cm">// Before: HEAD→[10]→[20]→[30]→NULL</span>
+<span class="cm">// Step 1: temp = head  (temp points to [10])</span>
+<span class="cm">// Step 2: head = head->next  (head now points to [20])</span>
+<span class="cm">// Step 3: delete temp  (frees [10] from heap)</span>
+<span class="cm">// After:  HEAD→[20]→[30]→NULL ✓</span></code></pre>
+
+    <!-- P5 — Delete at End -->
+    <h3>P5 — Delete the Last Node</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write <code>deleteEnd()</code> to remove the last node. List: <code>10 → 20 → 30 → NULL</code> → after delete → <code>10 → 20 → NULL</code>. Handle both single-node and multi-node lists.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="cm">// ── Delete at END ───────────────────────────────</span>
+<span class="tp">void</span> <span class="fn">deleteEnd</span>(<span class="tp">Node</span>*&amp; head) {
+    <span class="kw">if</span> (!head) <span class="kw">return</span>;                    <span class="cm">// empty list</span>
+
+    <span class="cm">// Special case: only ONE node in list</span>
+    <span class="kw">if</span> (!head-&gt;next) {
+        <span class="kw">delete</span> head;
+        head = <span class="nm">NULL</span>;
+        <span class="kw">return</span>;
+    }
+
+    <span class="cm">// General case: traverse to second-to-last node</span>
+    <span class="tp">Node</span>* prev = <span class="nm">NULL</span>;
+    <span class="tp">Node</span>* curr = head;
+    <span class="kw">while</span> (curr-&gt;next != <span class="nm">NULL</span>) {
+        prev = curr;
+        curr = curr-&gt;next;    <span class="cm">// curr stops at last node</span>
+    }
+    prev-&gt;next = <span class="nm">NULL</span>;   <span class="cm">// cut the link to last node</span>
+    <span class="kw">delete</span> curr;          <span class="cm">// free last node</span>
+}   <span class="cm">// Time: O(n)</span>
+
+<span class="cm">// Trace on [10→20→30]:</span>
+<span class="cm">// Loop: prev=[10], curr=[20] → prev=[20], curr=[30] → curr->next=NULL, stop</span>
+<span class="cm">// prev->next = NULL  (cuts 20's link to 30)</span>
+<span class="cm">// delete curr        (frees [30])</span>
+<span class="cm">// Result: 10 → 20 → NULL ✓</span></code></pre>
+
+    <!-- P6 — Delete Middle -->
+    <h3>P6 — Delete a Node at a Given Position</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Delete the node at position <code>pos</code> (1-indexed). List: <code>10 → 20 → 30 → 40 → NULL</code>. Delete at position 3 → <code>10 → 20 → 40 → NULL</code>.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="cm">// ── Delete at position pos (1-indexed) ────────────</span>
+<span class="tp">void</span> <span class="fn">deleteAt</span>(<span class="tp">Node</span>*&amp; head, <span class="tp">int</span> pos) {
+    <span class="kw">if</span> (!head) <span class="kw">return</span>;
+
+    <span class="kw">if</span> (pos == <span class="nm">1</span>) { <span class="fn">deleteBegin</span>(head); <span class="kw">return</span>; }  <span class="cm">// O(1) shortcut</span>
+
+    <span class="tp">Node</span>* prev = <span class="nm">NULL</span>;
+    <span class="tp">Node</span>* curr = head;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i &lt; pos &amp;&amp; curr != <span class="nm">NULL</span>; i++) {
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+
+    <span class="kw">if</span> (!curr) { cout &lt;&lt; <span class="st">"Position out of range\n"</span>; <span class="kw">return</span>; }
+
+    prev-&gt;next = curr-&gt;next;   <span class="cm">// bypass the node to delete</span>
+    <span class="kw">delete</span> curr;               <span class="cm">// free memory</span>
+}   <span class="cm">// Time: O(pos)</span>
+
+<span class="cm">// Trace: deleteAt(head, 3) on [10→20→30→40]</span>
+<span class="cm">// i=1: prev=[10], curr=[20]</span>
+<span class="cm">// i=2: prev=[20], curr=[30]  ← stop, pos=3 reached</span>
+<span class="cm">// prev->next = curr->next = [40]  (20 now points to 40)</span>
+<span class="cm">// delete curr   (frees [30])</span>
+<span class="cm">// Result: 10 → 20 → 40 → NULL ✓</span></code></pre>
+
+    <!-- P7 — Search -->
+    <h3>P7 — Search for a Value in the List</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a function that searches for a key in the Linked List and returns <code>true</code> if found, <code>false</code> otherwise. Also print the position where it was found.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">bool</span> <span class="fn">search</span>(<span class="tp">Node</span>* head, <span class="tp">int</span> key) {
+    <span class="tp">Node</span>* t   = head;
+    <span class="tp">int</span>   pos = <span class="nm">1</span>;
+    <span class="kw">while</span> (t != <span class="nm">NULL</span>) {
+        <span class="kw">if</span> (t-&gt;data == key) {
+            cout &lt;&lt; <span class="st">"Found "</span> &lt;&lt; key &lt;&lt; <span class="st">" at position "</span> &lt;&lt; pos &lt;&lt; endl;
+            <span class="kw">return</span> <span class="kw">true</span>;
+        }
+        t = t-&gt;next;
+        pos++;
+    }
+    cout &lt;&lt; key &lt;&lt; <span class="st">" not found in list\n"</span>;
+    <span class="kw">return</span> <span class="kw">false</span>;
+}   <span class="cm">// Time: O(n) — must scan every node in worst case</span></code></pre>
+
+    <!-- P8 — Count nodes -->
+    <h3>P8 — Count Nodes &amp; Find the Length</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a function to count and return the total number of nodes in the list.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">int</span> <span class="fn">countNodes</span>(<span class="tp">Node</span>* head) {
+    <span class="tp">int</span> count = <span class="nm">0</span>;
+    <span class="kw">for</span> (<span class="tp">Node</span>* t = head; t != <span class="nm">NULL</span>; t = t-&gt;next)
+        count++;
+    <span class="kw">return</span> count;
+}   <span class="cm">// Time: O(n)   Space: O(1)</span>
+
+<span class="cm">// Usage:</span>
+<span class="cm">// cout &lt;&lt; "Length = " &lt;&lt; countNodes(head) &lt;&lt; endl;</span>
+<span class="cm">// [10→20→30→40] → Length = 4</span></code></pre>
+
+    <!-- P9 — Complete program -->
+    <h3>P9 — Complete Program: Insert, Delete &amp; Display</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Build a complete Linked List program that inserts at end (10, 5, 30), displays, deletes first node, displays again, then deletes last node and displays the final result. (This is the exact example from the lab guide.)</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">struct</span> <span class="tp">Node</span> { <span class="tp">int</span> data; <span class="tp">Node</span>* next; };
+
+<span class="tp">void</span> <span class="fn">insertEnd</span>(<span class="tp">Node</span>*&amp; head, <span class="tp">int</span> val) {
+    <span class="tp">Node</span>* n = <span class="kw">new</span> <span class="tp">Node</span>(); n-&gt;data = val; n-&gt;next = <span class="nm">NULL</span>;
+    <span class="kw">if</span> (!head) { head = n; <span class="kw">return</span>; }
+    <span class="tp">Node</span>* t = head;
+    <span class="kw">while</span> (t-&gt;next) t = t-&gt;next;
+    t-&gt;next = n;
+}
+
+<span class="tp">void</span> <span class="fn">deleteBegin</span>(<span class="tp">Node</span>*&amp; head) {
+    <span class="kw">if</span> (!head) <span class="kw">return</span>;
+    <span class="tp">Node</span>* tmp = head; head = head-&gt;next; <span class="kw">delete</span> tmp;
+}
+
+<span class="tp">void</span> <span class="fn">deleteEnd</span>(<span class="tp">Node</span>*&amp; head) {
+    <span class="kw">if</span> (!head || !head-&gt;next) { <span class="kw">delete</span> head; head = <span class="nm">NULL</span>; <span class="kw">return</span>; }
+    <span class="tp">Node</span>* prev = <span class="nm">NULL</span>, *curr = head;
+    <span class="kw">while</span> (curr-&gt;next) { prev = curr; curr = curr-&gt;next; }
+    prev-&gt;next = <span class="nm">NULL</span>;  <span class="kw">delete</span> curr;
+}
+
+<span class="tp">void</span> <span class="fn">display</span>(<span class="tp">Node</span>* head) {
+    <span class="kw">for</span> (<span class="tp">Node</span>* t = head; t; t = t-&gt;next) cout &lt;&lt; t-&gt;data &lt;&lt; <span class="st">" → "</span>;
+    cout &lt;&lt; <span class="st">"NULL\n"</span>;
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Node</span>* head = <span class="nm">NULL</span>;
+    <span class="fn">insertEnd</span>(head, <span class="nm">10</span>);
+    <span class="fn">insertEnd</span>(head, <span class="nm">5</span>);
+    <span class="fn">insertEnd</span>(head, <span class="nm">30</span>);
+
+    <span class="fn">display</span>(head);         <span class="cm">// 10 → 5 → 30 → NULL</span>
+    <span class="fn">deleteBegin</span>(head);
+    <span class="fn">display</span>(head);         <span class="cm">// 5 → 30 → NULL</span>
+    <span class="fn">deleteEnd</span>(head);
+    <span class="fn">display</span>(head);         <span class="cm">// 5 → NULL</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+
+    <!-- Writing Q — short answers -->
+    <h3>Writing Questions — Short Answer</h3>
+
+    <h4>WQ1 — What is the difference between a node's <code>data</code> and <code>next</code> fields?</h4>
+    <div class="a-box">
+        <p><strong>Answer:</strong> <code>data</code> stores the actual value the node holds (e.g. an integer, string). <code>next</code> is a <em>pointer</em> that stores the memory address of the following node in the list. When <code>next == NULL</code>, the node is the last one in the list. Together they form the fundamental building block: <code>struct Node { int data; Node* next; };</code></p>
+    </div>
+
+    <h4>WQ2 — Why do we pass <code>head</code> as <code>Node*&amp;</code> (reference to pointer) in insert/delete functions?</h4>
+    <div class="a-box">
+        <p><strong>Answer:</strong> Because insertions at the beginning and deletions change <code>head</code> itself — they make <code>head</code> point to a different node. If we passed <code>head</code> by value (<code>Node*</code>), only a local copy would change and the original <code>head</code> in <code>main()</code> would remain unchanged. Passing by reference-to-pointer (<code>Node*&amp;</code>) lets the function modify the caller's actual <code>head</code> variable.</p>
+    </div>
+
+    <h4>WQ3 — What happens if you forget to call <code>delete</code> on a removed node?</h4>
+    <div class="a-box">
+        <p><strong>Answer:</strong> The node's memory on the <strong>heap</strong> is never returned to the OS. This is called a <strong>memory leak</strong>. The pointer to the node is lost (no variable holds its address anymore), so the memory becomes permanently inaccessible for the lifetime of the program. In long-running programs, repeated leaks exhaust available memory and cause crashes.</p>
+    </div>
+
+    <h4>WQ4 — Compare Arrays vs Linked Lists for the operations in this lab.</h4>
+    <div class="a-box">
+        <table>
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Array</th>
+                    <th>Linked List</th>
+                    <th>Winner</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Access element [i]</td>
+                    <td style="color:#28a745;font-weight:700;">O(1)</td>
+                    <td style="color:#dc3545;font-weight:700;">O(n)</td>
+                    <td>Array</td>
+                </tr>
+                <tr>
+                    <td>Insert at beginning</td>
+                    <td style="color:#dc3545;font-weight:700;">O(n) — shift all</td>
+                    <td style="color:#28a745;font-weight:700;">O(1)</td>
+                    <td>Linked List</td>
+                </tr>
+                <tr>
+                    <td>Insert at end</td>
+                    <td style="color:#28a745;font-weight:700;">O(1) if space</td>
+                    <td style="color:#fd7e14;font-weight:700;">O(n) traverse</td>
+                    <td>Array</td>
+                </tr>
+                <tr>
+                    <td>Delete at beginning</td>
+                    <td style="color:#dc3545;font-weight:700;">O(n) — shift all</td>
+                    <td style="color:#28a745;font-weight:700;">O(1)</td>
+                    <td>Linked List</td>
+                </tr>
+                <tr>
+                    <td>Search</td>
+                    <td style="color:#fd7e14;font-weight:700;">O(n) linear</td>
+                    <td style="color:#dc3545;font-weight:700;">O(n) always</td>
+                    <td>Tie</td>
+                </tr>
+                <tr>
+                    <td>Memory per element</td>
+                    <td style="color:#28a745;font-weight:700;">4 bytes (int)</td>
+                    <td style="color:#dc3545;font-weight:700;">4 + 4–8 bytes</td>
+                    <td>Array</td>
+                </tr>
+                <tr>
+                    <td>Size flexibility</td>
+                    <td style="color:#dc3545;font-weight:700;">Fixed at compile-time</td>
+                    <td style="color:#28a745;font-weight:700;">Dynamic at run-time</td>
+                    <td>Linked List</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h4>WQ5 — Trace the following code and give the final list state.</h4>
+    <div class="q-box">
+        <p><strong>Code to trace:</strong></p>
+        <pre style="margin:0; padding: 12px 16px;" data-lang="C++"><code>Node* head = NULL;
+insertEnd(head, 10);
+insertEnd(head, 20);
+insertBegin(head, 5);
+insertEnd(head, 30);
+deleteBegin(head);
+display(head);</code></pre>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer — step by step:</strong></p>
+        <p>1. insertEnd(10) → <code>HEAD → [10|NULL]</code></p>
+        <p>2. insertEnd(20) → <code>HEAD → [10] → [20|NULL]</code></p>
+        <p>3. insertBegin(5) → <code>HEAD → [5] → [10] → [20|NULL]</code></p>
+        <p>4. insertEnd(30) → <code>HEAD → [5] → [10] → [20] → [30|NULL]</code></p>
+        <p>5. deleteBegin() → removes [5], head moves to [10] → <code>HEAD → [10] → [20] → [30|NULL]</code></p>
+        <p><strong>display() output: <code>10 → 20 → 30 → NULL</code></strong></p>
+    </div>
+
 </div>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
