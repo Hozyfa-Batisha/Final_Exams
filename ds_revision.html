@@ -527,15 +527,17 @@
     <div class="nav-content">
         <div class="logo">⚙️ DS Task — CS211</div>
         <ul class="nav-links">
-            <li><a href="#coding">Coding Questions</a></li>
-            <li><a href="#writing">Writing Questions</a></li>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="#coding">Practice</a></li>
+            <li><a href="#pdf-stack">Stack/Queue Lab</a></li>
+            <li><a href="#pdf-trees">BST Lab</a></li>
+            <li><a href="#pdf-arrays">Arrays Lab</a></li>
             <li><a href="#arrays">Arrays</a></li>
             <li><a href="#linkedlist">Linked List</a></li>
             <li><a href="#stack">Stack</a></li>
             <li><a href="#queue">Queue</a></li>
             <li><a href="#trees">Trees</a></li>
             <li><a href="ds_questions.html">← Quiz</a></li>
-            <li><a href="index.html">🏠 Home</a></li>
         </ul>
     </div>
 </nav>
@@ -552,392 +554,6 @@
             <span class="pill pill-blue">Structures Revision</span>
         </div>
     </div>
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SECTION 1 — CODING QUESTIONS (Sheet 1)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<div class="section" id="coding">
-    <div class="section-label label-green">📝 SHEET 1</div>
-    <h2>Coding Questions — Full Solutions</h2>
-    <p>Complete C++ solutions for all four questions from Sheet 1. Each program is ready to compile with any standard C++ compiler (g++, CodeBlocks, Visual Studio).</p>
-
-    <!-- Q1 -->
-    <h3>Question 1 — Struct &amp; Dynamic Array</h3>
-
-    <div class="q-box">
-        <p><strong>Part (a):</strong> Store information of 12 students using a <code>struct</code>. Each record must contain: student name, registration number, email, mobile number, and GPA.</p>
-        <p><strong>Part (b):</strong> Create an array whose size is given at run-time, then read and store its data. Print the array contents, then remove it from memory at run-time.</p>
-    </div>
-
-    <h4>Part (a) — Student Struct</h4>
-
-    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
-<span class="pp">#include &lt;string&gt;</span>
-<span class="kw">using namespace</span> std;
-
-<span class="kw">struct</span> <span class="tp">Student</span> {
-    <span class="tp">string</span> name;
-    <span class="tp">string</span> regNumber;
-    <span class="tp">string</span> email;
-    <span class="tp">string</span> mobile;
-    <span class="tp">float</span>  gpa;
-};
-
-<span class="tp">int</span> <span class="fn">main</span>() {
-    <span class="kw">const</span> <span class="tp">int</span> NUM = <span class="nm">12</span>;
-    <span class="tp">Student</span> students[NUM];
-
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; NUM; i++) {
-        cout &lt;&lt; <span class="st">"\nStudent "</span> &lt;&lt; i + <span class="nm">1</span> &lt;&lt; <span class="st">":\n"</span>;
-        cout &lt;&lt; <span class="st">"Name           : "</span>; getline(cin, students[i].name);
-        cout &lt;&lt; <span class="st">"Reg. Number    : "</span>; getline(cin, students[i].regNumber);
-        cout &lt;&lt; <span class="st">"Email          : "</span>; getline(cin, students[i].email);
-        cout &lt;&lt; <span class="st">"Mobile Number  : "</span>; getline(cin, students[i].mobile);
-        cout &lt;&lt; <span class="st">"GPA            : "</span>; cin &gt;&gt; students[i].gpa;
-        cin.ignore();   <span class="cm">// clear newline before next getline</span>
-    }
-
-    cout &lt;&lt; <span class="st">"\n====== Student Records ======\n"</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; NUM; i++) {
-        cout &lt;&lt; <span class="st">"\nStudent "</span> &lt;&lt; i + <span class="nm">1</span> &lt;&lt; <span class="st">":\n"</span>;
-        cout &lt;&lt; <span class="st">"  Name    : "</span> &lt;&lt; students[i].name      &lt;&lt; <span class="st">"\n"</span>;
-        cout &lt;&lt; <span class="st">"  Reg No  : "</span> &lt;&lt; students[i].regNumber &lt;&lt; <span class="st">"\n"</span>;
-        cout &lt;&lt; <span class="st">"  Email   : "</span> &lt;&lt; students[i].email     &lt;&lt; <span class="st">"\n"</span>;
-        cout &lt;&lt; <span class="st">"  Mobile  : "</span> &lt;&lt; students[i].mobile    &lt;&lt; <span class="st">"\n"</span>;
-        cout &lt;&lt; <span class="st">"  GPA     : "</span> &lt;&lt; students[i].gpa       &lt;&lt; <span class="st">"\n"</span>;
-    }
-    <span class="kw">return</span> <span class="nm">0</span>;
-}</code></pre>
-
-    <div class="info-box">
-        <strong>Key concepts:</strong> <code>struct</code> groups different data types under one name &nbsp;·&nbsp;
-        <code>getline(cin, str)</code> reads the full line including spaces &nbsp;·&nbsp;
-        <code>cin.ignore()</code> clears the newline left by <code>cin &gt;&gt;</code> before a <code>getline</code>.
-    </div>
-
-    <h4>Part (b) — Dynamic Array (Run-time size)</h4>
-
-    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
-<span class="kw">using namespace</span> std;
-
-<span class="tp">int</span> <span class="fn">main</span>() {
-    <span class="tp">int</span> n;
-    cout &lt;&lt; <span class="st">"Enter array size: "</span>;
-    cin  &gt;&gt; n;
-
-    <span class="tp">int</span>* arr = <span class="kw">new</span> <span class="tp">int</span>[n];   <span class="cm">// allocate on HEAP at run-time</span>
-
-    cout &lt;&lt; <span class="st">"Enter "</span> &lt;&lt; n &lt;&lt; <span class="st">" integers:\n"</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) {
-        cout &lt;&lt; <span class="st">"arr["</span> &lt;&lt; i &lt;&lt; <span class="st">"] = "</span>;
-        cin  &gt;&gt; arr[i];
-    }
-
-    cout &lt;&lt; <span class="st">"\nArray contents: "</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++)
-        cout &lt;&lt; arr[i] &lt;&lt; <span class="st">" "</span>;
-    cout &lt;&lt; endl;
-
-    <span class="kw">delete</span>[] arr;    <span class="cm">// release heap memory — MUST use delete[]</span>
-    arr = <span class="kw">nullptr</span>;   <span class="cm">// avoid dangling pointer</span>
-    cout &lt;&lt; <span class="st">"Memory released successfully.\n"</span>;
-    <span class="kw">return</span> <span class="nm">0</span>;
-}</code></pre>
-
-    <div class="info-box">
-        <strong>Stack vs Heap:</strong> <code>int arr[5]</code> — stack, fixed, auto-freed &nbsp;·&nbsp;
-        <code>new int[n]</code> — heap, run-time size, must call <code>delete[]</code> manually.
-    </div>
-
-    <!-- Q2 -->
-    <h3>Question 2 — Sorting &amp; Searching</h3>
-
-    <div class="q-box">
-        <p><strong>Part (a):</strong> Read 20 integers and store them without sorting.</p>
-        <p><strong>Part (b):</strong> Sort into separate arrays using <strong>Bubble Sort</strong> and <strong>Selection Sort</strong>.</p>
-        <p><strong>Part (c):</strong> Search using <strong>Linear Search</strong> and <strong>Binary Search</strong>.</p>
-    </div>
-
-    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
-<span class="kw">using namespace</span> std;
-
-<span class="kw">const</span> <span class="tp">int</span> SIZE = <span class="nm">20</span>;
-
-<span class="cm">// Bubble Sort — compare adjacent elements, bubble larger ones to the end</span>
-<span class="tp">void</span> <span class="fn">bubbleSort</span>(<span class="tp">int</span> src[], <span class="tp">int</span> dst[], <span class="tp">int</span> n) {
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) dst[i] = src[i];           <span class="cm">// copy</span>
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n - <span class="nm">1</span>; i++)
-        <span class="kw">for</span> (<span class="tp">int</span> j = <span class="nm">0</span>; j &lt; n - <span class="nm">1</span> - i; j++)
-            <span class="kw">if</span> (dst[j] &gt; dst[j + <span class="nm">1</span>])
-                swap(dst[j], dst[j + <span class="nm">1</span>]);
-}
-
-<span class="cm">// Selection Sort — find minimum, swap to front</span>
-<span class="tp">void</span> <span class="fn">selectionSort</span>(<span class="tp">int</span> src[], <span class="tp">int</span> dst[], <span class="tp">int</span> n) {
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) dst[i] = src[i];           <span class="cm">// copy</span>
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n - <span class="nm">1</span>; i++) {
-        <span class="tp">int</span> minIdx = i;
-        <span class="kw">for</span> (<span class="tp">int</span> j = i + <span class="nm">1</span>; j &lt; n; j++)
-            <span class="kw">if</span> (dst[j] &lt; dst[minIdx]) minIdx = j;
-        swap(dst[i], dst[minIdx]);
-    }
-}
-
-<span class="cm">// Linear Search — O(n) — works on any array</span>
-<span class="tp">int</span> <span class="fn">linearSearch</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n, <span class="tp">int</span> key) {
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++)
-        <span class="kw">if</span> (arr[i] == key) <span class="kw">return</span> i;
-    <span class="kw">return</span> -<span class="nm">1</span>;
-}
-
-<span class="cm">// Binary Search — O(log n) — requires a SORTED array</span>
-<span class="tp">int</span> <span class="fn">binarySearch</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n, <span class="tp">int</span> key) {
-    <span class="tp">int</span> low = <span class="nm">0</span>, high = n - <span class="nm">1</span>;
-    <span class="kw">while</span> (low &lt;= high) {
-        <span class="tp">int</span> mid = low + (high - low) / <span class="nm">2</span>;
-        <span class="kw">if</span>      (arr[mid] == key) <span class="kw">return</span> mid;
-        <span class="kw">else if</span> (arr[mid]  &lt; key) low  = mid + <span class="nm">1</span>;
-        <span class="kw">else</span>                      high = mid - <span class="nm">1</span>;
-    }
-    <span class="kw">return</span> -<span class="nm">1</span>;
-}
-
-<span class="tp">int</span> <span class="fn">main</span>() {
-    <span class="tp">int</span> original[SIZE], bubbled[SIZE], selected[SIZE];
-
-    cout &lt;&lt; <span class="st">"Enter 20 integers:\n"</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; SIZE; i++) { cout &lt;&lt; <span class="st">"["</span> &lt;&lt; i+<span class="nm">1</span> &lt;&lt; <span class="st">"] = "</span>; cin &gt;&gt; original[i]; }
-
-    <span class="fn">bubbleSort</span>   (original, bubbled,  SIZE);
-    <span class="fn">selectionSort</span>(original, selected, SIZE);
-
-    cout &lt;&lt; <span class="st">"\nUnsorted      : "</span>; <span class="kw">for</span>(<span class="tp">int</span> x : original) cout &lt;&lt; x &lt;&lt; <span class="st">" "</span>; cout &lt;&lt; <span class="st">"\n"</span>;
-    cout &lt;&lt; <span class="st">"Bubble Sort   : "</span>; <span class="kw">for</span>(<span class="tp">int</span> x : bubbled)  cout &lt;&lt; x &lt;&lt; <span class="st">" "</span>; cout &lt;&lt; <span class="st">"\n"</span>;
-    cout &lt;&lt; <span class="st">"Selection Sort: "</span>; <span class="kw">for</span>(<span class="tp">int</span> x : selected) cout &lt;&lt; x &lt;&lt; <span class="st">" "</span>; cout &lt;&lt; <span class="st">"\n"</span>;
-
-    <span class="tp">int</span> key;
-    cout &lt;&lt; <span class="st">"\nEnter search key: "</span>; cin &gt;&gt; key;
-
-    <span class="tp">int</span> li = <span class="fn">linearSearch</span>(bubbled, SIZE, key);
-    <span class="tp">int</span> bi = <span class="fn">binarySearch</span> (bubbled, SIZE, key);
-
-    cout &lt;&lt; <span class="st">"Linear Search : "</span> &lt;&lt; (li != -<span class="nm">1</span> ? <span class="st">"Found at index "</span> + to_string(li) : <span class="st">"Not found"</span>) &lt;&lt; <span class="st">"\n"</span>;
-    cout &lt;&lt; <span class="st">"Binary Search : "</span> &lt;&lt; (bi != -<span class="nm">1</span> ? <span class="st">"Found at index "</span> + to_string(bi) : <span class="st">"Not found"</span>) &lt;&lt; <span class="st">"\n"</span>;
-    <span class="kw">return</span> <span class="nm">0</span>;
-}</code></pre>
-
-    <!-- Q3 -->
-    <h3>Question 3 — Recursive Product</h3>
-
-    <div class="q-box">
-        <p><strong>Task:</strong> Write a recursive C++ function to find the product (multiplication) of two integers.</p>
-    </div>
-
-    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
-<span class="kw">using namespace</span> std;
-
-<span class="cm">// Recursive product: a × b = a + a + a ... (b times)</span>
-<span class="cm">// BASE CASE: b == 0 → return 0</span>
-<span class="tp">int</span> <span class="fn">product</span>(<span class="tp">int</span> a, <span class="tp">int</span> b) {
-    <span class="kw">if</span> (b == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">0</span>;          <span class="cm">// base case: anything × 0 = 0</span>
-    <span class="kw">return</span> a + <span class="fn">product</span>(a, b - <span class="nm">1</span>); <span class="cm">// recursive: a + (a × (b-1))</span>
-}
-
-<span class="tp">int</span> <span class="fn">main</span>() {
-    <span class="tp">int</span> x, y;
-    cout &lt;&lt; <span class="st">"Enter two integers: "</span>;
-    cin  &gt;&gt; x &gt;&gt; y;
-
-    <span class="cm">// Handle negative numbers using XOR sign detection</span>
-    <span class="tp">bool</span> negative = (x &lt; <span class="nm">0</span>) ^ (y &lt; <span class="nm">0</span>);
-    <span class="tp">int</span>  result   = <span class="fn">product</span>(abs(x), abs(y));
-    <span class="kw">if</span> (negative) result = -result;
-
-    cout &lt;&lt; x &lt;&lt; <span class="st">" x "</span> &lt;&lt; y &lt;&lt; <span class="st">" = "</span> &lt;&lt; result &lt;&lt; endl;
-    <span class="kw">return</span> <span class="nm">0</span>;
-}</code></pre>
-
-    <div class="highlight">
-        <p><strong>Trace — product(3, 4):</strong></p>
-        <p><code>product(3, 4)</code> → 3 + product(3, 3)</p>
-        <p><code>product(3, 3)</code> → 3 + product(3, 2)</p>
-        <p><code>product(3, 2)</code> → 3 + product(3, 1)</p>
-        <p><code>product(3, 1)</code> → 3 + product(3, 0)</p>
-        <p><code>product(3, 0)</code> → 0 (BASE CASE)</p>
-        <p>Unwind: 3+3+3+3+0 = <strong>12</strong> ✓</p>
-    </div>
-
-    <!-- Q4 -->
-    <h3>Question 4 — Fibonacci &amp; Prime Numbers</h3>
-
-    <div class="q-box">
-        <p><strong>Part (a):</strong> Print the first 50 Fibonacci numbers. Series starts: 0, 1, 1, 2, 3, 5, 8, …</p>
-        <p><strong>Part (b):</strong> Display all prime numbers between two given integers. Analyze time complexity.</p>
-    </div>
-
-    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
-<span class="pp">#include &lt;cmath&gt;</span>
-<span class="kw">using namespace</span> std;
-
-<span class="cm">// Part (a) — First 50 Fibonacci numbers (iterative, avoids recursion overhead)</span>
-<span class="tp">void</span> <span class="fn">partA</span>() {
-    <span class="tp">long long</span> a = <span class="nm">0</span>, b = <span class="nm">1</span>;
-    cout &lt;&lt; <span class="st">"First 50 Fibonacci Numbers:\n"</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i &lt;= <span class="nm">50</span>; i++) {
-        cout &lt;&lt; <span class="st">"F("</span> &lt;&lt; i &lt;&lt; <span class="st">") = "</span> &lt;&lt; a &lt;&lt; <span class="st">"\n"</span>;
-        <span class="tp">long long</span> next = a + b;
-        a = b;
-        b = next;
-    }
-}
-
-<span class="cm">// Part (b) — Primality test: check divisors up to √n</span>
-<span class="cm">// Time Complexity: O(√n) per number</span>
-<span class="tp">bool</span> <span class="fn">isPrime</span>(<span class="tp">int</span> n) {
-    <span class="kw">if</span> (n &lt; <span class="nm">2</span>)          <span class="kw">return</span> <span class="kw">false</span>;
-    <span class="kw">if</span> (n == <span class="nm">2</span>)         <span class="kw">return</span> <span class="kw">true</span>;
-    <span class="kw">if</span> (n % <span class="nm">2</span> == <span class="nm">0</span>)     <span class="kw">return</span> <span class="kw">false</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">3</span>; i &lt;= sqrt((<span class="tp">double</span>)n); i += <span class="nm">2</span>)
-        <span class="kw">if</span> (n % i == <span class="nm">0</span>)   <span class="kw">return</span> <span class="kw">false</span>;
-    <span class="kw">return</span> <span class="kw">true</span>;
-}
-
-<span class="tp">void</span> <span class="fn">partB</span>() {
-    <span class="tp">int</span> low, high;
-    cout &lt;&lt; <span class="st">"Enter lower bound: "</span>; cin &gt;&gt; low;
-    cout &lt;&lt; <span class="st">"Enter upper bound: "</span>; cin &gt;&gt; high;
-    cout &lt;&lt; <span class="st">"\nPrimes between "</span> &lt;&lt; low &lt;&lt; <span class="st">" and "</span> &lt;&lt; high &lt;&lt; <span class="st">":\n"</span>;
-    <span class="kw">for</span> (<span class="tp">int</span> n = low; n &lt;= high; n++)
-        <span class="kw">if</span> (<span class="fn">isPrime</span>(n)) cout &lt;&lt; n &lt;&lt; <span class="st">" "</span>;
-    cout &lt;&lt; endl;
-}
-
-<span class="tp">int</span> <span class="fn">main</span>() { <span class="fn">partA</span>(); <span class="fn">partB</span>(); <span class="kw">return</span> <span class="nm">0</span>; }</code></pre>
-
-    <div class="info-box">
-        <strong>Time Complexity Analysis:</strong> Checking one number for primality = O(√n) because we only test divisors up to the square root.
-        Checking all numbers between <em>low</em> and <em>high</em> = O((high − low) × √high).
-        <strong>Space Complexity:</strong> O(1) — no extra storage used.
-    </div>
-</div>
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SECTION 2 — WRITING QUESTIONS (Sheet 2 Q3)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<div class="section" id="writing">
-    <div class="section-label label-purple">✍️ SHEET 2 · Q3</div>
-    <h2>Writing Questions — Essay Answers</h2>
-    <p>Complete model answers for all four essay questions from Sheet 2.</p>
-
-    <!-- Essay Q1 -->
-    <h3>1. Basic Structure of a C++ Program</h3>
-    <div class="q-box">
-        <p><strong>Question:</strong> Explain the basic structure of a C++ program including <code>main()</code> function, namespaces, inputs/outputs, variables, and compiling.</p>
-    </div>
-    <div class="a-box">
-        <p><strong>Answer:</strong></p>
-        <p>A C++ program begins with <strong>preprocessor directives</strong> such as <code>#include &lt;iostream&gt;</code>, which attach standard library functionality (like input/output streams) before the code is compiled. The line <code>using namespace std;</code> allows the program to use standard library identifiers like <code>cout</code> and <code>cin</code> without writing the <code>std::</code> prefix each time.</p>
-        <p>Every C++ program must have a <code>main()</code> function — this is the <strong>entry point</strong> where execution starts. Inside <code>main()</code>, variables are declared to store data (e.g., <code>int age;</code>, <code>double gpa;</code>, <code>string name;</code>). The <code>cout</code> object (with the <code>&lt;&lt;</code> operator) displays output to the screen, while <code>cin</code> (with the <code>&gt;&gt;</code> operator) reads user input from the keyboard.</p>
-        <p>Once written, the source file (<code>.cpp</code>) is <strong>compiled</strong> by a compiler such as <code>g++</code>, which translates it into an executable binary. Any syntax errors are reported at this stage.</p>
-    </div>
-
-    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>    <span class="cm">// 1. attach I/O library</span>
-<span class="kw">using namespace</span> std;   <span class="cm">// 2. use std names directly</span>
-
-<span class="tp">int</span> <span class="fn">main</span>() {            <span class="cm">// 3. entry point</span>
-    <span class="tp">int</span> age;             <span class="cm">// 4. declare variable</span>
-    cout &lt;&lt; <span class="st">"Enter your age: "</span>;   <span class="cm">// 5. output</span>
-    cin  &gt;&gt; age;                   <span class="cm">// 6. input</span>
-    cout &lt;&lt; <span class="st">"You are "</span> &lt;&lt; age &lt;&lt; <span class="st">" years old."</span> &lt;&lt; endl;
-    <span class="kw">return</span> <span class="nm">0</span>;            <span class="cm">// 7. signal success to OS</span>
-}</code></pre>
-
-    <!-- Essay Q2 -->
-    <h3>2. Variables in C++</h3>
-    <div class="q-box">
-        <p><strong>Question:</strong> What are variables and why are they useful in programming? Provide examples of declaring variables of different data types.</p>
-    </div>
-    <div class="a-box">
-        <p><strong>Answer:</strong></p>
-        <p>A <strong>variable</strong> is a named memory location that stores a value which can be read or changed during program execution. Variables are essential because they allow programs to work with dynamic data — instead of hard-coding values, the program can accept input, perform calculations, and produce different results each run.</p>
-        <p>C++ is a <strong>statically typed</strong> language, meaning every variable must be declared with a specific data type before use. Common types include:</p>
-        <ul>
-            <li><strong>int</strong> — whole numbers (e.g., age, count)</li>
-            <li><strong>double</strong> — decimal numbers (e.g., GPA, price)</li>
-            <li><strong>char</strong> — single character (e.g., grade 'A')</li>
-            <li><strong>bool</strong> — true or false (e.g., passed, isValid)</li>
-            <li><strong>string</strong> — text (e.g., name, email)</li>
-        </ul>
-    </div>
-
-    <pre data-lang="C++"><code><span class="tp">int</span>    studentCount = <span class="nm">30</span>;
-<span class="tp">double</span> gpa          = <span class="nm">3.75</span>;
-<span class="tp">char</span>   grade        = <span class="st">'A'</span>;
-<span class="tp">bool</span>   passed       = <span class="kw">true</span>;
-<span class="tp">string</span> name         = <span class="st">"Noha"</span>;
-<span class="kw">const</span> <span class="tp">int</span> MAX       = <span class="nm">100</span>;    <span class="cm">// constant — cannot be changed</span></code></pre>
-
-    <!-- Essay Q3 -->
-    <h3>3. if Statements and Decision Making</h3>
-    <div class="q-box">
-        <p><strong>Question:</strong> Explain how <code>if</code> statements allow decision making and control flow based on conditions. Provide an example.</p>
-    </div>
-    <div class="a-box">
-        <p><strong>Answer:</strong></p>
-        <p>An <code>if</code> statement evaluates a <strong>boolean condition</strong>. If the condition is true, the associated block of code executes; otherwise it is skipped. This gives programs the ability to <strong>branch</strong> — taking different paths depending on the data at run-time.</p>
-        <p>An <code>if</code> can be extended with <code>else if</code> to check additional conditions in sequence, and a final <code>else</code> to handle any case not covered by the previous conditions. <strong>Only the first branch whose condition is true will execute</strong>.</p>
-    </div>
-
-    <pre data-lang="C++"><code><span class="tp">int</span> score = <span class="nm">75</span>;
-
-<span class="kw">if</span> (score &gt;= <span class="nm">90</span>) {
-    cout &lt;&lt; <span class="st">"Grade: A"</span>;       <span class="cm">// skipped — 75 < 90</span>
-} <span class="kw">else if</span> (score &gt;= <span class="nm">75</span>) {
-    cout &lt;&lt; <span class="st">"Grade: B"</span>;       <span class="cm">// ← executes (75 >= 75)</span>
-} <span class="kw">else if</span> (score &gt;= <span class="nm">60</span>) {
-    cout &lt;&lt; <span class="st">"Grade: C"</span>;       <span class="cm">// skipped after B matched</span>
-} <span class="kw">else</span> {
-    cout &lt;&lt; <span class="st">"Grade: F"</span>;       <span class="cm">// skipped</span>
-}
-<span class="cm">// Output: Grade: B</span></code></pre>
-
-    <!-- Essay Q4 -->
-    <h3>4. for Loops vs while Loops</h3>
-    <div class="q-box">
-        <p><strong>Question:</strong> What are <code>for</code> loops and how does their syntax differ from <code>while</code> loops? Give examples showing both loop types.</p>
-    </div>
-    <div class="a-box">
-        <p><strong>Answer:</strong></p>
-        <p>A <strong>for loop</strong> is used when the number of iterations is <em>known in advance</em>. Its header combines three parts in one line: initialization, condition check, and increment/decrement — making it compact and readable for counted repetition.</p>
-        <p>A <strong>while loop</strong> is used when the number of iterations is <em>not known ahead of time</em> — it keeps executing as long as its condition remains true. The initialization happens before the loop, and the update must be written manually inside the body.</p>
-    </div>
-
-    <pre data-lang="C++"><code><span class="cm">// for loop — preferred when count is known</span>
-<span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i &lt;= <span class="nm">5</span>; i++) {
-    cout &lt;&lt; i &lt;&lt; <span class="st">" "</span>;
-}   <span class="cm">// Output: 1 2 3 4 5</span>
-
-<span class="cm">// while loop — preferred when condition-driven</span>
-<span class="tp">int</span> i = <span class="nm">1</span>;             <span class="cm">// initialization BEFORE loop</span>
-<span class="kw">while</span> (i &lt;= <span class="nm">5</span>) {
-    cout &lt;&lt; i &lt;&lt; <span class="st">" "</span>;
-    i++;               <span class="cm">// update INSIDE loop body</span>
-}   <span class="cm">// Output: 1 2 3 4 5</span>
-
-<span class="cm">// do-while — guaranteed to run AT LEAST once</span>
-<span class="tp">int</span> j = <span class="nm">1</span>;
-<span class="kw">do</span> {
-    cout &lt;&lt; j &lt;&lt; <span class="st">" "</span>;
-    j++;
-} <span class="kw">while</span> (j &lt;= <span class="nm">5</span>);</code></pre>
-
-    <table>
-        <tr><th>Feature</th><th>for loop</th><th>while loop</th></tr>
-        <tr><td>Best use</td><td>Known iteration count</td><td>Unknown iteration count</td></tr>
-        <tr><td>Init / update</td><td>In the header</td><td>Manual (before / inside)</td></tr>
-        <tr><td>Example</td><td>Print 1 to 100</td><td>Read until user enters -1</td></tr>
-    </table>
-</div>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SECTION 3 — DATA STRUCTURES REVISION
@@ -1513,7 +1129,627 @@ cout &lt;&lt; mat[<span class="nm">1</span>][<span class="nm">2</span>];   <span
             <li>Need sorted data + fast search? → <strong>Binary Search Tree</strong></li>
         </ul>
     </div>
+    <div id="coding"></div>
 </div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION — PDF CODING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="section" id="revision-header" style="background: linear-gradient(135deg,#667eea,#764ba2); color:white; text-align:center; padding:36px;">
+    <h2 style="color:white; border:none; font-size:2.4em; margin-bottom:10px;">Practice Scetion</h2>
+    <p style="color:rgba(255,255,255,0.85); font-size:1.1em;">C++ Coding Problems — Array · Linked List · Stack · Queue · Tree</p>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION — PDF CODING: ARRAYS (Arrays PDF)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="section" id="pdf-arrays">
+    <div class="section-label label-blue">📄 ARRAYS DSA REVISION PDF</div>
+    <h2>Arrays — Advanced Coding Problems</h2>
+    <p>Complete solutions for the advanced coding challenges and short-answer questions from the <strong>Arrays DSA Revision</strong> lecture.</p>
+
+    <!-- Q12 Reverse in-place -->
+    <h3>Q12 — Reverse an Array In-Place</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Reverse an array <strong>in-place</strong>. Time O(n). Space O(1). No extra array allowed.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">void</span> <span class="fn">reverseArray</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n) {
+    <span class="tp">int</span> left = <span class="nm">0</span>, right = n - <span class="nm">1</span>;
+    <span class="kw">while</span> (left &lt; right) {
+        <span class="tp">int</span> temp   = arr[left];   <span class="cm">// 3-step swap</span>
+        arr[left]  = arr[right];
+        arr[right] = temp;
+        left++;   right--;          <span class="cm">// move pointers inward</span>
+    }
+}
+<span class="cm">// Trace on [1,2,3,4,5]:</span>
+<span class="cm">// left=0,right=4: swap 1↔5 → [5,2,3,4,1]</span>
+<span class="cm">// left=1,right=3: swap 2↔4 → [5,4,3,2,1]</span>
+<span class="cm">// left=2,right=2: stop (pointers met)</span>
+<span class="cm">// Result: [5,4,3,2,1] ✓  Space O(1): only 3 variables</span></code></pre>
+
+    <!-- Q13 Rotate Left -->
+    <h3>Q13 — Rotate Array Left by k Positions</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Rotate an array left by k positions. Example: <code>[1,2,3,4,5]</code> rotated left by 2 → <code>[3,4,5,1,2]</code>. Time O(n). Space O(1).</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">void</span> <span class="fn">rotateLeft</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n, <span class="tp">int</span> k) {
+    k = k % n;                    <span class="cm">// handle k ≥ n</span>
+    <span class="fn">reverseArray</span>(arr, k);         <span class="cm">// Step 1: reverse first k elements</span>
+    <span class="fn">reverseArray</span>(arr + k, n - k); <span class="cm">// Step 2: reverse remaining n-k</span>
+    <span class="fn">reverseArray</span>(arr, n);         <span class="cm">// Step 3: reverse entire array</span>
+}
+<span class="cm">// 3-Reversal trick trace on [1,2,3,4,5], k=2:</span>
+<span class="cm">// Step 1: reverse [1,2]    → [2,1,3,4,5]</span>
+<span class="cm">// Step 2: reverse [3,4,5] → [2,1,5,4,3]</span>
+<span class="cm">// Step 3: reverse all      → [3,4,5,1,2] ✓</span></code></pre>
+    <div class="info-box">
+        <strong>Why 3 reversals work:</strong> Reversing first k, then last n-k, then the whole array achieves rotation in 3 × O(n/2) = O(n) time with zero extra memory. This is called the <em>reversal algorithm</em>.
+    </div>
+
+    <!-- Q14 Second largest -->
+    <h3>Q14 — Find the Second Largest Element (Single Pass)</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Find the second largest element in a single pass. Time O(n). Space O(1).</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;climits&gt;</span>
+
+<span class="tp">int</span> <span class="fn">secondLargest</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n) {
+    <span class="kw">if</span> (n &lt; <span class="nm">2</span>) <span class="kw">return</span> -<span class="nm">1</span>;
+    <span class="tp">int</span> first = INT_MIN, second = INT_MIN;
+
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) {
+        <span class="kw">if</span> (arr[i] &gt; first) {
+            second = first;       <span class="cm">// old max becomes 2nd</span>
+            first  = arr[i];      <span class="cm">// update max</span>
+        } <span class="kw">else if</span> (arr[i] &gt; second &amp;&amp; arr[i] != first) {
+            second = arr[i];      <span class="cm">// new 2nd (not a duplicate of max)</span>
+        }
+    }
+    <span class="kw">return</span> (second == INT_MIN) ? -<span class="nm">1</span> : second;
+}
+<span class="cm">// Trace [3,1,4,1,5,9,2,6]:</span>
+<span class="cm">// After scan: first=9, second=6 ✓</span>
+<span class="cm">// arr[i]!=first prevents duplicate max counting as 2nd</span></code></pre>
+
+    <!-- Q15 Remove duplicates -->
+    <h3>Q15 — Remove Duplicates from a Sorted Array In-Place</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Given a <strong>sorted</strong> array, remove all duplicates in-place. Return the new size. Time O(n). Space O(1).</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">int</span> <span class="fn">removeDuplicates</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n) {
+    <span class="kw">if</span> (n == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="tp">int</span> writeIdx = <span class="nm">1</span>;   <span class="cm">// arr[0] is always kept</span>
+
+    <span class="kw">for</span> (<span class="tp">int</span> readIdx = <span class="nm">1</span>; readIdx &lt; n; readIdx++) {
+        <span class="kw">if</span> (arr[readIdx] != arr[readIdx - <span class="nm">1</span>]) {  <span class="cm">// new unique value?</span>
+            arr[writeIdx] = arr[readIdx];         <span class="cm">// write it</span>
+            writeIdx++;
+        }
+        <span class="cm">// duplicate: advance readIdx only, writeIdx stays</span>
+    }
+    <span class="kw">return</span> writeIdx;  <span class="cm">// new logical size</span>
+}
+<span class="cm">// Trace [1,1,2,3,3,3,4]:</span>
+<span class="cm">// r=1: 1==1 → skip | r=2: 2≠1 → arr[1]=2,w=2</span>
+<span class="cm">// r=3: 3≠2 → arr[2]=3,w=3 | r=4,5: 3==3 → skip×2</span>
+<span class="cm">// r=6: 4≠3 → arr[3]=4,w=4 → return 4 ✓</span></code></pre>
+
+    <!-- Q19 Two Sum sorted -->
+    <h3>Q19 — Two Sum on Sorted Array (Two-Pointer)</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Given a sorted array and a target sum, find two elements that add up to the target. Time O(n). Space O(1).</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">bool</span> <span class="fn">twoSum</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n, <span class="tp">int</span> target) {
+    <span class="tp">int</span> left = <span class="nm">0</span>, right = n - <span class="nm">1</span>;
+    <span class="kw">while</span> (left &lt; right) {
+        <span class="tp">int</span> sum = arr[left] + arr[right];
+        <span class="kw">if</span>      (sum == target) {
+            cout &lt;&lt; arr[left] &lt;&lt; <span class="st">" + "</span> &lt;&lt; arr[right] &lt;&lt; <span class="st">" = "</span> &lt;&lt; target &lt;&lt; <span class="st">"\n"</span>;
+            <span class="kw">return true</span>;
+        }
+        <span class="kw">else if</span> (sum &lt; target)  left++;   <span class="cm">// need larger sum</span>
+        <span class="kw">else</span>                    right--;  <span class="cm">// need smaller sum</span>
+    }
+    <span class="kw">return false</span>;
+}
+<span class="cm">// On sorted [1,2,4,5,7,9], target=11:</span>
+<span class="cm">// l=0,r=5: 1+9=10&lt;11 → l++</span>
+<span class="cm">// l=1,r=5: 2+9=11=target → output: 2 + 9 = 11 ✓</span></code></pre>
+
+    <!-- Short Answer Section -->
+    <h3>Short Answer Questions</h3>
+
+    <div class="q-box"><p><strong>Q16.</strong> A function receives <code>int arr[], int n</code> as parameters. Why can it NOT use <code>sizeof(arr)/sizeof(arr[0])</code> to find the array size?</p></div>
+    <div class="a-box">
+        <p><strong>Answer:</strong> When passed to a function, an array <strong>decays</strong> to a pointer to its first element (<code>int*</code>). Inside the function, <code>sizeof(arr)</code> returns the <strong>pointer size</strong> (8 bytes on 64-bit), NOT the total array size. So <code>sizeof(arr)/sizeof(arr[0]) = 8/4 = 2</code> regardless of actual array size. <strong>Solution:</strong> always pass the size as a separate parameter <code>int n</code>.</p>
+    </div>
+
+    <div class="q-box"><p><strong>Q17.</strong> What is the difference between <em>stable</em> and <em>unstable</em> sorting? Give an example of each.</p></div>
+    <div class="a-box">
+        <p><strong>Stable sort:</strong> equal elements maintain their original relative order after sorting.<br>
+        <em>Example:</em> Bubble Sort and Insertion Sort — they only swap when <code>arr[j] &gt; arr[j+1]</code> (strict greater-than), so equal elements are never swapped and retain their original sequence.</p>
+        <p><strong>Unstable sort:</strong> equal elements may be reordered.<br>
+        <em>Example:</em> Selection Sort — finding the minimum in the unsorted portion and swapping it forward can place a later occurrence of an equal value before an earlier one.</p>
+        <p><strong>When stability matters:</strong> when sorting objects by one field while preserving the order from a previous sort on a different field (e.g., sorting students by grade then by name).</p>
+    </div>
+
+    <div class="q-box"><p><strong>Q18.</strong> You have 10,000 elements. Compare: (a) 5,000 linear searches vs (b) sort once + 5,000 binary searches. Which is faster?</p></div>
+    <div class="a-box">
+        <p><strong>(a) 5,000 linear searches:</strong><br>
+        5,000 × O(n) = 5,000 × 10,000 = <strong>50,000,000 operations</strong></p>
+        <p><strong>(b) Sort once + 5,000 binary searches:</strong><br>
+        O(n log n) sort ≈ 10,000 × 14 = 140,000 ops<br>
+        5,000 × O(log n) = 5,000 × 14 = 70,000 ops<br>
+        Total ≈ <strong>210,000 operations</strong></p>
+        <p><strong>Option (b) is ~238× faster!</strong> General rule: if you search k times and k &gt; log(n), sort once then use binary search every time.</p>
+    </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION — PDF CODING: STACK & QUEUE (Part 3)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+<div class="section" id="pdf-stack">
+    <div class="section-label label-purple">📄 LECTURE PDF · PART 3</div>
+    <h2>Stack &amp; Queue — Coding Problems</h2>
+    <p>Complete solutions for all coding and trace problems from <strong>DS Lecture Part 3</strong> (Stacks &amp; Queues).</p>
+
+    <!-- P1 Bracket Matching -->
+    <h3>P1 — Bracket Matching</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a function that checks if a string has balanced brackets: <code>( )</code>, <code>[ ]</code>, <code>{ }</code>. Return <code>true</code> if all brackets are correctly matched and nested.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;stack&gt;</span>
+<span class="pp">#include &lt;string&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="tp">bool</span> <span class="fn">isBalanced</span>(<span class="tp">string</span> s) {
+    stack&lt;<span class="tp">char</span>&gt; st;
+    <span class="kw">for</span> (<span class="tp">char</span> c : s) {
+        <span class="cm">// Opening brackets → push onto stack</span>
+        <span class="kw">if</span> (c == <span class="st">'('</span> || c == <span class="st">'['</span> || c == <span class="st">'{'</span>)
+            st.push(c);
+        <span class="cm">// Closing bracket → check against top</span>
+        <span class="kw">else if</span> (c == <span class="st">')'</span> || c == <span class="st">']'</span> || c == <span class="st">'}'</span>) {
+            <span class="kw">if</span> (st.empty()) <span class="kw">return false</span>;
+            <span class="tp">char</span> top = st.top(); st.pop();
+            <span class="kw">if</span> ((c == <span class="st">')'</span> &amp;&amp; top != <span class="st">'('</span>) ||
+                (c == <span class="st">']'</span> &amp;&amp; top != <span class="st">'['</span>) ||
+                (c == <span class="st">'}'</span> &amp;&amp; top != <span class="st">'{'</span>))
+                <span class="kw">return false</span>;
+        }
+    }
+    <span class="kw">return</span> st.empty();  <span class="cm">// balanced only if no unmatched openers remain</span>
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    cout &lt;&lt; <span class="fn">isBalanced</span>(<span class="st">"({[]})"</span>)  &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 1 (true)</span>
+    cout &lt;&lt; <span class="fn">isBalanced</span>(<span class="st">"([)]"</span>)    &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 0 (false — cross-nested)</span>
+    cout &lt;&lt; <span class="fn">isBalanced</span>(<span class="st">"{{}}"</span>)     &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 1 (true)</span>
+    cout &lt;&lt; <span class="fn">isBalanced</span>(<span class="st">"((("</span>)      &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 0 (false — unclosed)</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+    <div class="info-box">
+        <strong>Algorithm:</strong> Use a Stack as a memory of unmatched opening brackets. Each closing bracket must match the most recent opening bracket (top of stack). If the stack is non-empty at the end, there are unclosed openers.
+        <br><strong>Time:</strong> O(n) — single pass &nbsp;·&nbsp; <strong>Space:</strong> O(n) — worst case all openers.
+    </div>
+
+    <!-- P2 Printer Spool -->
+    <h3>P2 — Printer Queue Simulation</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Simulate a printer spool with 4 print jobs. Use a Queue to process them in the order they were submitted (FIFO).</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;queue&gt;</span>
+<span class="pp">#include &lt;string&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    queue&lt;<span class="tp">string</span>&gt; printer;
+
+    <span class="cm">// Submit print jobs in order</span>
+    printer.push(<span class="st">"Doc1.pdf"</span>);
+    printer.push(<span class="st">"Report.docx"</span>);
+    printer.push(<span class="st">"Photo.png"</span>);
+    printer.push(<span class="st">"Sheet.xlsx"</span>);
+
+    cout &lt;&lt; <span class="st">"Printing in FIFO order:\n"</span>;
+    <span class="kw">while</span> (!printer.empty()) {
+        cout &lt;&lt; <span class="st">"Printing: "</span> &lt;&lt; printer.front() &lt;&lt; <span class="st">"\n"</span>;
+        printer.pop();   <span class="cm">// dequeue from front</span>
+    }
+    cout &lt;&lt; <span class="st">"All jobs done!\n"</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}
+<span class="cm">// Output:</span>
+<span class="cm">// Printing: Doc1.pdf</span>
+<span class="cm">// Printing: Report.docx</span>
+<span class="cm">// Printing: Photo.png</span>
+<span class="cm">// Printing: Sheet.xlsx</span>
+<span class="cm">// All jobs done!</span></code></pre>
+
+    <!-- P3 Reverse String -->
+    <h3>P3 — Reverse a String Using a Stack</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a function that reverses a string using a Stack. Do not use the built-in <code>reverse()</code> function.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;stack&gt;</span>
+<span class="pp">#include &lt;string&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="tp">string</span> <span class="fn">reverseString</span>(<span class="tp">string</span> s) {
+    stack&lt;<span class="tp">char</span>&gt; st;
+
+    <span class="cm">// Push every character onto the stack</span>
+    <span class="kw">for</span> (<span class="tp">char</span> c : s)
+        st.push(c);
+
+    <span class="cm">// Pop characters out — LIFO reverses the order</span>
+    <span class="tp">string</span> result = <span class="st">""</span>;
+    <span class="kw">while</span> (!st.empty()) {
+        result += st.top();
+        st.pop();
+    }
+    <span class="kw">return</span> result;
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    cout &lt;&lt; <span class="fn">reverseString</span>(<span class="st">"HELLO"</span>)    &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// OLLEH</span>
+    cout &lt;&lt; <span class="fn">reverseString</span>(<span class="st">"CS211"</span>)    &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 112SC</span>
+    cout &lt;&lt; <span class="fn">reverseString</span>(<span class="st">"abcde"</span>)    &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// edcba</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+    <div class="info-box">
+        <strong>Why this works:</strong> Pushing all characters then popping them reverses the order because of LIFO. The last character pushed (rightmost) is the first to be popped. Time: O(n) · Space: O(n).
+    </div>
+
+    <!-- P4 Count Stack Elements -->
+    <h3>P4 — Count Elements in a Stack (Non-Destructive)</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Count the number of elements currently in a Stack without destroying its contents.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">const</span> <span class="tp">int</span> MAX = <span class="nm">100</span>;
+
+<span class="kw">struct</span> <span class="tp">Stack</span> {
+    <span class="tp">int</span> data[MAX];
+    <span class="tp">int</span> top = -<span class="nm">1</span>;
+    <span class="tp">void</span> <span class="fn">push</span>(<span class="tp">int</span> v) { <span class="kw">if</span>(top &lt; MAX-<span class="nm">1</span>) data[++top]=v; }
+    <span class="tp">int</span>  <span class="fn">pop</span>()       { <span class="kw">return</span> top==-<span class="nm">1</span> ? -<span class="nm">1</span> : data[top--]; }
+    <span class="tp">bool</span> <span class="fn">isEmpty</span>()   { <span class="kw">return</span> top == -<span class="nm">1</span>; }
+};
+
+<span class="cm">// Pass Stack by VALUE — a copy is made, original is unchanged</span>
+<span class="tp">int</span> <span class="fn">countStack</span>(<span class="tp">Stack</span> s) {
+    <span class="tp">int</span> count = <span class="nm">0</span>;
+    <span class="kw">while</span> (!s.<span class="fn">isEmpty</span>()) {
+        s.<span class="fn">pop</span>();   <span class="cm">// pops from the COPY only</span>
+        count++;
+    }
+    <span class="kw">return</span> count;
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Stack</span> s;
+    s.<span class="fn">push</span>(<span class="nm">10</span>); s.<span class="fn">push</span>(<span class="nm">20</span>); s.<span class="fn">push</span>(<span class="nm">30</span>); s.<span class="fn">push</span>(<span class="nm">40</span>);
+
+    cout &lt;&lt; <span class="st">"Count: "</span> &lt;&lt; <span class="fn">countStack</span>(s) &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 4</span>
+    cout &lt;&lt; <span class="st">"Top still: "</span> &lt;&lt; s.data[s.top]    &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 40 — original intact</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+    <div class="info-box">
+        <strong>Key insight:</strong> Pass the Stack <strong>by value</strong> (<code>Stack s</code>, not <code>Stack&amp; s</code>). C++ makes a full copy of the struct, so popping from inside the function does not affect the original stack.
+    </div>
+
+    <!-- Traces -->
+    <h3>Trace Problems — Predict the Output</h3>
+
+    <div class="q-box">
+        <p><strong>TRACE 1 — Stack:</strong> What is the output of the following code?</p>
+        <pre data-lang="C++"><code>Stack s;
+s.push(1); s.push(2); s.push(3);
+cout &lt;&lt; s.pop() &lt;&lt; " ";    // ?
+s.push(4);
+cout &lt;&lt; s.pop() &lt;&lt; " ";    // ?
+cout &lt;&lt; s.peek() &lt;&lt; " ";   // ?
+cout &lt;&lt; s.pop() &lt;&lt; " ";    // ?
+cout &lt;&lt; s.pop() &lt;&lt; endl;   // ?</code></pre>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer: <code>3 4 2 2 1</code></strong></p>
+        <ul>
+            <li>push(1,2,3) → stack: [1,2,3] (top=3)</li>
+            <li>pop() → <strong>3</strong>, stack: [1,2]</li>
+            <li>push(4) → stack: [1,2,4]</li>
+            <li>pop() → <strong>4</strong>, stack: [1,2]</li>
+            <li>peek() → <strong>2</strong> (no removal), stack: [1,2]</li>
+            <li>pop() → <strong>2</strong>, stack: [1]</li>
+            <li>pop() → <strong>1</strong>, stack: []</li>
+        </ul>
+    </div>
+
+    <div class="q-box">
+        <p><strong>TRACE 2 — Queue:</strong> What is the output?</p>
+        <pre data-lang="C++"><code>queue&lt;int&gt; q;
+q.push(10); q.push(20); q.push(30);
+cout &lt;&lt; q.front() &lt;&lt; " ";  // ?
+q.pop();
+q.push(40);
+cout &lt;&lt; q.front() &lt;&lt; " ";  // ?
+cout &lt;&lt; q.back()  &lt;&lt; " ";  // ?
+q.pop(); q.pop();
+cout &lt;&lt; q.front() &lt;&lt; endl; // ?</code></pre>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer: <code>10 20 40 40</code></strong></p>
+        <ul>
+            <li>push(10,20,30) → queue: [10,20,30] FRONT=10</li>
+            <li>front() → <strong>10</strong> (no removal)</li>
+            <li>pop() → removes 10, queue: [20,30]</li>
+            <li>push(40) → queue: [20,30,40]</li>
+            <li>front() → <strong>20</strong>, back() → <strong>40</strong></li>
+            <li>pop() → removes 20, pop() → removes 30, queue: [40]</li>
+            <li>front() → <strong>40</strong></li>
+        </ul>
+    </div>
+
+    <div class="q-box">
+        <p><strong>TRACE 3 — Mixed:</strong> Trace the stack state after each operation:</p>
+        <pre data-lang="C++"><code>Stack s;
+push(5); push(10); push(15);
+pop();
+push(20); push(25);
+pop(); pop();</code></pre>
+    </div>
+    <div class="a-box">
+        <p><strong>Final stack: <code>[5, 10]</code></strong></p>
+        <table>
+            <tr><th>Operation</th><th>Stack (bottom → top)</th><th>Returns</th></tr>
+            <tr><td>push(5)</td><td>[5]</td><td>—</td></tr>
+            <tr><td>push(10)</td><td>[5, 10]</td><td>—</td></tr>
+            <tr><td>push(15)</td><td>[5, 10, 15]</td><td>—</td></tr>
+            <tr><td>pop()</td><td>[5, 10]</td><td>15</td></tr>
+            <tr><td>push(20)</td><td>[5, 10, 20]</td><td>—</td></tr>
+            <tr><td>push(25)</td><td>[5, 10, 20, 25]</td><td>—</td></tr>
+            <tr><td>pop()</td><td>[5, 10, 20]</td><td>25</td></tr>
+            <tr><td>pop()</td><td>[5, 10]</td><td>20</td></tr>
+        </table>
+    </div>
+
+    <!-- Advanced: Queue with two stacks -->
+    <h3>Advanced Challenge — Queue Using Two Stacks</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Implement a Queue using only two Stacks. Achieve amortized O(1) for both enqueue and dequeue.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;stack&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">class</span> <span class="tp">QueueUsingStacks</span> {
+<span class="kw">private</span>:
+    stack&lt;<span class="tp">int</span>&gt; inbox;   <span class="cm">// receives all enqueue calls</span>
+    stack&lt;<span class="tp">int</span>&gt; outbox;  <span class="cm">// supplies all dequeue calls</span>
+
+<span class="kw">public</span>:
+    <span class="cm">// ENQUEUE — always push to inbox (O(1))</span>
+    <span class="tp">void</span> <span class="fn">enqueue</span>(<span class="tp">int</span> x) {
+        inbox.push(x);
+    }
+
+    <span class="cm">// DEQUEUE — transfer inbox → outbox only when outbox is empty</span>
+    <span class="tp">int</span> <span class="fn">dequeue</span>() {
+        <span class="kw">if</span> (outbox.empty()) {
+            <span class="kw">while</span> (!inbox.empty()) {
+                outbox.push(inbox.top());   <span class="cm">// reversal: LIFO → FIFO</span>
+                inbox.pop();
+            }
+        }
+        <span class="kw">if</span> (outbox.empty()) { cout &lt;&lt; <span class="st">"Queue empty!\n"</span>; <span class="kw">return</span> -<span class="nm">1</span>; }
+        <span class="tp">int</span> val = outbox.top();
+        outbox.pop();
+        <span class="kw">return</span> val;
+    }
+
+    <span class="tp">bool</span> <span class="fn">isEmpty</span>() { <span class="kw">return</span> inbox.empty() &amp;&amp; outbox.empty(); }
+};
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">QueueUsingStacks</span> q;
+    q.<span class="fn">enqueue</span>(<span class="nm">1</span>); q.<span class="fn">enqueue</span>(<span class="nm">2</span>); q.<span class="fn">enqueue</span>(<span class="nm">3</span>);
+    cout &lt;&lt; q.<span class="fn">dequeue</span>() &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 1 (FIFO order)</span>
+    q.<span class="fn">enqueue</span>(<span class="nm">4</span>);
+    cout &lt;&lt; q.<span class="fn">dequeue</span>() &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 2</span>
+    cout &lt;&lt; q.<span class="fn">dequeue</span>() &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 3</span>
+    cout &lt;&lt; q.<span class="fn">dequeue</span>() &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 4</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+    <div class="highlight">
+        <p><strong>Key insight:</strong> Transferring all elements from inbox → outbox <em>reverses</em> their order (LIFO → LIFO = FIFO). The transfer only happens when outbox is empty, so each element is moved at most once → amortized O(1) per dequeue.</p>
+        <table>
+            <tr><th>Operation</th><th>inbox (top→bot)</th><th>outbox (top→bot)</th><th>Returns</th></tr>
+            <tr><td>enqueue(1,2,3)</td><td>[3,2,1]</td><td>[]</td><td>—</td></tr>
+            <tr><td>dequeue() — transfer</td><td>[]</td><td>[1,2,3]</td><td>1</td></tr>
+            <tr><td>enqueue(4)</td><td>[4]</td><td>[2,3]</td><td>—</td></tr>
+            <tr><td>dequeue()</td><td>[4]</td><td>[3]</td><td>2</td></tr>
+            <tr><td>dequeue()</td><td>[4]</td><td>[]</td><td>3</td></tr>
+            <tr><td>dequeue() — transfer</td><td>[]</td><td>[]</td><td>4</td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION — PDF CODING: TREES & BST (Part 4)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="section" id="pdf-trees">
+    <div class="section-label label-green">📄 LECTURE PDF · PART 4</div>
+    <h2>Trees &amp; BST — Coding Problems</h2>
+    <p>Complete solutions for all coding challenges and trace exercises from <strong>DS Lecture Part 4</strong> (Trees &amp; BST).</p>
+
+    <!-- Traversal trace -->
+    <h3>Exercise — BST Construction &amp; Traversal Trace</h3>
+    <div class="q-box">
+        <p><strong>Task:</strong> Insert values in this order: <code>50, 30, 70, 20, 40, 60, 80</code> into a BST. Then write the Pre-order, In-order, and Post-order sequences.</p>
+    </div>
+    <div class="tree-svg-wrapper">
+        <svg width="400" height="210" viewBox="0 0 400 210" style="max-width:100%;">
+            <line x1="200" y1="40" x2="110" y2="100" stroke="#667eea" stroke-width="2"/>
+            <line x1="200" y1="40" x2="290" y2="100" stroke="#667eea" stroke-width="2"/>
+            <line x1="110" y1="100" x2="60"  y2="165" stroke="#667eea" stroke-width="2"/>
+            <line x1="110" y1="100" x2="160" y2="165" stroke="#667eea" stroke-width="2"/>
+            <line x1="290" y1="100" x2="240" y2="165" stroke="#667eea" stroke-width="2"/>
+            <line x1="290" y1="100" x2="340" y2="165" stroke="#667eea" stroke-width="2"/>
+            <circle cx="200" cy="40"  r="26" fill="#667eea"/>
+            <circle cx="110" cy="100" r="26" fill="#764ba2"/>
+            <circle cx="290" cy="100" r="26" fill="#764ba2"/>
+            <circle cx="60"  cy="165" r="22" fill="#89b4fa"/>
+            <circle cx="160" cy="165" r="22" fill="#89b4fa"/>
+            <circle cx="240" cy="165" r="22" fill="#89b4fa"/>
+            <circle cx="340" cy="165" r="22" fill="#89b4fa"/>
+            <text x="200" y="46"  text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="15">50</text>
+            <text x="110" y="106" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="15">30</text>
+            <text x="290" y="106" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="15">70</text>
+            <text x="60"  y="171" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="13">20</text>
+            <text x="160" y="171" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="13">40</text>
+            <text x="240" y="171" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="13">60</text>
+            <text x="340" y="171" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="13">80</text>
+            <text x="200" y="20" text-anchor="middle" fill="#667eea" font-size="11" font-family="Segoe UI">ROOT</text>
+        </svg>
+    </div>
+    <div class="a-box">
+        <p><strong>Pre-order (NLR):</strong> 50 → 30 → 20 → 40 → 70 → 60 → 80</p>
+        <p><strong>In-order (LNR):</strong> 20 → 30 → 40 → 50 → 60 → 70 → 80 &nbsp;<span style="color:#28a745;">✓ sorted!</span></p>
+        <p><strong>Post-order (LRN):</strong> 20 → 40 → 30 → 60 → 80 → 70 → 50</p>
+        <p style="margin-top:8px; color:#888; font-size:0.95em;">Height = 2 &nbsp;·&nbsp; 7 nodes &nbsp;·&nbsp; 6 edges &nbsp;·&nbsp; Balanced</p>
+    </div>
+
+    <!-- Challenge 1: Count nodes -->
+    <h3>Challenge 1 — Count All Nodes in a BST</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a recursive function <code>countNodes(Node* root)</code> that returns the total number of nodes in a BST.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">struct</span> <span class="tp">Node</span> {
+    <span class="tp">int</span>   data;
+    <span class="tp">Node</span>* left;
+    <span class="tp">Node</span>* right;
+    <span class="fn">Node</span>(<span class="tp">int</span> v) : data(v), left(<span class="kw">nullptr</span>), right(<span class="kw">nullptr</span>) {}
+};
+
+<span class="tp">int</span> <span class="fn">countNodes</span>(<span class="tp">Node</span>* root) {
+    <span class="kw">if</span> (root == <span class="kw">nullptr</span>) <span class="kw">return</span> <span class="nm">0</span>;   <span class="cm">// base case: empty tree</span>
+    <span class="kw">return</span> <span class="nm">1</span> + <span class="fn">countNodes</span>(root-&gt;left)
+             + <span class="fn">countNodes</span>(root-&gt;right);
+    <span class="cm">// 1 = this node + all in left subtree + all in right subtree</span>
+}
+<span class="cm">// Time: O(n) — visits every node once</span>
+<span class="cm">// Space: O(h) — call stack depth equals tree height</span>
+
+<span class="tp">Node</span>* <span class="fn">insert</span>(<span class="tp">Node</span>* root, <span class="tp">int</span> val) {
+    <span class="kw">if</span> (!root) <span class="kw">return new</span> <span class="tp">Node</span>(val);
+    <span class="kw">if</span> (val &lt; root-&gt;data) root-&gt;left  = <span class="fn">insert</span>(root-&gt;left,  val);
+    <span class="kw">else</span>                  root-&gt;right = <span class="fn">insert</span>(root-&gt;right, val);
+    <span class="kw">return</span> root;
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Node</span>* root = <span class="kw">nullptr</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> v : {<span class="nm">50</span>, <span class="nm">30</span>, <span class="nm">70</span>, <span class="nm">20</span>, <span class="nm">40</span>, <span class="nm">60</span>, <span class="nm">80</span>})
+        root = <span class="fn">insert</span>(root, v);
+    cout &lt;&lt; <span class="st">"Node count: "</span> &lt;&lt; <span class="fn">countNodes</span>(root) &lt;&lt; <span class="st">"\n"</span>;  <span class="cm">// 7</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+
+    <!-- Challenge 2: Height -->
+    <h3>Challenge 2 — Find the Height of a BST</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a recursive function <code>height(Node* root)</code> that returns the height of a BST. Height = number of edges on the longest path from root to a leaf.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="tp">int</span> <span class="fn">height</span>(<span class="tp">Node</span>* root) {
+    <span class="kw">if</span> (!root) <span class="kw">return</span> -<span class="nm">1</span>;   <span class="cm">// empty tree: height = -1 (edge convention)</span>
+    <span class="tp">int</span> lh = <span class="fn">height</span>(root-&gt;left);
+    <span class="tp">int</span> rh = <span class="fn">height</span>(root-&gt;right);
+    <span class="kw">return</span> <span class="nm">1</span> + max(lh, rh);   <span class="cm">// 1 edge to child + deeper subtree</span>
+}
+<span class="cm">// BST {50,30,70,20,40,60,80} → height = 2</span>
+<span class="cm">// Time: O(n)  Space: O(h)</span></code></pre>
+    <div class="highlight">
+        <p><strong>Trace on BST {50,30,70,20,40,60,80}:</strong></p>
+        <p>height(20)=−1+1=<strong>0</strong> (leaf) &nbsp;·&nbsp; height(40)=<strong>0</strong> &nbsp;·&nbsp; height(30)=1+max(0,0)=<strong>1</strong></p>
+        <p>height(60)=<strong>0</strong> &nbsp;·&nbsp; height(80)=<strong>0</strong> &nbsp;·&nbsp; height(70)=<strong>1</strong></p>
+        <p>height(50)=1+max(1,1)=<strong>2</strong> ✓</p>
+    </div>
+
+    <!-- findMin / findMax -->
+    <h3>Challenge 3 — findMin() and findMax()</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Implement <code>findMin(Node*)</code> and <code>findMax(Node*)</code> for a BST without extra data structures.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="cm">// BST property: minimum is always the leftmost node</span>
+<span class="tp">Node</span>* <span class="fn">findMin</span>(<span class="tp">Node</span>* root) {
+    <span class="kw">if</span> (!root) <span class="kw">return nullptr</span>;
+    <span class="kw">while</span> (root-&gt;left != <span class="kw">nullptr</span>)
+        root = root-&gt;left;   <span class="cm">// keep going left</span>
+    <span class="kw">return</span> root;
+}
+
+<span class="cm">// BST property: maximum is always the rightmost node</span>
+<span class="tp">Node</span>* <span class="fn">findMax</span>(<span class="tp">Node</span>* root) {
+    <span class="kw">if</span> (!root) <span class="kw">return nullptr</span>;
+    <span class="kw">while</span> (root-&gt;right != <span class="kw">nullptr</span>)
+        root = root-&gt;right;  <span class="cm">// keep going right</span>
+    <span class="kw">return</span> root;
+}
+
+<span class="cm">// For BST {50,30,70,20,40,60,80}:</span>
+<span class="cm">// findMin → 20 (leftmost)  findMax → 80 (rightmost)</span></code></pre>
+
+    <!-- Short answer Q: isBST -->
+    <h3>Challenge 4 — isBST() Validation</h3>
+    <div class="q-box">
+        <p><strong>Problem:</strong> Write a C++ function <code>isBST(Node* root)</code> that returns <code>true</code> if a binary tree satisfies the BST property.</p>
+    </div>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;climits&gt;</span>
+
+<span class="cm">// Pass valid range [minVal, maxVal] down the recursion</span>
+<span class="tp">bool</span> <span class="fn">isBSTHelper</span>(<span class="tp">Node</span>* root, <span class="tp">int</span> minVal, <span class="tp">int</span> maxVal) {
+    <span class="kw">if</span> (!root) <span class="kw">return true</span>;
+    <span class="kw">if</span> (root-&gt;data &lt;= minVal || root-&gt;data &gt;= maxVal)
+        <span class="kw">return false</span>;
+    <span class="kw">return</span> <span class="fn">isBSTHelper</span>(root-&gt;left,  minVal,      root-&gt;data) &amp;&amp;
+           <span class="fn">isBSTHelper</span>(root-&gt;right, root-&gt;data,  maxVal);
+}
+
+<span class="tp">bool</span> <span class="fn">isBST</span>(<span class="tp">Node</span>* root) {
+    <span class="kw">return</span> <span class="fn">isBSTHelper</span>(root, INT_MIN, INT_MAX);
+}
+<span class="cm">// Time: O(n)  Space: O(h)  — passes min/max constraints down the tree</span></code></pre>
+    <div class="info-box">
+        <strong>Why we need range constraints:</strong> Checking only that left &lt; root &lt; right at each node is NOT enough. Consider root=10, left=5, left.right=15 — 15&gt;10 but was placed as a descendant of the left subtree (where everything must be &lt;10). The range-checking approach catches this.
+    </div>
+
+    <!-- Short Answer Questions -->
+    <h3>Short Answer Questions</h3>
+
+    <div class="q-box"><p><strong>Q1.</strong> What is the in-order predecessor of node 27 in the BST {39, 27, 45, 18, 29, 40, 54}?</p></div>
+    <div class="a-box">
+        <p><strong>Answer: 18</strong></p>
+        <p>Build the BST from {39,27,45,18,29,40,54}. In-order sequence: <strong>18 → 27 → 29 → 39 → 40 → 45 → 54</strong>. The in-order predecessor of 27 is the node that comes immediately before it in sorted order → <strong>18</strong> (the rightmost node of 27's left subtree).</p>
+    </div>
+
+    <div class="q-box"><p><strong>Q2.</strong> Prove that in-order traversal of a BST with n distinct integers produces them in O(n) sorted order.</p></div>
+    <div class="a-box">
+        <p><strong>Answer:</strong> <strong>Correctness:</strong> By the BST property, for every node N: all values in N's left subtree &lt; N.data &lt; all values in N's right subtree. In-order visits Left, then Root, then Right — so each node's left subtree values are printed before it, and right subtree values after it. Applied recursively, this yields ascending order. <strong>Time O(n):</strong> Each of the n nodes is visited exactly once — the traversal function is called once per node, with O(1) work per call (no additional comparison), giving O(n) total.</p>
+    </div>
+</div>
+
 
 </div><!-- /.container -->
 
