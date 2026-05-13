@@ -3,1570 +3,1523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS — Coding & Structures Revision | CS211</title>
+    <title>DS Task — Coding, Writing &amp; Structures Revision</title>
     <style>
-        /* ─────────────────────────────────────────
-           BASE & RESET
-        ───────────────────────────────────────── */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg:        #0d1117;
-            --surface:   #161b22;
-            --border:    #30363d;
-            --accent:    #00e5ff;
-            --accent2:   #7c3aed;
-            --green:     #3fb950;
-            --orange:    #f0883e;
-            --red:       #f85149;
-            --yellow:    #e3b341;
-            --text:      #e6edf3;
-            --muted:     #8b949e;
-            --code-bg:   #161b22;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.75;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
 
-        /* ─────────────────────────────────────────
-           NAVBAR
-        ───────────────────────────────────────── */
+        /* ── Navbar ── */
         .navbar {
-            background: rgba(13,17,23,0.96);
-            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
         }
 
-        .nav-inner {
+        .nav-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 24px;
-            height: 58px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            align-items: center;
+            padding: 16px 40px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .nav-brand {
-            font-size: 1em;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            white-space: nowrap;
+        .logo {
+            font-size: 1.6em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
             display: flex;
-            gap: 4px;
+            gap: 8px;
             list-style: none;
             flex-wrap: wrap;
         }
 
         .nav-links a {
-            color: var(--muted);
+            color: #333;
             text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.82em;
-            font-weight: 600;
-            transition: all 0.2s;
-            white-space: nowrap;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 14px;
         }
 
-        .nav-links a:hover { background: rgba(0,229,255,0.08); color: var(--accent); }
-
-        .nav-home-btn {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 6px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.82em;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            white-space: nowrap;
+        .nav-links a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
-        .nav-home-btn:hover { border-color: var(--accent); color: var(--accent); }
+        /* ── Container ── */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
 
-        /* ─────────────────────────────────────────
-           HERO
-        ───────────────────────────────────────── */
+        /* ── Hero ── */
         .hero {
-            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
-            border-bottom: 1px solid var(--border);
-            padding: 56px 24px 48px;
+            background: white;
+            border-radius: 28px;
+            padding: 55px 60px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -60px; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 300px;
-            background: radial-gradient(ellipse, rgba(0,229,255,0.07) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(0,229,255,0.1);
-            border: 1px solid rgba(0,229,255,0.3);
-            color: var(--accent);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.78em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            margin-bottom: 40px;
         }
 
         .hero h1 {
-            font-size: 2.5em;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 12px;
-            line-height: 1.2;
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 14px;
         }
 
-        .hero h1 .hi { color: var(--accent); }
+        .hero p { font-size: 1.15em; color: #666; margin-bottom: 6px; }
 
-        .hero p {
-            color: var(--muted);
-            font-size: 1em;
-            max-width: 540px;
-            margin: 0 auto 24px;
-        }
-
-        .hero-chips {
+        .hero-pills {
             display: flex;
-            gap: 10px;
             justify-content: center;
+            gap: 12px;
             flex-wrap: wrap;
+            margin-top: 22px;
         }
 
-        .chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--muted);
-            padding: 5px 14px;
+        .pill {
+            padding: 6px 18px;
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 13px;
             font-weight: 600;
         }
 
-        /* ─────────────────────────────────────────
-           LAYOUT
-        ───────────────────────────────────────── */
-        .page {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 24px 80px;
-            display: flex;
-            gap: 28px;
-            align-items: flex-start;
-        }
+        .pill-purple { background: #f0eaff; color: #764ba2; }
+        .pill-green  { background: #e8f5e9; color: #2e7d32; }
+        .pill-blue   { background: #e3f2fd; color: #1565c0; }
 
-        /* TOC sidebar */
-        .toc {
-            width: 220px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 74px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 18px;
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-        }
-
-        .toc::-webkit-scrollbar { width: 4px; }
-        .toc::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-        .toc h4 {
-            color: var(--muted);
-            font-size: 0.72em;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .toc-item {
-            display: block;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.82em;
-            padding: 5px 8px;
-            border-radius: 6px;
-            transition: all 0.2s;
-            margin-bottom: 2px;
-        }
-
-        .toc-item:hover { background: rgba(0,229,255,0.08); color: var(--accent); }
-        .toc-item.sub { padding-left: 18px; font-size: 0.78em; }
-
-        /* Main column */
-        .main { flex: 1; min-width: 0; }
-
-        /* ─────────────────────────────────────────
-           SECTION WRAPPER
-        ───────────────────────────────────────── */
+        /* ── Section ── */
         .section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            margin-bottom: 32px;
-            overflow: hidden;
+            background: white;
+            border-radius: 20px;
+            padding: 42px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+            margin-bottom: 35px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .section-head {
-            padding: 20px 28px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.25);
         }
 
-        .section-icon { font-size: 1.4em; }
-
-        .section-head h2 {
-            color: var(--text);
-            font-size: 1.15em;
-            font-weight: 700;
-        }
-
-        .section-head .tag {
-            margin-left: auto;
-            background: rgba(0,229,255,0.1);
-            border: 1px solid rgba(0,229,255,0.25);
-            color: var(--accent);
-            padding: 2px 10px;
-            border-radius: 10px;
-            font-size: 0.72em;
-            font-weight: 700;
-        }
-
-        .section-body { padding: 28px; }
-
-        /* ─────────────────────────────────────────
-           QUESTION / ANSWER BLOCKS
-        ───────────────────────────────────────── */
-        .qa-block { margin-bottom: 32px; }
-        .qa-block:last-child { margin-bottom: 0; }
-
-        .q-label {
+        .section-label {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0,229,255,0.08);
-            border: 1px solid rgba(0,229,255,0.25);
-            color: var(--accent);
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.78em;
+            font-size: 11px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-        }
-
-        .q-text {
-            color: var(--text);
-            font-size: 1em;
-            font-weight: 600;
-            margin-bottom: 14px;
-            padding-left: 4px;
-        }
-
-        .ans-intro {
-            color: var(--muted);
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-
-        /* ─────────────────────────────────────────
-           CODE BLOCKS
-        ───────────────────────────────────────── */
-        .code-wrap {
-            background: #0d1117;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 14px 0;
-        }
-
-        .code-header {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .code-filename {
-            color: var(--muted);
-            font-size: 0.78em;
-            font-family: 'Consolas', 'Courier New', monospace;
-        }
-
-        .code-lang {
-            color: var(--orange);
-            font-size: 0.72em;
-            font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 1px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
         }
 
-        pre {
-            padding: 20px;
-            overflow-x: auto;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.87em;
-            line-height: 1.65;
-            color: #c9d1d9;
+        .label-purple { background: #f0eaff; color: #764ba2; }
+        .label-green  { background: #e8f5e9; color: #2e7d32; }
+        .label-blue   { background: #e3f2fd; color: #1565c0; }
+
+        .section h2 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 28px;
+            padding-bottom: 14px;
+            border-bottom: 3px solid #667eea;
         }
 
-        pre::-webkit-scrollbar { height: 5px; }
-        pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-        /* Minimal syntax highlight via CSS classes */
-        .kw  { color: #ff7b72; }   /* keyword */
-        .ty  { color: #79c0ff; }   /* type */
-        .fn  { color: #d2a8ff; }   /* function */
-        .str { color: #a5d6ff; }   /* string */
-        .cm  { color: var(--muted); font-style: italic; } /* comment */
-        .nu  { color: #f0883e; }   /* number/literal */
-        .op  { color: #ff7b72; }   /* operator */
-
-        /* ─────────────────────────────────────────
-           INFO BOXES
-        ───────────────────────────────────────── */
-        .info-box {
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin: 14px 0;
-            font-size: 0.88em;
-            line-height: 1.65;
-            border-left: 4px solid;
+        .section h3 {
+            color: #667eea;
+            font-size: 1.35em;
+            margin: 30px 0 16px;
+            padding: 13px 22px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
         }
 
-        .info-box.note    { background: rgba(0,229,255,0.06); border-color: var(--accent);  color: #b3e5fc; }
-        .info-box.warn    { background: rgba(240,136,62,0.08); border-color: var(--orange); color: #ffcc80; }
-        .info-box.success { background: rgba(63,185,80,0.08); border-color: var(--green);  color: #a5d6a7; }
-        .info-box.danger  { background: rgba(248,81,73,0.08); border-color: var(--red);    color: #ffcdd2; }
-        .info-box strong  { font-weight: 700; }
-
-        /* ─────────────────────────────────────────
-           COMPLEXITY TABLE
-        ───────────────────────────────────────── */
-        .table-wrap { overflow-x: auto; margin: 14px 0; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88em;
-        }
-
-        th {
-            background: rgba(0,229,255,0.08);
-            color: var(--accent);
-            padding: 10px 14px;
-            text-align: left;
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        td {
-            padding: 10px 14px;
-            border-bottom: 1px solid rgba(48,54,61,0.5);
-            color: var(--muted);
-        }
-
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: rgba(255,255,255,0.02); }
-
-        td:first-child { color: var(--text); font-weight: 600; }
-
-        .complexity-good { color: var(--green); font-weight: 700; }
-        .complexity-ok   { color: var(--yellow); font-weight: 700; }
-        .complexity-bad  { color: var(--red); font-weight: 700; }
-
-        /* ─────────────────────────────────────────
-           DS VISUAL CARDS  (the structure part)
-        ───────────────────────────────────────── */
-        .ds-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .ds-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-
-        .ds-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-
-        .ds-card-head {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ds-icon { font-size: 1.5em; }
-
-        .ds-card-head h3 { color: var(--text); font-size: 1em; font-weight: 700; }
-
-        .ds-tag {
-            margin-left: auto;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 0.7em;
+        .section h4 {
+            color: #444;
+            font-size: 1.1em;
+            margin: 20px 0 12px;
             font-weight: 700;
         }
 
-        .tag-linear   { background: rgba(0,229,255,0.12); color: var(--accent); }
-        .tag-nonlinear{ background: rgba(124,58,237,0.15); color: #a78bfa; }
-
-        .ds-body { padding: 18px 20px; }
-
-        .ds-desc {
-            color: var(--muted);
-            font-size: 0.85em;
+        .section p {
+            color: #2d3436;
             margin-bottom: 14px;
-            line-height: 1.6;
+            font-size: 1.05em;
+            line-height: 1.8;
         }
 
-        /* Visual memory diagram */
-        .mem-diagram {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            margin: 12px 0;
-            flex-wrap: wrap;
+        .section ul, .section ol {
+            margin: 0 0 18px 28px;
         }
 
-        .mem-cell {
-            background: rgba(0,229,255,0.08);
-            border: 1px solid rgba(0,229,255,0.3);
-            border-radius: 4px;
-            padding: 6px 10px;
-            font-family: 'Consolas', monospace;
-            font-size: 0.8em;
-            color: var(--accent);
-            text-align: center;
-            min-width: 36px;
+        .section li {
+            color: #2d3436;
+            margin-bottom: 8px;
+            font-size: 1.02em;
+            line-height: 1.7;
         }
 
-        .mem-idx {
-            font-size: 0.65em;
-            color: var(--muted);
-            text-align: center;
-            margin-top: 2px;
+        /* ── Question / Answer boxes ── */
+        .q-box {
+            background: #f8f9ff;
+            padding: 20px 24px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
         }
 
-        .mem-arrow {
-            color: var(--muted);
-            font-size: 1em;
-            padding: 0 2px;
+        .q-box strong { color: #667eea; }
+
+        .a-box {
+            background: #f6fffe;
+            padding: 18px 24px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            border-left: 4px solid #00b894;
         }
 
-        .mem-null {
-            background: rgba(248,81,73,0.1);
-            border: 1px solid rgba(248,81,73,0.3);
-            color: var(--red);
-            border-radius: 4px;
-            padding: 6px 10px;
-            font-family: 'Consolas', monospace;
-            font-size: 0.8em;
+        .a-box strong { color: #00b894; }
+
+        /* ── Highlight box ── */
+        .highlight {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            padding: 20px 24px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            margin: 18px 0;
         }
 
-        /* Node box for Linked List */
-        .node-box {
-            display: inline-flex;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-            font-family: 'Consolas', monospace;
-            font-size: 0.8em;
+        .info-box {
+            background: #e7f3ff;
+            padding: 16px 20px;
+            border-left: 4px solid #2196F3;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-size: 0.97em;
+            line-height: 1.65;
+            color: #1a1a2e;
         }
 
-        .node-data {
-            background: rgba(0,229,255,0.08);
-            padding: 6px 10px;
-            color: var(--accent);
-            border-right: 1px solid var(--border);
-        }
-
-        .node-ptr {
-            background: rgba(124,58,237,0.1);
-            padding: 6px 10px;
-            color: #a78bfa;
-        }
-
-        .linked-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin: 10px 0;
-        }
-
-        /* Stack / Queue visual */
-        .stack-vis {
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 3px;
-            align-items: flex-start;
-            margin: 10px 0;
-        }
-
-        .stack-item {
-            background: rgba(0,229,255,0.08);
-            border: 1px solid rgba(0,229,255,0.25);
-            color: var(--accent);
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-family: 'Consolas', monospace;
-            font-size: 0.82em;
-            width: 100%;
-            text-align: center;
+        /* ── C++ Code Blocks ── */
+        pre {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 12px;
+            padding: 22px 24px;
+            overflow-x: auto;
+            margin: 16px 0;
+            line-height: 1.65;
+            font-size: 14px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.2);
             position: relative;
         }
 
-        .stack-item.top-item {
-            background: rgba(0,229,255,0.18);
-            border-color: var(--accent);
+        pre::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            font-size: 11px;
             font-weight: 700;
+            color: #6c7086;
+            font-family: 'Segoe UI', sans-serif;
+            letter-spacing: 0.5px;
         }
 
-        .stack-label {
-            font-size: 0.7em;
-            color: var(--accent);
-            margin-left: 6px;
-            font-weight: 700;
+        pre code {
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 13.5px;
+            background: none;
+            padding: 0;
+            color: inherit;
         }
 
-        .queue-vis {
-            display: flex;
-            gap: 3px;
-            align-items: center;
-            margin: 10px 0;
+        /* Syntax colours (manual) */
+        .kw  { color: #cba6f7; font-weight: bold; }  /* keywords */
+        .tp  { color: #89b4fa; }                      /* types */
+        .fn  { color: #89dceb; }                      /* functions */
+        .st  { color: #a6e3a1; }                      /* strings */
+        .cm  { color: #6c7086; font-style: italic; }  /* comments */
+        .nm  { color: #fab387; }                      /* numbers / consts */
+        .op  { color: #f38ba8; }                      /* operators */
+        .pp  { color: #f5c2e7; }                      /* preprocessor */
+
+        /* Inline code */
+        code {
+            font-family: 'Courier New', monospace;
+            background: #f1f3f5;
+            padding: 2px 7px;
+            border-radius: 5px;
+            color: #764ba2;
+            font-size: 0.93em;
         }
 
-        .queue-item {
-            background: rgba(63,185,80,0.08);
-            border: 1px solid rgba(63,185,80,0.25);
-            color: var(--green);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-family: 'Consolas', monospace;
-            font-size: 0.82em;
-            text-align: center;
+        /* ── Table ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .queue-item.front-item {
-            background: rgba(63,185,80,0.18);
-            border-color: var(--green);
-            font-weight: 700;
-        }
-
-        /* Tree visual */
-        .tree-vis {
-            font-family: 'Consolas', monospace;
-            font-size: 0.82em;
-            color: var(--muted);
-            line-height: 2;
-            padding: 8px 0;
-        }
-
-        .tree-node {
-            display: inline-block;
-            background: rgba(124,58,237,0.12);
-            border: 1px solid rgba(124,58,237,0.3);
-            color: #a78bfa;
-            padding: 3px 10px;
-            border-radius: 50%;
-            font-weight: 700;
-        }
-
-        .tree-root { color: var(--accent); background: rgba(0,229,255,0.12); border-color: rgba(0,229,255,0.35); }
-
-        /* Ops table per DS */
-        .ops-row {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
-        .op-chip {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 4px 10px;
-            font-size: 0.76em;
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 13px 16px;
+            text-align: left;
             font-weight: 600;
-            font-family: 'Consolas', monospace;
-            color: var(--muted);
         }
 
-        .op-chip .o-name { color: var(--text); }
-        .op-chip .o-time.g { color: var(--green); }
-        .op-chip .o-time.y { color: var(--yellow); }
-        .op-chip .o-time.r { color: var(--red); }
-
-        /* ─────────────────────────────────────────
-           DIVIDER
-        ───────────────────────────────────────── */
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 32px 0;
+        td {
+            border: 1px solid #e9ecef;
+            padding: 12px 16px;
         }
 
-        .part-title {
+        tr:nth-child(even) { background: #f8f9ff; }
+
+        /* ── DS Structure cards ── */
+        .struct-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            padding: 26px 30px;
+            margin: 22px 0;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        }
+
+        .struct-card-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 14px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
-        .part-title h2 {
-            font-size: 1.5em;
-            font-weight: 800;
-            color: var(--text);
+        .struct-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
         }
 
-        .part-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
+        .icon-array   { background: #e8f5e9; }
+        .icon-ll      { background: #e3f2fd; }
+        .icon-stack   { background: #fce4ec; }
+        .icon-queue   { background: #fff8e1; }
+        .icon-tree    { background: #f3e5f5; }
+
+        .struct-title { font-size: 1.5em; font-weight: bold; color: #2d3436; }
+        .struct-sub   { font-size: 0.9em; color: #888; margin-top: 2px; }
+
+        .complexity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin: 16px 0;
         }
 
-        /* ─────────────────────────────────────────
-           RESPONSIVE
-        ───────────────────────────────────────── */
-        @media (max-width: 1100px) {
-            .toc { display: none; }
+        .complexity-item {
+            text-align: center;
+            padding: 12px 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
         }
 
+        .complexity-op {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .complexity-val {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+
+        .complexity-val.fast  { color: #28a745; }
+        .complexity-val.slow  { color: #dc3545; }
+        .complexity-val.mid   { color: #fd7e14; }
+
+        /* ── Memory diagram ── */
+        .mem-diagram {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 18px 0;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .mem-cell {
+            min-width: 60px;
+            text-align: center;
+            border: 2px solid #667eea;
+            padding: 10px 8px;
+            background: #f0eaff;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .mem-cell-addr {
+            font-size: 10px;
+            color: #888;
+            margin-top: 4px;
+            font-weight: normal;
+        }
+
+        .mem-arrow {
+            font-size: 20px;
+            color: #667eea;
+            padding: 0 2px;
+            line-height: 1;
+        }
+
+        .mem-null {
+            font-weight: bold;
+            color: #dc3545;
+            font-family: monospace;
+            padding: 0 8px;
+        }
+
+        /* ── Stack visual ── */
+        .stack-visual {
+            display: inline-flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            border: 3px solid #667eea;
+            border-radius: 0 0 10px 10px;
+            border-top: none;
+            padding: 6px;
+            min-width: 100px;
+            margin: 14px 0;
+        }
+
+        .stack-cell {
+            width: 90px;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            margin: 3px;
+            border-radius: 6px;
+            background: #f0eaff;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .stack-cell.top-cell {
+            background: #cba6f7;
+            color: #1e1e2e;
+            border-color: #764ba2;
+        }
+
+        /* ── Queue visual ── */
+        .queue-visual {
+            display: flex;
+            align-items: center;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            padding: 8px;
+            margin: 14px 0;
+            overflow-x: auto;
+            gap: 4px;
+        }
+
+        .queue-cell {
+            min-width: 65px;
+            padding: 10px 8px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fff8e1;
+            font-weight: bold;
+            font-family: monospace;
+            flex-shrink: 0;
+        }
+
+        /* ── Tree visual ── */
+        .tree-svg-wrapper {
+            text-align: center;
+            margin: 18px 0;
+            overflow-x: auto;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: rgba(255,255,255,0.96);
+            text-align: center;
+            padding: 28px;
+            margin-top: 50px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+
+        footer p { color: #666; font-size: 1em; }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.7em; }
-            .page { padding: 20px 14px 60px; }
-            .section-body { padding: 18px; }
-            pre { font-size: 0.8em; }
-            .ds-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
+            .nav-content { padding: 14px 20px; }
+            .hero { padding: 35px 24px; }
+            .hero h1 { font-size: 2em; }
+            .section { padding: 24px 20px; }
+            .section h2 { font-size: 1.6em; }
+            pre { font-size: 12px; padding: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.6em; }
+            .section { padding: 18px 14px; }
+            .struct-card { padding: 18px; }
+            pre { font-size: 11.5px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ═══ NAVBAR ═══ -->
+<!-- ━━━━━━━━━━━━━━ NAVBAR ━━━━━━━━━━━━━━ -->
 <nav class="navbar">
-    <div class="nav-inner">
-        <span class="nav-brand">⚡ CS211 · Data Structures</span>
+    <div class="nav-content">
+        <div class="logo">⚙️ DS Task — CS211</div>
         <ul class="nav-links">
-            <li><a href="#sheet-q">Sheet Q&amp;A</a></li>
+            <li><a href="#coding">Coding Questions</a></li>
+            <li><a href="#writing">Writing Questions</a></li>
             <li><a href="#arrays">Arrays</a></li>
-            <li><a href="#linked-list">Linked List</a></li>
+            <li><a href="#linkedlist">Linked List</a></li>
             <li><a href="#stack">Stack</a></li>
             <li><a href="#queue">Queue</a></li>
             <li><a href="#trees">Trees</a></li>
+            <li><a href="ds_questions.html">← Quiz</a></li>
+            <li><a href="index.html">🏠 Home</a></li>
         </ul>
-        <a class="nav-home-btn" href="index.html">← Home</a>
     </div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
-<div class="hero">
-    <div class="hero-badge">C++ · CS Level 2</div>
-    <h1>Coding &amp; <span class="hi">Structures</span> Revision</h1>
-    <p>Sheet 1 model answers + complete C++ data structures reference — arrays to trees.</p>
-    <div class="hero-chips">
-        <span class="chip">📄 Sheet 1 Solutions</span>
-        <span class="chip">📦 Arrays</span>
-        <span class="chip">🔗 Linked List</span>
-        <span class="chip">📚 Stack</span>
-        <span class="chip">🚶 Queue</span>
-        <span class="chip">🌳 Trees</span>
-    </div>
-</div>
-
-<!-- ═══ PAGE LAYOUT ═══ -->
-<div class="page">
-
-    <!-- TOC -->
-    <aside class="toc">
-        <h4>On This Page</h4>
-        <a class="toc-item" href="#sheet-q">📄 Sheet 1 Q&amp;A</a>
-        <a class="toc-item sub"  href="#q1">Q1 — Struct &amp; Dynamic Array</a>
-        <a class="toc-item sub"  href="#q2">Q2 — Sort &amp; Search</a>
-        <a class="toc-item sub"  href="#q3">Q3 — Recursive Product</a>
-        <a class="toc-item sub"  href="#q4">Q4 — Fibonacci &amp; Primes</a>
-        <a class="toc-item" href="#structures">🏗 Structures Reference</a>
-        <a class="toc-item sub"  href="#arrays">Array</a>
-        <a class="toc-item sub"  href="#linked-list">Linked List</a>
-        <a class="toc-item sub"  href="#stack">Stack</a>
-        <a class="toc-item sub"  href="#queue">Queue</a>
-        <a class="toc-item sub"  href="#trees">Binary Tree</a>
-        <a class="toc-item sub"  href="#comparison">Comparison Table</a>
-    </aside>
-
-    <!-- Main -->
-    <div class="main">
-
-        <!-- ══════════════════════════════════
-             PART 1 — SHEET QUESTIONS & ANSWERS
-        ══════════════════════════════════ -->
-        <div class="part-title" id="sheet-q">
-            <h2>📄 Sheet 1 — Questions &amp; Model Answers</h2>
-            <div class="part-line"></div>
+<!-- ━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━ -->
+<div class="container">
+    <div class="hero">
+        <h1>Data Structures &amp; Algorithms</h1>
+        <p>CS211 — Sheet Task Solutions &amp; Data Structures Revision</p>
+        <p style="color:#aaa;font-size:0.95em;">Dr. Noha El-Shoafy &nbsp;·&nbsp; Faculty of Computers &amp; AI &nbsp;·&nbsp; Matrouh University</p>
+        <div class="hero-pills">
+            <span class="pill pill-purple">C++ Programming</span>
+            <span class="pill pill-green">Coding Questions</span>
+            <span class="pill pill-blue">Structures Revision</span>
         </div>
+    </div>
 
-        <!-- ── Q1 ── -->
-        <div class="section" id="q1">
-            <div class="section-head">
-                <span class="section-icon">1️⃣</span>
-                <h2>Question 1 — Struct &amp; Dynamic Array</h2>
-                <span class="tag">Lab 4 · Lab 5</span>
-            </div>
-            <div class="section-body">
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 1 — CODING QUESTIONS (Sheet 1)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="section" id="coding">
+    <div class="section-label label-green">📝 SHEET 1</div>
+    <h2>Coding Questions — Full Solutions</h2>
+    <p>Complete C++ solutions for all four questions from Sheet 1. Each program is ready to compile with any standard C++ compiler (g++, CodeBlocks, Visual Studio).</p>
 
-                <!-- Q1a -->
-                <div class="qa-block">
-                    <div class="q-label">Part A</div>
-                    <div class="q-text">Store information of 12 Students using Struct. Each record: name, registration number, email, mobile number, GPA.</div>
-                    <div class="ans-intro">✅ Define a <code>Student</code> struct, declare an array of 12, loop to fill and display:</div>
+    <!-- Q1 -->
+    <h3>Question 1 — Struct &amp; Dynamic Array</h3>
 
-                    <div class="code-wrap">
-                        <div class="code-header">
-                            <span class="code-filename">Question1_partA.cpp</span>
-                            <span class="code-lang">C++</span>
-                        </div>
-<pre><span class="cm">// Part (a): Store Information of 12 Students Using Struct</span>
-<span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
-<span class="kw">#include</span> <span class="str">&lt;string&gt;</span>
+    <div class="q-box">
+        <p><strong>Part (a):</strong> Store information of 12 students using a <code>struct</code>. Each record must contain: student name, registration number, email, mobile number, and GPA.</p>
+        <p><strong>Part (b):</strong> Create an array whose size is given at run-time, then read and store its data. Print the array contents, then remove it from memory at run-time.</p>
+    </div>
+
+    <h4>Part (a) — Student Struct</h4>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;string&gt;</span>
 <span class="kw">using namespace</span> std;
 
-<span class="kw">struct</span> <span class="ty">Student</span> {
-    <span class="ty">string</span> name;
-    <span class="ty">string</span> regNumber;
-    <span class="ty">string</span> email;
-    <span class="ty">string</span> mobile;
-    <span class="ty">float</span>  gpa;
+<span class="kw">struct</span> <span class="tp">Student</span> {
+    <span class="tp">string</span> name;
+    <span class="tp">string</span> regNumber;
+    <span class="tp">string</span> email;
+    <span class="tp">string</span> mobile;
+    <span class="tp">float</span>  gpa;
 };
 
-<span class="ty">int</span> <span class="fn">main</span>() {
-    <span class="kw">const</span> <span class="ty">int</span> NUM = <span class="nu">12</span>;
-    <span class="ty">Student</span> students[NUM];
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="kw">const</span> <span class="tp">int</span> NUM = <span class="nm">12</span>;
+    <span class="tp">Student</span> students[NUM];
 
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; NUM; i++) {
-        cout &lt;&lt; <span class="str">"\nEnter details for Student "</span> &lt;&lt; i + <span class="nu">1</span> &lt;&lt; <span class="str">":\n"</span>;
-        cout &lt;&lt; <span class="str">"Name           : "</span>; getline(cin, students[i].name);
-        cout &lt;&lt; <span class="str">"Reg. Number    : "</span>; getline(cin, students[i].regNumber);
-        cout &lt;&lt; <span class="str">"Email          : "</span>; getline(cin, students[i].email);
-        cout &lt;&lt; <span class="str">"Mobile Number  : "</span>; getline(cin, students[i].mobile);
-        cout &lt;&lt; <span class="str">"GPA            : "</span>; cin &gt;&gt; students[i].gpa;
-        cin.ignore();   <span class="cm">// flush newline for next getline</span>
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; NUM; i++) {
+        cout &lt;&lt; <span class="st">"\nStudent "</span> &lt;&lt; i + <span class="nm">1</span> &lt;&lt; <span class="st">":\n"</span>;
+        cout &lt;&lt; <span class="st">"Name           : "</span>; getline(cin, students[i].name);
+        cout &lt;&lt; <span class="st">"Reg. Number    : "</span>; getline(cin, students[i].regNumber);
+        cout &lt;&lt; <span class="st">"Email          : "</span>; getline(cin, students[i].email);
+        cout &lt;&lt; <span class="st">"Mobile Number  : "</span>; getline(cin, students[i].mobile);
+        cout &lt;&lt; <span class="st">"GPA            : "</span>; cin &gt;&gt; students[i].gpa;
+        cin.ignore();   <span class="cm">// clear newline before next getline</span>
     }
 
-    cout &lt;&lt; <span class="str">"\n====== Student Records ======\n"</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; NUM; i++) {
-        cout &lt;&lt; <span class="str">"\nStudent "</span> &lt;&lt; i + <span class="nu">1</span> &lt;&lt; <span class="str">":\n"</span>;
-        cout &lt;&lt; <span class="str">"  Name    : "</span> &lt;&lt; students[i].name      &lt;&lt; <span class="str">"\n"</span>;
-        cout &lt;&lt; <span class="str">"  Reg No  : "</span> &lt;&lt; students[i].regNumber &lt;&lt; <span class="str">"\n"</span>;
-        cout &lt;&lt; <span class="str">"  Email   : "</span> &lt;&lt; students[i].email     &lt;&lt; <span class="str">"\n"</span>;
-        cout &lt;&lt; <span class="str">"  Mobile  : "</span> &lt;&lt; students[i].mobile    &lt;&lt; <span class="str">"\n"</span>;
-        cout &lt;&lt; <span class="str">"  GPA     : "</span> &lt;&lt; students[i].gpa       &lt;&lt; <span class="str">"\n"</span>;
+    cout &lt;&lt; <span class="st">"\n====== Student Records ======\n"</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; NUM; i++) {
+        cout &lt;&lt; <span class="st">"\nStudent "</span> &lt;&lt; i + <span class="nm">1</span> &lt;&lt; <span class="st">":\n"</span>;
+        cout &lt;&lt; <span class="st">"  Name    : "</span> &lt;&lt; students[i].name      &lt;&lt; <span class="st">"\n"</span>;
+        cout &lt;&lt; <span class="st">"  Reg No  : "</span> &lt;&lt; students[i].regNumber &lt;&lt; <span class="st">"\n"</span>;
+        cout &lt;&lt; <span class="st">"  Email   : "</span> &lt;&lt; students[i].email     &lt;&lt; <span class="st">"\n"</span>;
+        cout &lt;&lt; <span class="st">"  Mobile  : "</span> &lt;&lt; students[i].mobile    &lt;&lt; <span class="st">"\n"</span>;
+        cout &lt;&lt; <span class="st">"  GPA     : "</span> &lt;&lt; students[i].gpa       &lt;&lt; <span class="st">"\n"</span>;
     }
-    <span class="kw">return</span> <span class="nu">0</span>;
-}</pre>
-                    </div>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
 
-                    <div class="info-box note">
-                        <strong>Key point:</strong> After reading a <code>float</code> with <code>cin &gt;&gt;</code>, always call <code>cin.ignore()</code> before the next <code>getline()</code> — otherwise the leftover newline gets consumed as an empty string.
-                    </div>
-                </div>
+    <div class="info-box">
+        <strong>Key concepts:</strong> <code>struct</code> groups different data types under one name &nbsp;·&nbsp;
+        <code>getline(cin, str)</code> reads the full line including spaces &nbsp;·&nbsp;
+        <code>cin.ignore()</code> clears the newline left by <code>cin &gt;&gt;</code> before a <code>getline</code>.
+    </div>
 
-                <!-- Q1b -->
-                <div class="qa-block">
-                    <div class="q-label">Part B</div>
-                    <div class="q-text">Create an array whose size is given at run-time, read &amp; store its data, print contents, then remove the whole array from memory.</div>
+    <h4>Part (b) — Dynamic Array (Run-time size)</h4>
 
-                    <div class="code-wrap">
-                        <div class="code-header">
-                            <span class="code-filename">Question1_partB.cpp</span>
-                            <span class="code-lang">C++</span>
-                        </div>
-<pre><span class="cm">// Part (b): Dynamic Array with Run-Time Size</span>
-<span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
 <span class="kw">using namespace</span> std;
 
-<span class="ty">int</span> <span class="fn">main</span>() {
-    <span class="ty">int</span> n;
-    cout &lt;&lt; <span class="str">"Enter array size: "</span>;
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">int</span> n;
+    cout &lt;&lt; <span class="st">"Enter array size: "</span>;
     cin  &gt;&gt; n;
 
-    <span class="ty">int</span>* arr = <span class="kw">new</span> <span class="ty">int</span>[n];   <span class="cm">// heap allocation — size decided at run-time</span>
+    <span class="tp">int</span>* arr = <span class="kw">new</span> <span class="tp">int</span>[n];   <span class="cm">// allocate on HEAP at run-time</span>
 
-    cout &lt;&lt; <span class="str">"Enter "</span> &lt;&lt; n &lt;&lt; <span class="str">" integers:\n"</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n; i++) {
-        cout &lt;&lt; <span class="str">"arr["</span> &lt;&lt; i &lt;&lt; <span class="str">"] = "</span>;
+    cout &lt;&lt; <span class="st">"Enter "</span> &lt;&lt; n &lt;&lt; <span class="st">" integers:\n"</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) {
+        cout &lt;&lt; <span class="st">"arr["</span> &lt;&lt; i &lt;&lt; <span class="st">"] = "</span>;
         cin  &gt;&gt; arr[i];
     }
 
-    cout &lt;&lt; <span class="str">"\nArray contents: "</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n; i++)
-        cout &lt;&lt; arr[i] &lt;&lt; <span class="str">" "</span>;
+    cout &lt;&lt; <span class="st">"\nArray contents: "</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++)
+        cout &lt;&lt; arr[i] &lt;&lt; <span class="st">" "</span>;
     cout &lt;&lt; endl;
 
-    <span class="kw">delete</span>[] arr;     <span class="cm">// release heap memory — MANDATORY</span>
-    arr = <span class="kw">nullptr</span>;    <span class="cm">// good practice: avoid dangling pointer</span>
-    cout &lt;&lt; <span class="str">"Memory released successfully.\n"</span>;
-    <span class="kw">return</span> <span class="nu">0</span>;
-}</pre>
-                    </div>
+    <span class="kw">delete</span>[] arr;    <span class="cm">// release heap memory — MUST use delete[]</span>
+    arr = <span class="kw">nullptr</span>;   <span class="cm">// avoid dangling pointer</span>
+    cout &lt;&lt; <span class="st">"Memory released successfully.\n"</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
 
-                    <div class="info-box warn">
-                        <strong>Memory rule:</strong> Every <code>new</code> must be paired with <code>delete</code>, and every <code>new[]</code> with <code>delete[]</code>. Forgetting causes a <strong>memory leak</strong>.
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="info-box">
+        <strong>Stack vs Heap:</strong> <code>int arr[5]</code> — stack, fixed, auto-freed &nbsp;·&nbsp;
+        <code>new int[n]</code> — heap, run-time size, must call <code>delete[]</code> manually.
+    </div>
 
-        <!-- ── Q2 ── -->
-        <div class="section" id="q2">
-            <div class="section-head">
-                <span class="section-icon">2️⃣</span>
-                <h2>Question 2 — Sorting &amp; Searching</h2>
-                <span class="tag">Lab 3</span>
-            </div>
-            <div class="section-body">
-                <div class="qa-block">
-                    <div class="q-label">Parts A · B · C</div>
-                    <div class="q-text">Read 20 integers, sort into a separate array using Bubble Sort AND Selection Sort, then search using Linear Search and Binary Search.</div>
+    <!-- Q2 -->
+    <h3>Question 2 — Sorting &amp; Searching</h3>
 
-                    <div class="code-wrap">
-                        <div class="code-header">
-                            <span class="code-filename">Question2.cpp</span>
-                            <span class="code-lang">C++</span>
-                        </div>
-<pre><span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
+    <div class="q-box">
+        <p><strong>Part (a):</strong> Read 20 integers and store them without sorting.</p>
+        <p><strong>Part (b):</strong> Sort into separate arrays using <strong>Bubble Sort</strong> and <strong>Selection Sort</strong>.</p>
+        <p><strong>Part (c):</strong> Search using <strong>Linear Search</strong> and <strong>Binary Search</strong>.</p>
+    </div>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
 <span class="kw">using namespace</span> std;
 
-<span class="kw">const</span> <span class="ty">int</span> SIZE = <span class="nu">20</span>;
+<span class="kw">const</span> <span class="tp">int</span> SIZE = <span class="nm">20</span>;
 
-<span class="cm">// ─── Bubble Sort: compare adjacent pairs, bubble largest to end ───</span>
-<span class="ty">void</span> <span class="fn">bubbleSort</span>(<span class="ty">int</span> src[], <span class="ty">int</span> dst[], <span class="ty">int</span> n) {
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n; i++) dst[i] = src[i]; <span class="cm">// copy first</span>
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n - <span class="nu">1</span>; i++)
-        <span class="kw">for</span> (<span class="ty">int</span> j = <span class="nu">0</span>; j &lt; n - <span class="nu">1</span> - i; j++)
-            <span class="kw">if</span> (dst[j] &gt; dst[j + <span class="nu">1</span>])
-                swap(dst[j], dst[j + <span class="nu">1</span>]);
-}   <span class="cm">// Time: O(n²)  Space: O(1)</span>
+<span class="cm">// Bubble Sort — compare adjacent elements, bubble larger ones to the end</span>
+<span class="tp">void</span> <span class="fn">bubbleSort</span>(<span class="tp">int</span> src[], <span class="tp">int</span> dst[], <span class="tp">int</span> n) {
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) dst[i] = src[i];           <span class="cm">// copy</span>
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n - <span class="nm">1</span>; i++)
+        <span class="kw">for</span> (<span class="tp">int</span> j = <span class="nm">0</span>; j &lt; n - <span class="nm">1</span> - i; j++)
+            <span class="kw">if</span> (dst[j] &gt; dst[j + <span class="nm">1</span>])
+                swap(dst[j], dst[j + <span class="nm">1</span>]);
+}
 
-<span class="cm">// ─── Selection Sort: find minimum, place at front each pass ───</span>
-<span class="ty">void</span> <span class="fn">selectionSort</span>(<span class="ty">int</span> src[], <span class="ty">int</span> dst[], <span class="ty">int</span> n) {
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n; i++) dst[i] = src[i];
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n - <span class="nu">1</span>; i++) {
-        <span class="ty">int</span> minIdx = i;
-        <span class="kw">for</span> (<span class="ty">int</span> j = i + <span class="nu">1</span>; j &lt; n; j++)
+<span class="cm">// Selection Sort — find minimum, swap to front</span>
+<span class="tp">void</span> <span class="fn">selectionSort</span>(<span class="tp">int</span> src[], <span class="tp">int</span> dst[], <span class="tp">int</span> n) {
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++) dst[i] = src[i];           <span class="cm">// copy</span>
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n - <span class="nm">1</span>; i++) {
+        <span class="tp">int</span> minIdx = i;
+        <span class="kw">for</span> (<span class="tp">int</span> j = i + <span class="nm">1</span>; j &lt; n; j++)
             <span class="kw">if</span> (dst[j] &lt; dst[minIdx]) minIdx = j;
         swap(dst[i], dst[minIdx]);
     }
-}   <span class="cm">// Time: O(n²)  Space: O(1)</span>
+}
 
-<span class="cm">// ─── Linear Search: check every element ───</span>
-<span class="ty">int</span> <span class="fn">linearSearch</span>(<span class="ty">int</span> arr[], <span class="ty">int</span> n, <span class="ty">int</span> key) {
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; n; i++)
+<span class="cm">// Linear Search — O(n) — works on any array</span>
+<span class="tp">int</span> <span class="fn">linearSearch</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n, <span class="tp">int</span> key) {
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; n; i++)
         <span class="kw">if</span> (arr[i] == key) <span class="kw">return</span> i;
-    <span class="kw">return</span> <span class="nu">-1</span>;
-}   <span class="cm">// Time: O(n) — works on unsorted arrays</span>
+    <span class="kw">return</span> -<span class="nm">1</span>;
+}
 
-<span class="cm">// ─── Binary Search: halve search space each step ───</span>
-<span class="ty">int</span> <span class="fn">binarySearch</span>(<span class="ty">int</span> arr[], <span class="ty">int</span> n, <span class="ty">int</span> key) {
-    <span class="ty">int</span> low = <span class="nu">0</span>, high = n - <span class="nu">1</span>;
+<span class="cm">// Binary Search — O(log n) — requires a SORTED array</span>
+<span class="tp">int</span> <span class="fn">binarySearch</span>(<span class="tp">int</span> arr[], <span class="tp">int</span> n, <span class="tp">int</span> key) {
+    <span class="tp">int</span> low = <span class="nm">0</span>, high = n - <span class="nm">1</span>;
     <span class="kw">while</span> (low &lt;= high) {
-        <span class="ty">int</span> mid = low + (high - low) / <span class="nu">2</span>; <span class="cm">// avoids overflow</span>
+        <span class="tp">int</span> mid = low + (high - low) / <span class="nm">2</span>;
         <span class="kw">if</span>      (arr[mid] == key) <span class="kw">return</span> mid;
-        <span class="kw">else if</span> (arr[mid]  &lt; key) low  = mid + <span class="nu">1</span>;
-        <span class="kw">else</span>                      high = mid - <span class="nu">1</span>;
+        <span class="kw">else if</span> (arr[mid]  &lt; key) low  = mid + <span class="nm">1</span>;
+        <span class="kw">else</span>                      high = mid - <span class="nm">1</span>;
     }
-    <span class="kw">return</span> <span class="nu">-1</span>;
-}   <span class="cm">// Time: O(log n) — REQUIRES sorted array</span>
+    <span class="kw">return</span> -<span class="nm">1</span>;
+}
 
-<span class="ty">int</span> <span class="fn">main</span>() {
-    <span class="ty">int</span> original[SIZE], bubbled[SIZE], selected[SIZE];
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">int</span> original[SIZE], bubbled[SIZE], selected[SIZE];
 
-    cout &lt;&lt; <span class="str">"Enter 20 integers:\n"</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; SIZE; i++) cin &gt;&gt; original[i];
+    cout &lt;&lt; <span class="st">"Enter 20 integers:\n"</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; SIZE; i++) { cout &lt;&lt; <span class="st">"["</span> &lt;&lt; i+<span class="nm">1</span> &lt;&lt; <span class="st">"] = "</span>; cin &gt;&gt; original[i]; }
 
     <span class="fn">bubbleSort</span>   (original, bubbled,  SIZE);
     <span class="fn">selectionSort</span>(original, selected, SIZE);
 
-    <span class="ty">int</span> key;
-    cout &lt;&lt; <span class="str">"Enter search key: "</span>; cin &gt;&gt; key;
+    cout &lt;&lt; <span class="st">"\nUnsorted      : "</span>; <span class="kw">for</span>(<span class="tp">int</span> x : original) cout &lt;&lt; x &lt;&lt; <span class="st">" "</span>; cout &lt;&lt; <span class="st">"\n"</span>;
+    cout &lt;&lt; <span class="st">"Bubble Sort   : "</span>; <span class="kw">for</span>(<span class="tp">int</span> x : bubbled)  cout &lt;&lt; x &lt;&lt; <span class="st">" "</span>; cout &lt;&lt; <span class="st">"\n"</span>;
+    cout &lt;&lt; <span class="st">"Selection Sort: "</span>; <span class="kw">for</span>(<span class="tp">int</span> x : selected) cout &lt;&lt; x &lt;&lt; <span class="st">" "</span>; cout &lt;&lt; <span class="st">"\n"</span>;
 
-    <span class="ty">int</span> li = <span class="fn">linearSearch</span>(bubbled, SIZE, key);
-    <span class="ty">int</span> bi = <span class="fn">binarySearch</span> (bubbled, SIZE, key);
+    <span class="tp">int</span> key;
+    cout &lt;&lt; <span class="st">"\nEnter search key: "</span>; cin &gt;&gt; key;
 
-    cout &lt;&lt; <span class="str">"Linear: "</span> &lt;&lt; (li != <span class="nu">-1</span> ? <span class="str">"Found at index "</span> + to_string(li) : <span class="str">"Not found"</span>) &lt;&lt; <span class="str">"\n"</span>;
-    cout &lt;&lt; <span class="str">"Binary: "</span> &lt;&lt; (bi != <span class="nu">-1</span> ? <span class="str">"Found at index "</span> + to_string(bi) : <span class="str">"Not found"</span>) &lt;&lt; <span class="str">"\n"</span>;
-    <span class="kw">return</span> <span class="nu">0</span>;
-}</pre>
-                    </div>
+    <span class="tp">int</span> li = <span class="fn">linearSearch</span>(bubbled, SIZE, key);
+    <span class="tp">int</span> bi = <span class="fn">binarySearch</span> (bubbled, SIZE, key);
 
-                    <div class="info-box note">
-                        <strong>Time complexity analysis:</strong><br>
-                        Bubble Sort: O(n²) — worst &amp; average. Best case O(n) with an optimised version.<br>
-                        Selection Sort: always O(n²) — always scans the remaining unsorted part.<br>
-                        Linear Search: O(n). Binary Search: O(log n) — requires a sorted array.
-                    </div>
-                </div>
-            </div>
-        </div>
+    cout &lt;&lt; <span class="st">"Linear Search : "</span> &lt;&lt; (li != -<span class="nm">1</span> ? <span class="st">"Found at index "</span> + to_string(li) : <span class="st">"Not found"</span>) &lt;&lt; <span class="st">"\n"</span>;
+    cout &lt;&lt; <span class="st">"Binary Search : "</span> &lt;&lt; (bi != -<span class="nm">1</span> ? <span class="st">"Found at index "</span> + to_string(bi) : <span class="st">"Not found"</span>) &lt;&lt; <span class="st">"\n"</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
 
-        <!-- ── Q3 ── -->
-        <div class="section" id="q3">
-            <div class="section-head">
-                <span class="section-icon">3️⃣</span>
-                <h2>Question 3 — Recursive Product</h2>
-                <span class="tag">Lab 4 · Recursion</span>
-            </div>
-            <div class="section-body">
-                <div class="qa-block">
-                    <div class="q-label">Task</div>
-                    <div class="q-text">Write a C++ recursive function to find the product of two integer numbers.</div>
-                    <div class="ans-intro">The idea: <code>a × b = a + a × (b−1)</code>, with base case <code>b == 0 → 0</code>.</div>
+    <!-- Q3 -->
+    <h3>Question 3 — Recursive Product</h3>
 
-                    <div class="code-wrap">
-                        <div class="code-header">
-                            <span class="code-filename">Question3.cpp</span>
-                            <span class="code-lang">C++</span>
-                        </div>
-<pre><span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
+    <div class="q-box">
+        <p><strong>Task:</strong> Write a recursive C++ function to find the product (multiplication) of two integers.</p>
+    </div>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
 <span class="kw">using namespace</span> std;
 
-<span class="cm">// Recursive product: a * b = a + product(a, b-1)</span>
-<span class="ty">int</span> <span class="fn">product</span>(<span class="ty">int</span> a, <span class="ty">int</span> b) {
-    <span class="kw">if</span> (b == <span class="nu">0</span>) <span class="kw">return</span> <span class="nu">0</span>;          <span class="cm">// BASE CASE</span>
-    <span class="kw">return</span> a + <span class="fn">product</span>(a, b - <span class="nu">1</span>);  <span class="cm">// RECURSIVE CALL</span>
+<span class="cm">// Recursive product: a × b = a + a + a ... (b times)</span>
+<span class="cm">// BASE CASE: b == 0 → return 0</span>
+<span class="tp">int</span> <span class="fn">product</span>(<span class="tp">int</span> a, <span class="tp">int</span> b) {
+    <span class="kw">if</span> (b == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">0</span>;          <span class="cm">// base case: anything × 0 = 0</span>
+    <span class="kw">return</span> a + <span class="fn">product</span>(a, b - <span class="nm">1</span>); <span class="cm">// recursive: a + (a × (b-1))</span>
 }
 
-<span class="ty">int</span> <span class="fn">main</span>() {
-    <span class="ty">int</span> x, y;
-    cout &lt;&lt; <span class="str">"Enter two integers: "</span>;
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">int</span> x, y;
+    cout &lt;&lt; <span class="st">"Enter two integers: "</span>;
     cin  &gt;&gt; x &gt;&gt; y;
 
-    <span class="cm">// Handle negative numbers using XOR for sign detection</span>
-    <span class="ty">bool</span> negative = (x &lt; <span class="nu">0</span>) ^ (y &lt; <span class="nu">0</span>);
-    <span class="ty">int</span> result = <span class="fn">product</span>(abs(x), abs(y));
+    <span class="cm">// Handle negative numbers using XOR sign detection</span>
+    <span class="tp">bool</span> negative = (x &lt; <span class="nm">0</span>) ^ (y &lt; <span class="nm">0</span>);
+    <span class="tp">int</span>  result   = <span class="fn">product</span>(abs(x), abs(y));
     <span class="kw">if</span> (negative) result = -result;
 
-    cout &lt;&lt; x &lt;&lt; <span class="str">" x "</span> &lt;&lt; y &lt;&lt; <span class="str">" = "</span> &lt;&lt; result &lt;&lt; endl;
-    <span class="kw">return</span> <span class="nu">0</span>;
-}</pre>
-                    </div>
+    cout &lt;&lt; x &lt;&lt; <span class="st">" x "</span> &lt;&lt; y &lt;&lt; <span class="st">" = "</span> &lt;&lt; result &lt;&lt; endl;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
 
-                    <div class="info-box success">
-                        <strong>Call stack trace</strong> for <code>product(3, 3)</code>:<br>
-                        product(3,3) → 3 + product(3,2)<br>
-                        product(3,2) → 3 + product(3,1)<br>
-                        product(3,1) → 3 + product(3,0)<br>
-                        product(3,0) → <strong>0</strong> (base case)<br>
-                        Unwind: 3+0=3 → 3+3=6 → 3+6=<strong>9 ✓</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="highlight">
+        <p><strong>Trace — product(3, 4):</strong></p>
+        <p><code>product(3, 4)</code> → 3 + product(3, 3)</p>
+        <p><code>product(3, 3)</code> → 3 + product(3, 2)</p>
+        <p><code>product(3, 2)</code> → 3 + product(3, 1)</p>
+        <p><code>product(3, 1)</code> → 3 + product(3, 0)</p>
+        <p><code>product(3, 0)</code> → 0 (BASE CASE)</p>
+        <p>Unwind: 3+3+3+3+0 = <strong>12</strong> ✓</p>
+    </div>
 
-        <!-- ── Q4 ── -->
-        <div class="section" id="q4">
-            <div class="section-head">
-                <span class="section-icon">4️⃣</span>
-                <h2>Question 4 — Fibonacci &amp; Prime Numbers</h2>
-                <span class="tag">Lab 3 · Lab 4</span>
-            </div>
-            <div class="section-body">
+    <!-- Q4 -->
+    <h3>Question 4 — Fibonacci &amp; Prime Numbers</h3>
 
-                <div class="qa-block">
-                    <div class="q-label">Part A</div>
-                    <div class="q-text">Print the first 50 Fibonacci numbers. Series starts: 0, 1, 1, 2, 3, 5, 8, …</div>
+    <div class="q-box">
+        <p><strong>Part (a):</strong> Print the first 50 Fibonacci numbers. Series starts: 0, 1, 1, 2, 3, 5, 8, …</p>
+        <p><strong>Part (b):</strong> Display all prime numbers between two given integers. Analyze time complexity.</p>
+    </div>
 
-                    <div class="code-wrap">
-                        <div class="code-header">
-                            <span class="code-filename">Question4_partA.cpp</span>
-                            <span class="code-lang">C++</span>
-                        </div>
-<pre><span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;cmath&gt;</span>
 <span class="kw">using namespace</span> std;
 
-<span class="ty">void</span> <span class="fn">printFibonacci</span>() {
-    <span class="ty">long long</span> a = <span class="nu">0</span>, b = <span class="nu">1</span>;
-    cout &lt;&lt; <span class="str">"First 50 Fibonacci Numbers:\n"</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">1</span>; i &lt;= <span class="nu">50</span>; i++) {
-        cout &lt;&lt; <span class="str">"F("</span> &lt;&lt; i &lt;&lt; <span class="str">") = "</span> &lt;&lt; a &lt;&lt; <span class="str">"\n"</span>;
-        <span class="ty">long long</span> next = a + b;
+<span class="cm">// Part (a) — First 50 Fibonacci numbers (iterative, avoids recursion overhead)</span>
+<span class="tp">void</span> <span class="fn">partA</span>() {
+    <span class="tp">long long</span> a = <span class="nm">0</span>, b = <span class="nm">1</span>;
+    cout &lt;&lt; <span class="st">"First 50 Fibonacci Numbers:\n"</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i &lt;= <span class="nm">50</span>; i++) {
+        cout &lt;&lt; <span class="st">"F("</span> &lt;&lt; i &lt;&lt; <span class="st">") = "</span> &lt;&lt; a &lt;&lt; <span class="st">"\n"</span>;
+        <span class="tp">long long</span> next = a + b;
         a = b;
         b = next;
     }
 }
 
-<span class="ty">int</span> <span class="fn">main</span>() { <span class="fn">printFibonacci</span>(); <span class="kw">return</span> <span class="nu">0</span>; }</pre>
-                    </div>
-
-                    <div class="info-box note"><strong>Why <code>long long</code>?</strong> The 50th Fibonacci number is 12,586,269,025 — larger than <code>int</code> (max ~2.1 billion). Use <code>long long</code> to avoid overflow.</div>
-                </div>
-
-                <div class="qa-block">
-                    <div class="q-label">Part B</div>
-                    <div class="q-text">Display prime numbers between two given integers. Analyse time complexity.</div>
-
-                    <div class="code-wrap">
-                        <div class="code-header">
-                            <span class="code-filename">Question4_partB.cpp</span>
-                            <span class="code-lang">C++</span>
-                        </div>
-<pre><span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>
-<span class="kw">#include</span> <span class="str">&lt;cmath&gt;</span>
-<span class="kw">using namespace</span> std;
-
-<span class="cm">// Check if n is prime — only test divisors up to √n</span>
-<span class="ty">bool</span> <span class="fn">isPrime</span>(<span class="ty">int</span> n) {
-    <span class="kw">if</span> (n &lt; <span class="nu">2</span>) <span class="kw">return</span> <span class="kw">false</span>;
-    <span class="kw">if</span> (n == <span class="nu">2</span>) <span class="kw">return</span> <span class="kw">true</span>;
-    <span class="kw">if</span> (n % <span class="nu">2</span> == <span class="nu">0</span>) <span class="kw">return</span> <span class="kw">false</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">3</span>; i &lt;= sqrt((<span class="ty">double</span>)n); i += <span class="nu">2</span>)
-        <span class="kw">if</span> (n % i == <span class="nu">0</span>) <span class="kw">return</span> <span class="kw">false</span>;
+<span class="cm">// Part (b) — Primality test: check divisors up to √n</span>
+<span class="cm">// Time Complexity: O(√n) per number</span>
+<span class="tp">bool</span> <span class="fn">isPrime</span>(<span class="tp">int</span> n) {
+    <span class="kw">if</span> (n &lt; <span class="nm">2</span>)          <span class="kw">return</span> <span class="kw">false</span>;
+    <span class="kw">if</span> (n == <span class="nm">2</span>)         <span class="kw">return</span> <span class="kw">true</span>;
+    <span class="kw">if</span> (n % <span class="nm">2</span> == <span class="nm">0</span>)     <span class="kw">return</span> <span class="kw">false</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">3</span>; i &lt;= sqrt((<span class="tp">double</span>)n); i += <span class="nm">2</span>)
+        <span class="kw">if</span> (n % i == <span class="nm">0</span>)   <span class="kw">return</span> <span class="kw">false</span>;
     <span class="kw">return</span> <span class="kw">true</span>;
 }
 
-<span class="ty">int</span> <span class="fn">main</span>() {
-    <span class="ty">int</span> low, high;
-    cout &lt;&lt; <span class="str">"Enter lower bound: "</span>; cin &gt;&gt; low;
-    cout &lt;&lt; <span class="str">"Enter upper bound: "</span>; cin &gt;&gt; high;
-
-    cout &lt;&lt; <span class="str">"\nPrimes between "</span> &lt;&lt; low &lt;&lt; <span class="str">" and "</span> &lt;&lt; high &lt;&lt; <span class="str">":\n"</span>;
-    <span class="kw">for</span> (<span class="ty">int</span> n = low; n &lt;= high; n++)
-        <span class="kw">if</span> (<span class="fn">isPrime</span>(n)) cout &lt;&lt; n &lt;&lt; <span class="str">" "</span>;
+<span class="tp">void</span> <span class="fn">partB</span>() {
+    <span class="tp">int</span> low, high;
+    cout &lt;&lt; <span class="st">"Enter lower bound: "</span>; cin &gt;&gt; low;
+    cout &lt;&lt; <span class="st">"Enter upper bound: "</span>; cin &gt;&gt; high;
+    cout &lt;&lt; <span class="st">"\nPrimes between "</span> &lt;&lt; low &lt;&lt; <span class="st">" and "</span> &lt;&lt; high &lt;&lt; <span class="st">":\n"</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> n = low; n &lt;= high; n++)
+        <span class="kw">if</span> (<span class="fn">isPrime</span>(n)) cout &lt;&lt; n &lt;&lt; <span class="st">" "</span>;
     cout &lt;&lt; endl;
-    <span class="kw">return</span> <span class="nu">0</span>;
-}</pre>
-                    </div>
+}
 
-                    <div class="info-box success">
-                        <strong>Time complexity:</strong> For each number n we check divisors up to √n → <strong>O(√n)</strong> per number. For the range [low, high] with m = high − low numbers → total <strong>O(m × √high)</strong>.<br><br>
-                        <strong>Space complexity:</strong> O(1) — only scalar variables used, no extra arrays.
-                    </div>
-                </div>
+<span class="tp">int</span> <span class="fn">main</span>() { <span class="fn">partA</span>(); <span class="fn">partB</span>(); <span class="kw">return</span> <span class="nm">0</span>; }</code></pre>
+
+    <div class="info-box">
+        <strong>Time Complexity Analysis:</strong> Checking one number for primality = O(√n) because we only test divisors up to the square root.
+        Checking all numbers between <em>low</em> and <em>high</em> = O((high − low) × √high).
+        <strong>Space Complexity:</strong> O(1) — no extra storage used.
+    </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 2 — WRITING QUESTIONS (Sheet 2 Q3)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="section" id="writing">
+    <div class="section-label label-purple">✍️ SHEET 2 · Q3</div>
+    <h2>Writing Questions — Essay Answers</h2>
+    <p>Complete model answers for all four essay questions from Sheet 2.</p>
+
+    <!-- Essay Q1 -->
+    <h3>1. Basic Structure of a C++ Program</h3>
+    <div class="q-box">
+        <p><strong>Question:</strong> Explain the basic structure of a C++ program including <code>main()</code> function, namespaces, inputs/outputs, variables, and compiling.</p>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer:</strong></p>
+        <p>A C++ program begins with <strong>preprocessor directives</strong> such as <code>#include &lt;iostream&gt;</code>, which attach standard library functionality (like input/output streams) before the code is compiled. The line <code>using namespace std;</code> allows the program to use standard library identifiers like <code>cout</code> and <code>cin</code> without writing the <code>std::</code> prefix each time.</p>
+        <p>Every C++ program must have a <code>main()</code> function — this is the <strong>entry point</strong> where execution starts. Inside <code>main()</code>, variables are declared to store data (e.g., <code>int age;</code>, <code>double gpa;</code>, <code>string name;</code>). The <code>cout</code> object (with the <code>&lt;&lt;</code> operator) displays output to the screen, while <code>cin</code> (with the <code>&gt;&gt;</code> operator) reads user input from the keyboard.</p>
+        <p>Once written, the source file (<code>.cpp</code>) is <strong>compiled</strong> by a compiler such as <code>g++</code>, which translates it into an executable binary. Any syntax errors are reported at this stage.</p>
+    </div>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>    <span class="cm">// 1. attach I/O library</span>
+<span class="kw">using namespace</span> std;   <span class="cm">// 2. use std names directly</span>
+
+<span class="tp">int</span> <span class="fn">main</span>() {            <span class="cm">// 3. entry point</span>
+    <span class="tp">int</span> age;             <span class="cm">// 4. declare variable</span>
+    cout &lt;&lt; <span class="st">"Enter your age: "</span>;   <span class="cm">// 5. output</span>
+    cin  &gt;&gt; age;                   <span class="cm">// 6. input</span>
+    cout &lt;&lt; <span class="st">"You are "</span> &lt;&lt; age &lt;&lt; <span class="st">" years old."</span> &lt;&lt; endl;
+    <span class="kw">return</span> <span class="nm">0</span>;            <span class="cm">// 7. signal success to OS</span>
+}</code></pre>
+
+    <!-- Essay Q2 -->
+    <h3>2. Variables in C++</h3>
+    <div class="q-box">
+        <p><strong>Question:</strong> What are variables and why are they useful in programming? Provide examples of declaring variables of different data types.</p>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer:</strong></p>
+        <p>A <strong>variable</strong> is a named memory location that stores a value which can be read or changed during program execution. Variables are essential because they allow programs to work with dynamic data — instead of hard-coding values, the program can accept input, perform calculations, and produce different results each run.</p>
+        <p>C++ is a <strong>statically typed</strong> language, meaning every variable must be declared with a specific data type before use. Common types include:</p>
+        <ul>
+            <li><strong>int</strong> — whole numbers (e.g., age, count)</li>
+            <li><strong>double</strong> — decimal numbers (e.g., GPA, price)</li>
+            <li><strong>char</strong> — single character (e.g., grade 'A')</li>
+            <li><strong>bool</strong> — true or false (e.g., passed, isValid)</li>
+            <li><strong>string</strong> — text (e.g., name, email)</li>
+        </ul>
+    </div>
+
+    <pre data-lang="C++"><code><span class="tp">int</span>    studentCount = <span class="nm">30</span>;
+<span class="tp">double</span> gpa          = <span class="nm">3.75</span>;
+<span class="tp">char</span>   grade        = <span class="st">'A'</span>;
+<span class="tp">bool</span>   passed       = <span class="kw">true</span>;
+<span class="tp">string</span> name         = <span class="st">"Noha"</span>;
+<span class="kw">const</span> <span class="tp">int</span> MAX       = <span class="nm">100</span>;    <span class="cm">// constant — cannot be changed</span></code></pre>
+
+    <!-- Essay Q3 -->
+    <h3>3. if Statements and Decision Making</h3>
+    <div class="q-box">
+        <p><strong>Question:</strong> Explain how <code>if</code> statements allow decision making and control flow based on conditions. Provide an example.</p>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer:</strong></p>
+        <p>An <code>if</code> statement evaluates a <strong>boolean condition</strong>. If the condition is true, the associated block of code executes; otherwise it is skipped. This gives programs the ability to <strong>branch</strong> — taking different paths depending on the data at run-time.</p>
+        <p>An <code>if</code> can be extended with <code>else if</code> to check additional conditions in sequence, and a final <code>else</code> to handle any case not covered by the previous conditions. <strong>Only the first branch whose condition is true will execute</strong>.</p>
+    </div>
+
+    <pre data-lang="C++"><code><span class="tp">int</span> score = <span class="nm">75</span>;
+
+<span class="kw">if</span> (score &gt;= <span class="nm">90</span>) {
+    cout &lt;&lt; <span class="st">"Grade: A"</span>;       <span class="cm">// skipped — 75 < 90</span>
+} <span class="kw">else if</span> (score &gt;= <span class="nm">75</span>) {
+    cout &lt;&lt; <span class="st">"Grade: B"</span>;       <span class="cm">// ← executes (75 >= 75)</span>
+} <span class="kw">else if</span> (score &gt;= <span class="nm">60</span>) {
+    cout &lt;&lt; <span class="st">"Grade: C"</span>;       <span class="cm">// skipped after B matched</span>
+} <span class="kw">else</span> {
+    cout &lt;&lt; <span class="st">"Grade: F"</span>;       <span class="cm">// skipped</span>
+}
+<span class="cm">// Output: Grade: B</span></code></pre>
+
+    <!-- Essay Q4 -->
+    <h3>4. for Loops vs while Loops</h3>
+    <div class="q-box">
+        <p><strong>Question:</strong> What are <code>for</code> loops and how does their syntax differ from <code>while</code> loops? Give examples showing both loop types.</p>
+    </div>
+    <div class="a-box">
+        <p><strong>Answer:</strong></p>
+        <p>A <strong>for loop</strong> is used when the number of iterations is <em>known in advance</em>. Its header combines three parts in one line: initialization, condition check, and increment/decrement — making it compact and readable for counted repetition.</p>
+        <p>A <strong>while loop</strong> is used when the number of iterations is <em>not known ahead of time</em> — it keeps executing as long as its condition remains true. The initialization happens before the loop, and the update must be written manually inside the body.</p>
+    </div>
+
+    <pre data-lang="C++"><code><span class="cm">// for loop — preferred when count is known</span>
+<span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i &lt;= <span class="nm">5</span>; i++) {
+    cout &lt;&lt; i &lt;&lt; <span class="st">" "</span>;
+}   <span class="cm">// Output: 1 2 3 4 5</span>
+
+<span class="cm">// while loop — preferred when condition-driven</span>
+<span class="tp">int</span> i = <span class="nm">1</span>;             <span class="cm">// initialization BEFORE loop</span>
+<span class="kw">while</span> (i &lt;= <span class="nm">5</span>) {
+    cout &lt;&lt; i &lt;&lt; <span class="st">" "</span>;
+    i++;               <span class="cm">// update INSIDE loop body</span>
+}   <span class="cm">// Output: 1 2 3 4 5</span>
+
+<span class="cm">// do-while — guaranteed to run AT LEAST once</span>
+<span class="tp">int</span> j = <span class="nm">1</span>;
+<span class="kw">do</span> {
+    cout &lt;&lt; j &lt;&lt; <span class="st">" "</span>;
+    j++;
+} <span class="kw">while</span> (j &lt;= <span class="nm">5</span>);</code></pre>
+
+    <table>
+        <tr><th>Feature</th><th>for loop</th><th>while loop</th></tr>
+        <tr><td>Best use</td><td>Known iteration count</td><td>Unknown iteration count</td></tr>
+        <tr><td>Init / update</td><td>In the header</td><td>Manual (before / inside)</td></tr>
+        <tr><td>Example</td><td>Print 1 to 100</td><td>Read until user enters -1</td></tr>
+    </table>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION 3 — DATA STRUCTURES REVISION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="section" id="revision-header" style="background: linear-gradient(135deg,#667eea,#764ba2); color:white; text-align:center; padding:36px;">
+    <h2 style="color:white; border:none; font-size:2.4em; margin-bottom:10px;">Data Structures Revision</h2>
+    <p style="color:rgba(255,255,255,0.85); font-size:1.1em;">C++ Implementation Guide — Array · Linked List · Stack · Queue · Tree</p>
+</div>
+
+<!-- ────────── ARRAYS ────────── -->
+<div class="section" id="arrays">
+    <div class="section-label label-green">📦 STRUCTURE 1</div>
+    <h2>Array</h2>
+
+    <div class="struct-card">
+        <div class="struct-card-header">
+            <div class="struct-icon icon-array">📦</div>
+            <div>
+                <div class="struct-title">Array</div>
+                <div class="struct-sub">Contiguous memory · Fixed size · Zero-indexed</div>
+            </div>
+        </div>
+        <p><strong>What is it?</strong> An array is a collection of elements of the <strong>same data type</strong> stored in <strong>consecutive memory locations</strong>. Every element is accessed instantly using its index.</p>
+        <p><strong>Memory Model:</strong></p>
+        <div class="mem-diagram">
+            <div class="mem-cell">10<div class="mem-cell-addr">[0] 0x1000</div></div>
+            <div class="mem-cell">20<div class="mem-cell-addr">[1] 0x1004</div></div>
+            <div class="mem-cell">30<div class="mem-cell-addr">[2] 0x1008</div></div>
+            <div class="mem-cell">40<div class="mem-cell-addr">[3] 0x100C</div></div>
+            <div class="mem-cell">50<div class="mem-cell-addr">[4] 0x1010</div></div>
+        </div>
+        <p style="font-size:0.9em;color:#888;">← 4 bytes per int, stored side by side →</p>
+
+        <div class="complexity-grid">
+            <div class="complexity-item"><div class="complexity-op">Access by index</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Search (linear)</div><div class="complexity-val slow">O(n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Insert / Delete</div><div class="complexity-val slow">O(n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Memory</div><div class="complexity-val fast">Compact</div></div>
+        </div>
+    </div>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="pp">#include &lt;algorithm&gt;</span>    <span class="cm">// sort, max_element, min_element</span>
+<span class="kw">using namespace</span> std;
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="cm">// ── Declare &amp; Initialize ──────────────────────────</span>
+    <span class="tp">int</span> arr1[<span class="nm">5</span>];                      <span class="cm">// uninitialized</span>
+    <span class="tp">int</span> arr2[] = {<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>, <span class="nm">40</span>, <span class="nm">50</span>};  <span class="cm">// initialized, size auto</span>
+    <span class="tp">int</span> arr3[<span class="nm">5</span>] = {<span class="nm">1</span>, <span class="nm">2</span>};              <span class="cm">// partial: arr3[2..4] = 0</span>
+
+    <span class="cm">// ── Access ───────────────────────────────────────</span>
+    cout &lt;&lt; arr2[<span class="nm">0</span>];      <span class="cm">// 10  — first element</span>
+    cout &lt;&lt; arr2[<span class="nm">4</span>];      <span class="cm">// 50  — last element</span>
+    arr2[<span class="nm">0</span>] = <span class="nm">99</span>;         <span class="cm">// modify</span>
+
+    <span class="cm">// ── Loop (index style) ───────────────────────────</span>
+    <span class="tp">int</span> len = <span class="kw">sizeof</span>(arr2) / <span class="kw">sizeof</span>(arr2[<span class="nm">0</span>]);
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">0</span>; i &lt; len; i++)
+        cout &lt;&lt; arr2[i] &lt;&lt; <span class="st">" "</span>;
+
+    <span class="cm">// ── Range-based for ──────────────────────────────</span>
+    <span class="kw">for</span> (<span class="tp">int</span> n : arr2) cout &lt;&lt; n &lt;&lt; <span class="st">" "</span>;
+
+    <span class="cm">// ── Algorithm functions ──────────────────────────</span>
+    <span class="fn">sort</span>(arr2, arr2 + <span class="nm">5</span>);                       <span class="cm">// ascending</span>
+    <span class="tp">int</span> mx = *<span class="fn">max_element</span>(arr2, arr2 + <span class="nm">5</span>);      <span class="cm">// max value</span>
+    <span class="tp">int</span> mn = *<span class="fn">min_element</span>(arr2, arr2 + <span class="nm">5</span>);      <span class="cm">// min value</span>
+
+    <span class="cm">// ── Dynamic (heap) array ─────────────────────────</span>
+    <span class="tp">int</span>* dyn = <span class="kw">new</span> <span class="tp">int</span>[<span class="nm">5</span>];  <span class="cm">// allocate at run-time</span>
+    <span class="kw">delete</span>[] dyn;             <span class="cm">// MUST free!</span>
+
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+
+    <h3>2D Array (Matrix)</h3>
+    <pre data-lang="C++"><code><span class="cm">// 2D array — rows × columns</span>
+<span class="tp">int</span> mat[<span class="nm">2</span>][<span class="nm">3</span>] = { {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>},
+                  {<span class="nm">4</span>, <span class="nm">5</span>, <span class="nm">6</span>} };
+
+<span class="cm">// Access: mat[row][col]</span>
+cout &lt;&lt; mat[<span class="nm">1</span>][<span class="nm">2</span>];   <span class="cm">// 6</span>
+
+<span class="cm">// Print all elements</span>
+<span class="kw">for</span> (<span class="tp">int</span> r = <span class="nm">0</span>; r &lt; <span class="nm">2</span>; r++)
+    <span class="kw">for</span> (<span class="tp">int</span> c = <span class="nm">0</span>; c &lt; <span class="nm">3</span>; c++)
+        cout &lt;&lt; mat[r][c] &lt;&lt; <span class="st">" "</span>;</code></pre>
+</div>
+
+<!-- ────────── LINKED LIST ────────── -->
+<div class="section" id="linkedlist">
+    <div class="section-label label-blue">🔗 STRUCTURE 2</div>
+    <h2>Linked List</h2>
+
+    <div class="struct-card">
+        <div class="struct-card-header">
+            <div class="struct-icon icon-ll">🔗</div>
+            <div>
+                <div class="struct-title">Singly Linked List</div>
+                <div class="struct-sub">Scattered memory · Dynamic size · Nodes linked by pointers</div>
+            </div>
+        </div>
+        <p><strong>What is it?</strong> A Linked List stores elements as <strong>nodes</strong>, each containing data and a pointer to the next node. Nodes can be anywhere in memory — they are connected logically, not physically.</p>
+
+        <div style="overflow-x:auto; margin:14px 0;">
+            <div class="mem-diagram" style="flex-wrap:nowrap; min-width: 500px;">
+                <div style="font-weight:bold; color:#667eea; margin-right:6px;">HEAD</div>
+                <div class="mem-arrow">→</div>
+                <div class="mem-cell">10<div class="mem-cell-addr">0x0006</div></div>
+                <div class="mem-arrow">→</div>
+                <div class="mem-cell">20<div class="mem-cell-addr">0x0010</div></div>
+                <div class="mem-arrow">→</div>
+                <div class="mem-cell">30<div class="mem-cell-addr">0x001F</div></div>
+                <div class="mem-arrow">→</div>
+                <div class="mem-null">NULL</div>
             </div>
         </div>
 
-        <hr class="divider">
-
-        <!-- ══════════════════════════════════
-             PART 2 — DATA STRUCTURES REFERENCE
-        ══════════════════════════════════ -->
-        <div class="part-title" id="structures">
-            <h2>🏗 Data Structures — C++ Reference</h2>
-            <div class="part-line"></div>
+        <div class="complexity-grid">
+            <div class="complexity-item"><div class="complexity-op">Access by index</div><div class="complexity-val slow">O(n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Insert at begin</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Insert at end</div><div class="complexity-val slow">O(n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Delete at begin</div><div class="complexity-val fast">O(1)</div></div>
         </div>
 
-        <!-- ── ARRAY ── -->
-        <div class="section" id="arrays">
-            <div class="section-head">
-                <span class="section-icon">📦</span>
-                <h2>Array</h2>
-                <span class="tag">Linear · Contiguous</span>
-            </div>
-            <div class="section-body">
+        <table>
+            <tr><th>Feature</th><th>Array</th><th>Linked List</th></tr>
+            <tr><td>Memory</td><td>Contiguous (side by side)</td><td>Scattered (anywhere)</td></tr>
+            <tr><td>Size</td><td>Fixed at compile time</td><td>Dynamic at run time</td></tr>
+            <tr><td>Access by index</td><td>O(1) — fast</td><td>O(n) — traverse</td></tr>
+            <tr><td>Insert / Delete</td><td>O(n) — shift elements</td><td>O(1) — relink pointers</td></tr>
+            <tr><td>Extra memory</td><td>None</td><td>+pointer per node</td></tr>
+        </table>
+    </div>
 
-                <p style="color:var(--muted); margin-bottom:18px; font-size:0.9em;">Elements stored in <strong style="color:var(--text)">consecutive memory locations</strong>. Fixed size, decided at compile-time (static) or run-time (dynamic).</p>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
 
-                <!-- Memory diagram -->
-                <div class="mem-diagram">
-                    <div>
-                        <div class="mem-cell">10</div>
-                        <div class="mem-idx">[0]</div>
-                    </div>
-                    <div>
-                        <div class="mem-cell">20</div>
-                        <div class="mem-idx">[1]</div>
-                    </div>
-                    <div>
-                        <div class="mem-cell">30</div>
-                        <div class="mem-idx">[2]</div>
-                    </div>
-                    <div>
-                        <div class="mem-cell">40</div>
-                        <div class="mem-idx">[3]</div>
-                    </div>
-                    <div>
-                        <div class="mem-cell">50</div>
-                        <div class="mem-idx">[4]</div>
-                    </div>
-                    <span style="color:var(--muted); font-size:0.8em; margin-left:8px;">← same address block, 4 bytes each (int) →</span>
-                </div>
-
-                <div class="code-wrap">
-                    <div class="code-header"><span class="code-filename">array_basics.cpp</span><span class="code-lang">C++</span></div>
-<pre><span class="cm">// ── Static array ──────────────────────────────</span>
-<span class="ty">int</span> nums[<span class="nu">5</span>] = {<span class="nu">10</span>, <span class="nu">20</span>, <span class="nu">30</span>, <span class="nu">40</span>, <span class="nu">50</span>};
-
-nums[<span class="nu">0</span>]  = <span class="nu">99</span>;                  <span class="cm">// modify element</span>
-cout &lt;&lt; nums[<span class="nu">2</span>];               <span class="cm">// access O(1)</span>
-
-<span class="ty">int</span> len = <span class="kw">sizeof</span>(nums) / <span class="kw">sizeof</span>(nums[<span class="nu">0</span>]);  <span class="cm">// size = 5</span>
-
-<span class="kw">for</span> (<span class="ty">int</span> i = <span class="nu">0</span>; i &lt; len; i++)   cout &lt;&lt; nums[i] &lt;&lt; <span class="str">" "</span>;
-<span class="kw">for</span> (<span class="ty">int</span> x : nums)              cout &lt;&lt; x &lt;&lt; <span class="str">" "</span>;  <span class="cm">// range-for</span>
-
-<span class="cm">// ── Dynamic array (heap) ──────────────────────</span>
-<span class="ty">int</span> n = <span class="nu">5</span>;
-<span class="ty">int</span>* arr = <span class="kw">new</span> <span class="ty">int</span>[n];
-arr[<span class="nu">0</span>] = <span class="nu">10</span>;   arr[<span class="nu">1</span>] = <span class="nu">20</span>;
-<span class="kw">delete</span>[] arr;   arr = <span class="kw">nullptr</span>;   <span class="cm">// MUST free!</span>
-
-<span class="cm">// ── Sorting / searching (algorithm header) ────</span>
-<span class="kw">#include</span> <span class="str">&lt;algorithm&gt;</span>
-sort(nums, nums + <span class="nu">5</span>);                         <span class="cm">// ascending</span>
-<span class="ty">int</span> mx = *max_element(nums, nums + <span class="nu">5</span>);       <span class="cm">// max value</span>
-<span class="ty">int</span> mn = *min_element(nums, nums + <span class="nu">5</span>);       <span class="cm">// min value</span>
-
-<span class="cm">// ── 2D array ─────────────────────────────────</span>
-<span class="ty">int</span> mat[<span class="nu">2</span>][<span class="nu">3</span>] = {{<span class="nu">1</span>,<span class="nu">2</span>,<span class="nu">3</span>},{<span class="nu">4</span>,<span class="nu">5</span>,<span class="nu">6</span>}};
-cout &lt;&lt; mat[<span class="nu">1</span>][<span class="nu">2</span>];   <span class="cm">// → 6</span></pre>
-                </div>
-
-                <div class="ops-row">
-                    <div class="op-chip"><span class="o-name">Access</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">Search</span> <span class="o-time y">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Insert/Delete</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Sort</span> <span class="o-time y">O(n log n)</span></div>
-                    <div class="op-chip"><span class="o-name">Space</span> <span class="o-time g">O(n)</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── LINKED LIST ── -->
-        <div class="section" id="linked-list">
-            <div class="section-head">
-                <span class="section-icon">🔗</span>
-                <h2>Linked List</h2>
-                <span class="tag">Linear · Scattered</span>
-            </div>
-            <div class="section-body">
-
-                <p style="color:var(--muted); margin-bottom:18px; font-size:0.9em;">Nodes scattered in memory, connected by pointers. Each node holds <strong style="color:var(--text)">data</strong> + a pointer to the <strong style="color:var(--text)">next</strong> node.</p>
-
-                <!-- Linked list visual -->
-                <div class="linked-row">
-                    <span style="color:var(--accent); font-size:0.8em; font-weight:700;">HEAD</span>
-                    <span class="mem-arrow">→</span>
-                    <div class="node-box"><div class="node-data">10</div><div class="node-ptr">0x0B</div></div>
-                    <span class="mem-arrow">→</span>
-                    <div class="node-box"><div class="node-data">20</div><div class="node-ptr">0x1F</div></div>
-                    <span class="mem-arrow">→</span>
-                    <div class="node-box"><div class="node-data">30</div><div class="node-ptr">0x2A</div></div>
-                    <span class="mem-arrow">→</span>
-                    <div class="node-box"><div class="node-data">40</div><div class="node-ptr">NULL</div></div>
-                </div>
-
-                <div class="code-wrap">
-                    <div class="code-header"><span class="code-filename">linked_list.cpp</span><span class="code-lang">C++</span></div>
-<pre><span class="kw">struct</span> <span class="ty">Node</span> {
-    <span class="ty">int</span>   data;
-    <span class="ty">Node</span>* next;
+<span class="cm">// ── Step 1: Node structure ──────────────────────────</span>
+<span class="kw">struct</span> <span class="tp">Node</span> {
+    <span class="tp">int</span>   data;    <span class="cm">// the value</span>
+    <span class="tp">Node</span>* next;    <span class="cm">// pointer to the next node</span>
 };
 
-<span class="cm">// ── Insert at beginning ────────────────────────</span>
-<span class="ty">void</span> <span class="fn">insertBegin</span>(<span class="ty">Node</span>*&amp; head, <span class="ty">int</span> val) {
-    <span class="ty">Node</span>* n = <span class="kw">new</span> <span class="ty">Node</span>();
-    n-&gt;data = val;
-    n-&gt;next = head;  <span class="cm">// new node points to old head</span>
-    head    = n;     <span class="cm">// head now points to new node</span>
-}   <span class="cm">// O(1)</span>
-
-<span class="cm">// ── Insert at end ──────────────────────────────</span>
-<span class="ty">void</span> <span class="fn">insertEnd</span>(<span class="ty">Node</span>*&amp; head, <span class="ty">int</span> val) {
-    <span class="ty">Node</span>* n = <span class="kw">new</span> <span class="ty">Node</span>(); n-&gt;data = val; n-&gt;next = <span class="kw">nullptr</span>;
-    <span class="kw">if</span> (!head) { head = n; <span class="kw">return</span>; }
-    <span class="ty">Node</span>* t = head;
-    <span class="kw">while</span> (t-&gt;next) t = t-&gt;next; <span class="cm">// traverse to last</span>
+<span class="cm">// ── Step 2: Insert at END ───────────────────────────</span>
+<span class="tp">void</span> <span class="fn">insertEnd</span>(<span class="tp">Node</span>*&amp; head, <span class="tp">int</span> val) {
+    <span class="tp">Node</span>* n = <span class="kw">new</span> <span class="tp">Node</span>();
+    n-&gt;data = val;  n-&gt;next = <span class="kw">NULL</span>;
+    <span class="kw">if</span> (head == <span class="kw">NULL</span>) { head = n; <span class="kw">return</span>; }
+    <span class="tp">Node</span>* t = head;
+    <span class="kw">while</span> (t-&gt;next != <span class="kw">NULL</span>) t = t-&gt;next;  <span class="cm">// traverse to end</span>
     t-&gt;next = n;
-}   <span class="cm">// O(n)</span>
+}
 
-<span class="cm">// ── Delete at beginning ────────────────────────</span>
-<span class="ty">void</span> <span class="fn">deleteBegin</span>(<span class="ty">Node</span>*&amp; head) {
-    <span class="kw">if</span> (!head) <span class="kw">return</span>;
-    <span class="ty">Node</span>* tmp = head;
-    head = head-&gt;next;
-    <span class="kw">delete</span> tmp;
-}   <span class="cm">// O(1)</span>
+<span class="cm">// ── Step 3: Insert at BEGIN ─────────────────────────</span>
+<span class="tp">void</span> <span class="fn">insertBegin</span>(<span class="tp">Node</span>*&amp; head, <span class="tp">int</span> val) {
+    <span class="tp">Node</span>* n = <span class="kw">new</span> <span class="tp">Node</span>();
+    n-&gt;data = val;
+    n-&gt;next = head;   <span class="cm">// point new node to old head</span>
+    head = n;         <span class="cm">// update head — O(1)!</span>
+}
 
-<span class="cm">// ── Delete at end ──────────────────────────────</span>
-<span class="ty">void</span> <span class="fn">deleteEnd</span>(<span class="ty">Node</span>*&amp; head) {
-    <span class="kw">if</span> (!head || !head-&gt;next) { <span class="kw">delete</span> head; head = <span class="kw">nullptr</span>; <span class="kw">return</span>; }
-    <span class="ty">Node</span>* prev = <span class="kw">nullptr</span>, *curr = head;
-    <span class="kw">while</span> (curr-&gt;next) { prev = curr; curr = curr-&gt;next; }
-    prev-&gt;next = <span class="kw">nullptr</span>;
-    <span class="kw">delete</span> curr;
-}   <span class="cm">// O(n)</span>
+<span class="cm">// ── Step 4: Delete at BEGIN ─────────────────────────</span>
+<span class="tp">void</span> <span class="fn">deleteBegin</span>(<span class="tp">Node</span>*&amp; head) {
+    <span class="kw">if</span> (head == <span class="kw">NULL</span>) <span class="kw">return</span>;
+    <span class="tp">Node</span>* temp = head;
+    head = head-&gt;next;  <span class="cm">// advance head</span>
+    <span class="kw">delete</span> temp;         <span class="cm">// free old head</span>
+}
 
-<span class="cm">// ── Display ────────────────────────────────────</span>
-<span class="ty">void</span> <span class="fn">display</span>(<span class="ty">Node</span>* head) {
-    <span class="kw">for</span> (<span class="ty">Node</span>* t = head; t; t = t-&gt;next)
-        cout &lt;&lt; t-&gt;data &lt;&lt; <span class="str">" → "</span>;
-    cout &lt;&lt; <span class="str">"NULL\n"</span>;
-}</pre>
+<span class="cm">// ── Step 5: Delete at END ──────────────────────────</span>
+<span class="tp">void</span> <span class="fn">deleteEnd</span>(<span class="tp">Node</span>*&amp; head) {
+    <span class="kw">if</span> (!head || !head-&gt;next) { <span class="kw">delete</span> head; head = <span class="kw">NULL</span>; <span class="kw">return</span>; }
+    <span class="tp">Node</span>* prev = <span class="kw">NULL</span>, *curr = head;
+    <span class="kw">while</span> (curr-&gt;next != <span class="kw">NULL</span>) { prev = curr; curr = curr-&gt;next; }
+    prev-&gt;next = <span class="kw">NULL</span>;  <span class="kw">delete</span> curr;
+}
+
+<span class="cm">// ── Step 6: Display ────────────────────────────────</span>
+<span class="tp">void</span> <span class="fn">display</span>(<span class="tp">Node</span>* head) {
+    <span class="tp">Node</span>* t = head;
+    <span class="kw">while</span> (t != <span class="kw">NULL</span>) {
+        cout &lt;&lt; t-&gt;data &lt;&lt; <span class="st">" → "</span>;
+        t = t-&gt;next;
+    }
+    cout &lt;&lt; <span class="st">"NULL\n"</span>;
+}
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Node</span>* head = <span class="kw">NULL</span>;        <span class="cm">// empty list</span>
+    <span class="fn">insertEnd</span>(head, <span class="nm">10</span>);      <span class="cm">// HEAD → 10 → NULL</span>
+    <span class="fn">insertEnd</span>(head, <span class="nm">20</span>);      <span class="cm">// HEAD → 10 → 20 → NULL</span>
+    <span class="fn">insertEnd</span>(head, <span class="nm">30</span>);      <span class="cm">// HEAD → 10 → 20 → 30 → NULL</span>
+    <span class="fn">display</span>(head);
+    <span class="fn">deleteBegin</span>(head);        <span class="cm">// HEAD → 20 → 30 → NULL</span>
+    <span class="fn">display</span>(head);
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+
+    <div class="info-box">
+        <strong>Delete at middle:</strong> Keep a <code>prev</code> pointer. When you reach the target node, do <code>prev-&gt;next = current-&gt;next; delete current;</code>. This skips and frees the node in O(n) (traverse) but O(1) relink.
+    </div>
+</div>
+
+<!-- ────────── STACK ────────── -->
+<div class="section" id="stack">
+    <div class="section-label label-purple">📚 STRUCTURE 3</div>
+    <h2>Stack</h2>
+
+    <div class="struct-card">
+        <div class="struct-card-header">
+            <div class="struct-icon icon-stack">📚</div>
+            <div>
+                <div class="struct-title">Stack</div>
+                <div class="struct-sub">LIFO — Last In, First Out</div>
+            </div>
+        </div>
+        <p><strong>What is it?</strong> A Stack follows the <strong>LIFO</strong> (Last In, First Out) principle — the last element added is the first one removed. Think of a stack of plates: you always add and remove from the <strong>top</strong>.</p>
+
+        <div style="display:flex; gap:30px; flex-wrap:wrap; align-items:flex-end; margin:16px 0;">
+            <div>
+                <p style="font-size:13px;color:#888;margin-bottom:6px;text-align:center;">After push(10), push(20), push(30)</p>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="font-size:12px; color:#667eea; font-weight:bold;">TOP →</div>
+                    <div class="stack-visual">
+                        <div class="stack-cell top-cell">30 ← TOP</div>
+                        <div class="stack-cell">20</div>
+                        <div class="stack-cell">10</div>
+                    </div>
                 </div>
-
-                <div class="ops-row">
-                    <div class="op-chip"><span class="o-name">Access</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Search</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Insert Begin</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">Insert End</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Delete Begin</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">Space</span> <span class="o-time y">O(n) + ptr</span></div>
-                </div>
+            </div>
+            <div>
+                <p style="font-size:13px;color:#888;margin-bottom:6px;">Operations:</p>
+                <ul>
+                    <li><strong>push(val)</strong> — add to top</li>
+                    <li><strong>pop()</strong> — remove from top</li>
+                    <li><strong>peek()</strong> — view top without removing</li>
+                    <li><strong>isEmpty()</strong> — check if empty</li>
+                </ul>
             </div>
         </div>
 
-        <!-- ── STACK ── -->
-        <div class="section" id="stack">
-            <div class="section-head">
-                <span class="section-icon">📚</span>
-                <h2>Stack</h2>
-                <span class="tag">LIFO · Linear</span>
-            </div>
-            <div class="section-body">
-
-                <p style="color:var(--muted); margin-bottom:18px; font-size:0.9em;"><strong style="color:var(--text)">L</strong>ast <strong style="color:var(--text)">I</strong>n <strong style="color:var(--text)">F</strong>irst <strong style="color:var(--text)">O</strong>ut — like a stack of plates. You can only add or remove from the <strong style="color:var(--text)">top</strong>.</p>
-
-                <!-- Stack visual -->
-                <div style="display:flex; gap:24px; align-items:flex-end; flex-wrap:wrap;">
-                    <div>
-                        <div style="color:var(--accent); font-size:0.75em; font-weight:700; margin-bottom:6px;">← TOP (push/pop here)</div>
-                        <div class="stack-vis" style="width:120px;">
-                            <div class="stack-item">10</div>
-                            <div class="stack-item">20</div>
-                            <div class="stack-item">30</div>
-                            <div class="stack-item top-item">40 ← TOP</div>
-                        </div>
-                    </div>
-                    <div style="color:var(--muted); font-size:0.82em; max-width:200px;">
-                        <div style="margin-bottom:8px;"><span style="color:var(--green)">push(50)</span> → 50 becomes new TOP</div>
-                        <div><span style="color:var(--red)">pop()</span> → removes 40 from TOP</div>
-                    </div>
-                </div>
-
-                <div class="code-wrap" style="margin-top:18px;">
-                    <div class="code-header"><span class="code-filename">stack_linked.cpp</span><span class="code-lang">C++</span></div>
-<pre><span class="kw">struct</span> <span class="ty">Node</span> { <span class="ty">int</span> data; <span class="ty">Node</span>* next; };
-<span class="ty">Node</span>* top = <span class="kw">nullptr</span>;   <span class="cm">// global top pointer</span>
-
-<span class="cm">// push — insert at beginning (top of stack)</span>
-<span class="ty">void</span> <span class="fn">push</span>(<span class="ty">int</span> val) {
-    <span class="ty">Node</span>* n = <span class="kw">new</span> <span class="ty">Node</span>(); n-&gt;data = val; n-&gt;next = top; top = n;
-}
-
-<span class="cm">// pop — remove from beginning (top of stack)</span>
-<span class="ty">void</span> <span class="fn">pop</span>() {
-    <span class="kw">if</span> (!top) { cout &lt;&lt; <span class="str">"Stack Underflow!\n"</span>; <span class="kw">return</span>; }
-    <span class="ty">Node</span>* tmp = top; top = top-&gt;next; <span class="kw">delete</span> tmp;
-}
-
-<span class="cm">// peek — view top without removing</span>
-<span class="ty">int</span> <span class="fn">peek</span>() {
-    <span class="kw">if</span> (!top) { cout &lt;&lt; <span class="str">"Stack Empty!\n"</span>; <span class="kw">return</span> <span class="nu">-1</span>; }
-    <span class="kw">return</span> top-&gt;data;
-}
-
-<span class="ty">bool</span> <span class="fn">isEmpty</span>() { <span class="kw">return</span> top == <span class="kw">nullptr</span>; }
-
-<span class="cm">// ── or use STL stack (easier) ──────────────────</span>
-<span class="kw">#include</span> <span class="str">&lt;stack&gt;</span>
-std::stack&lt;<span class="ty">int</span>&gt; st;
-st.<span class="fn">push</span>(<span class="nu">10</span>);   st.<span class="fn">push</span>(<span class="nu">20</span>);
-cout &lt;&lt; st.<span class="fn">top</span>();   <span class="cm">// 20</span>
-st.<span class="fn">pop</span>();
-cout &lt;&lt; st.<span class="fn">empty</span>(); <span class="cm">// 0 (false)</span></pre>
-                </div>
-
-                <div class="info-box note"><strong>Use cases:</strong> Function call stack, undo/redo, expression evaluation, backtracking (DFS), browser history.</div>
-
-                <div class="ops-row">
-                    <div class="op-chip"><span class="o-name">push</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">pop</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">peek/top</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">Search</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Space</span> <span class="o-time y">O(n)</span></div>
-                </div>
-            </div>
+        <div class="complexity-grid">
+            <div class="complexity-item"><div class="complexity-op">push</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">pop</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">peek</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Search</div><div class="complexity-val slow">O(n)</div></div>
         </div>
 
-        <!-- ── QUEUE ── -->
-        <div class="section" id="queue">
-            <div class="section-head">
-                <span class="section-icon">🚶</span>
-                <h2>Queue</h2>
-                <span class="tag">FIFO · Linear</span>
-            </div>
-            <div class="section-body">
+        <p><strong>Real uses:</strong> Function call stack, undo/redo, expression evaluation, backtracking algorithms.</p>
+    </div>
 
-                <p style="color:var(--muted); margin-bottom:18px; font-size:0.9em;"><strong style="color:var(--text)">F</strong>irst <strong style="color:var(--text)">I</strong>n <strong style="color:var(--text)">F</strong>irst <strong style="color:var(--text)">O</strong>ut — like a line at a store. You enqueue at the <strong style="color:var(--text)">rear</strong> and dequeue from the <strong style="color:var(--text)">front</strong>.</p>
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
 
-                <!-- Queue visual -->
-                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:12px 0;">
-                    <div style="color:var(--green); font-size:0.75em; font-weight:700;">FRONT (dequeue) →</div>
-                    <div class="queue-vis">
-                        <div class="queue-item front-item">10 ← FRONT</div>
-                        <div class="queue-item">20</div>
-                        <div class="queue-item">30</div>
-                        <div class="queue-item">40 ← REAR</div>
-                    </div>
-                    <div style="color:var(--green); font-size:0.75em; font-weight:700;">← REAR (enqueue)</div>
-                </div>
+<span class="kw">const</span> <span class="tp">int</span> MAX = <span class="nm">100</span>;
 
-                <div class="code-wrap">
-                    <div class="code-header"><span class="code-filename">queue_linked.cpp</span><span class="code-lang">C++</span></div>
-<pre><span class="kw">struct</span> <span class="ty">Node</span> { <span class="ty">int</span> data; <span class="ty">Node</span>* next; };
-<span class="ty">Node</span>* front = <span class="kw">nullptr</span>;
-<span class="ty">Node</span>* rear  = <span class="kw">nullptr</span>;
+<span class="kw">struct</span> <span class="tp">Stack</span> {
+    <span class="tp">int</span> data[MAX];
+    <span class="tp">int</span> top = -<span class="nm">1</span>;    <span class="cm">// -1 means empty</span>
 
-<span class="cm">// enqueue — insert at REAR</span>
-<span class="ty">void</span> <span class="fn">enqueue</span>(<span class="ty">int</span> val) {
-    <span class="ty">Node</span>* n = <span class="kw">new</span> <span class="ty">Node</span>(); n-&gt;data = val; n-&gt;next = <span class="kw">nullptr</span>;
-    <span class="kw">if</span> (!rear) { front = rear = n; <span class="kw">return</span>; }
-    rear-&gt;next = n; rear = n;
-}   <span class="cm">// O(1)</span>
+    <span class="cm">// Push — add element to top</span>
+    <span class="tp">void</span> <span class="fn">push</span>(<span class="tp">int</span> val) {
+        <span class="kw">if</span> (top == MAX - <span class="nm">1</span>) { cout &lt;&lt; <span class="st">"Stack Overflow!\n"</span>; <span class="kw">return</span>; }
+        data[++top] = val;    <span class="cm">// increment top, then store</span>
+    }
 
-<span class="cm">// dequeue — remove from FRONT</span>
-<span class="ty">void</span> <span class="fn">dequeue</span>() {
-    <span class="kw">if</span> (!front) { cout &lt;&lt; <span class="str">"Queue Empty!\n"</span>; <span class="kw">return</span>; }
-    <span class="ty">Node</span>* tmp = front; front = front-&gt;next;
-    <span class="kw">if</span> (!front) rear = <span class="kw">nullptr</span>;
-    <span class="kw">delete</span> tmp;
-}   <span class="cm">// O(1)</span>
+    <span class="cm">// Pop — remove and return top element</span>
+    <span class="tp">int</span> <span class="fn">pop</span>() {
+        <span class="kw">if</span> (top == -<span class="nm">1</span>) { cout &lt;&lt; <span class="st">"Stack Underflow!\n"</span>; <span class="kw">return</span> -<span class="nm">1</span>; }
+        <span class="kw">return</span> data[top--];   <span class="cm">// return top, then decrement</span>
+    }
 
-<span class="ty">bool</span> <span class="fn">isEmpty</span>() { <span class="kw">return</span> front == <span class="kw">nullptr</span>; }
-
-<span class="cm">// ── STL queue ─────────────────────────────────</span>
-<span class="kw">#include</span> <span class="str">&lt;queue&gt;</span>
-std::queue&lt;<span class="ty">int</span>&gt; q;
-q.<span class="fn">push</span>(<span class="nu">10</span>); q.<span class="fn">push</span>(<span class="nu">20</span>); q.<span class="fn">push</span>(<span class="nu">30</span>);
-cout &lt;&lt; q.<span class="fn">front</span>();   <span class="cm">// 10</span>
-q.<span class="fn">pop</span>();
-cout &lt;&lt; q.<span class="fn">front</span>();   <span class="cm">// 20</span></pre>
-                </div>
-
-                <div class="info-box note"><strong>Use cases:</strong> Print queue, CPU scheduling, BFS graph traversal, request handling, simulation.</div>
-
-                <div class="ops-row">
-                    <div class="op-chip"><span class="o-name">enqueue</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">dequeue</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">front/rear</span> <span class="o-time g">O(1)</span></div>
-                    <div class="op-chip"><span class="o-name">Search</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Space</span> <span class="o-time y">O(n)</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── BINARY TREE ── -->
-        <div class="section" id="trees">
-            <div class="section-head">
-                <span class="section-icon">🌳</span>
-                <h2>Binary Tree &amp; BST</h2>
-                <span class="tag">Non-linear · Hierarchical</span>
-            </div>
-            <div class="section-body">
-
-                <p style="color:var(--muted); margin-bottom:18px; font-size:0.9em;">A <strong style="color:var(--text)">Binary Tree</strong> is a hierarchical structure where each node has at most <strong style="color:var(--text)">two children</strong> (left and right). A <strong style="color:var(--text)">Binary Search Tree (BST)</strong> adds the rule: <strong style="color:var(--accent)">left &lt; root &lt; right</strong>.</p>
-
-                <!-- Tree visual -->
-                <div class="tree-vis">
-                    <div style="text-align:center; margin-bottom:4px;">
-                        <span class="tree-node tree-root">50</span>
-                    </div>
-                    <div style="display:flex; justify-content:center; gap:60px; margin-bottom:4px;">
-                        <span>/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\</span>
-                    </div>
-                    <div style="display:flex; justify-content:center; gap:32px; margin-bottom:4px;">
-                        <span class="tree-node">30</span>
-                        <span class="tree-node">70</span>
-                    </div>
-                    <div style="display:flex; justify-content:center; gap:4px; margin-bottom:4px;">
-                        <span style="margin-right:8px;">/ &nbsp; \</span>
-                        <span style="margin-left:8px;">/ &nbsp; \</span>
-                    </div>
-                    <div style="display:flex; justify-content:center; gap:8px;">
-                        <span class="tree-node">20</span>
-                        <span class="tree-node">40</span>
-                        <span class="tree-node">60</span>
-                        <span class="tree-node">80</span>
-                    </div>
-                    <div style="color:var(--muted); font-size:0.75em; text-align:center; margin-top:8px;">
-                        BST: left subtree &lt; parent &lt; right subtree
-                    </div>
-                </div>
-
-                <div class="code-wrap" style="margin-top:18px;">
-                    <div class="code-header"><span class="code-filename">bst.cpp</span><span class="code-lang">C++</span></div>
-<pre><span class="kw">struct</span> <span class="ty">Node</span> {
-    <span class="ty">int</span>   data;
-    <span class="ty">Node</span>* left;
-    <span class="ty">Node</span>* right;
+    <span class="cm">// Peek — view top without removing</span>
+    <span class="tp">int</span> <span class="fn">peek</span>()    { <span class="kw">return</span> top == -<span class="nm">1</span> ? -<span class="nm">1</span> : data[top]; }
+    <span class="tp">bool</span> <span class="fn">isEmpty</span>(){ <span class="kw">return</span> top == -<span class="nm">1</span>; }
 };
 
-<span class="cm">// ── Insert into BST ────────────────────────────</span>
-<span class="ty">Node</span>* <span class="fn">insert</span>(<span class="ty">Node</span>* root, <span class="ty">int</span> val) {
-    <span class="kw">if</span> (!root) {
-        <span class="ty">Node</span>* n = <span class="kw">new</span> <span class="ty">Node</span>(); n-&gt;data = val;
-        n-&gt;left = n-&gt;right = <span class="kw">nullptr</span>; <span class="kw">return</span> n;
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Stack</span> s;
+    s.<span class="fn">push</span>(<span class="nm">10</span>);   <span class="cm">// stack: [10]</span>
+    s.<span class="fn">push</span>(<span class="nm">20</span>);   <span class="cm">// stack: [10, 20]</span>
+    s.<span class="fn">push</span>(<span class="nm">30</span>);   <span class="cm">// stack: [10, 20, 30]</span>
+
+    cout &lt;&lt; <span class="st">"Top: "</span>  &lt;&lt; s.<span class="fn">peek</span>() &lt;&lt; <span class="st">"\n"</span>;   <span class="cm">// 30</span>
+    cout &lt;&lt; <span class="st">"Pop: "</span>  &lt;&lt; s.<span class="fn">pop</span>()  &lt;&lt; <span class="st">"\n"</span>;   <span class="cm">// 30</span>
+    cout &lt;&lt; <span class="st">"Top: "</span>  &lt;&lt; s.<span class="fn">peek</span>() &lt;&lt; <span class="st">"\n"</span>;   <span class="cm">// 20</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+</div>
+
+<!-- ────────── QUEUE ────────── -->
+<div class="section" id="queue">
+    <div class="section-label label-green">🚶 STRUCTURE 4</div>
+    <h2>Queue</h2>
+
+    <div class="struct-card">
+        <div class="struct-card-header">
+            <div class="struct-icon icon-queue">🚶</div>
+            <div>
+                <div class="struct-title">Queue</div>
+                <div class="struct-sub">FIFO — First In, First Out</div>
+            </div>
+        </div>
+        <p><strong>What is it?</strong> A Queue follows the <strong>FIFO</strong> (First In, First Out) principle — the first element added is the first one removed. Think of a checkout line: new people join at the <strong>back</strong>, and are served from the <strong>front</strong>.</p>
+
+        <p style="margin-top:10px; margin-bottom:6px;"><strong>After enqueue(10), enqueue(20), enqueue(30):</strong></p>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+            <span style="font-size:13px; color:#667eea; font-weight:bold;">FRONT →</span>
+            <div class="queue-visual" style="margin:0;">
+                <div class="queue-cell">10</div>
+                <div class="queue-cell">20</div>
+                <div class="queue-cell">30</div>
+            </div>
+            <span style="font-size:13px; color:#667eea; font-weight:bold;">← BACK</span>
+        </div>
+
+        <div class="complexity-grid">
+            <div class="complexity-item"><div class="complexity-op">enqueue (add)</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">dequeue (remove)</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">front (peek)</div><div class="complexity-val fast">O(1)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Search</div><div class="complexity-val slow">O(n)</div></div>
+        </div>
+
+        <p><strong>Real uses:</strong> Print queues, CPU scheduling, BFS graph traversal, keyboard input buffer.</p>
+    </div>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">const</span> <span class="tp">int</span> MAX = <span class="nm">100</span>;
+
+<span class="kw">struct</span> <span class="tp">Queue</span> {
+    <span class="tp">int</span>  data[MAX];
+    <span class="tp">int</span>  front = <span class="nm">0</span>;
+    <span class="tp">int</span>  back  = -<span class="nm">1</span>;
+    <span class="tp">int</span>  size  = <span class="nm">0</span>;
+
+    <span class="cm">// Enqueue — add to back</span>
+    <span class="tp">void</span> <span class="fn">enqueue</span>(<span class="tp">int</span> val) {
+        <span class="kw">if</span> (size == MAX) { cout &lt;&lt; <span class="st">"Queue Full!\n"</span>; <span class="kw">return</span>; }
+        back = (back + <span class="nm">1</span>) % MAX;   <span class="cm">// circular wrap</span>
+        data[back] = val;
+        size++;
     }
+
+    <span class="cm">// Dequeue — remove from front</span>
+    <span class="tp">int</span> <span class="fn">dequeue</span>() {
+        <span class="kw">if</span> (size == <span class="nm">0</span>) { cout &lt;&lt; <span class="st">"Queue Empty!\n"</span>; <span class="kw">return</span> -<span class="nm">1</span>; }
+        <span class="tp">int</span> val = data[front];
+        front = (front + <span class="nm">1</span>) % MAX;  <span class="cm">// circular wrap</span>
+        size--;
+        <span class="kw">return</span> val;
+    }
+
+    <span class="tp">int</span>  <span class="fn">peek</span>()    { <span class="kw">return</span> size == <span class="nm">0</span> ? -<span class="nm">1</span> : data[front]; }
+    <span class="tp">bool</span> <span class="fn">isEmpty</span>(){ <span class="kw">return</span> size == <span class="nm">0</span>; }
+};
+
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">Queue</span> q;
+    q.<span class="fn">enqueue</span>(<span class="nm">10</span>);   <span class="cm">// queue: [10]</span>
+    q.<span class="fn">enqueue</span>(<span class="nm">20</span>);   <span class="cm">// queue: [10, 20]</span>
+    q.<span class="fn">enqueue</span>(<span class="nm">30</span>);   <span class="cm">// queue: [10, 20, 30]</span>
+
+    cout &lt;&lt; <span class="st">"Front:   "</span> &lt;&lt; q.<span class="fn">peek</span>()     &lt;&lt; <span class="st">"\n"</span>;   <span class="cm">// 10</span>
+    cout &lt;&lt; <span class="st">"Dequeue: "</span> &lt;&lt; q.<span class="fn">dequeue</span>() &lt;&lt; <span class="st">"\n"</span>;   <span class="cm">// 10</span>
+    cout &lt;&lt; <span class="st">"Front:   "</span> &lt;&lt; q.<span class="fn">peek</span>()     &lt;&lt; <span class="st">"\n"</span>;   <span class="cm">// 20</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+
+    <div class="info-box">
+        <strong>Stack vs Queue:</strong> Both are linear data structures with O(1) add/remove. The key difference is direction — Stack removes from the same end it adds (LIFO), Queue removes from the opposite end (FIFO).
+    </div>
+</div>
+
+<!-- ────────── TREES ────────── -->
+<div class="section" id="trees">
+    <div class="section-label label-purple">🌳 STRUCTURE 5</div>
+    <h2>Binary Tree</h2>
+
+    <div class="struct-card">
+        <div class="struct-card-header">
+            <div class="struct-icon icon-tree">🌳</div>
+            <div>
+                <div class="struct-title">Binary Tree / BST</div>
+                <div class="struct-sub">Hierarchical · Each node has at most 2 children</div>
+            </div>
+        </div>
+        <p><strong>What is it?</strong> A tree is a <strong>hierarchical</strong> (non-linear) data structure. Each element is a <strong>node</strong>. There is one <strong>root</strong> at the top. Each node has at most two children: <strong>left</strong> and <strong>right</strong>. A node with no children is called a <strong>leaf</strong>.</p>
+
+        <p><strong>Binary Search Tree (BST) rule:</strong> left child &lt; parent &lt; right child — this makes searching very fast.</p>
+
+        <div class="tree-svg-wrapper">
+            <svg width="340" height="200" viewBox="0 0 340 200" style="max-width:100%;">
+                <!-- edges -->
+                <line x1="170" y1="40" x2="90"  y2="100" stroke="#667eea" stroke-width="2"/>
+                <line x1="170" y1="40" x2="250" y2="100" stroke="#667eea" stroke-width="2"/>
+                <line x1="90"  y1="100" x2="50"  y2="160" stroke="#667eea" stroke-width="2"/>
+                <line x1="90"  y1="100" x2="130" y2="160" stroke="#667eea" stroke-width="2"/>
+                <line x1="250" y1="100" x2="210" y2="160" stroke="#667eea" stroke-width="2"/>
+                <line x1="250" y1="100" x2="290" y2="160" stroke="#667eea" stroke-width="2"/>
+                <!-- nodes -->
+                <circle cx="170" cy="40"  r="25" fill="#667eea"/>
+                <circle cx="90"  cy="100" r="25" fill="#764ba2"/>
+                <circle cx="250" cy="100" r="25" fill="#764ba2"/>
+                <circle cx="50"  cy="160" r="22" fill="#89b4fa"/>
+                <circle cx="130" cy="160" r="22" fill="#89b4fa"/>
+                <circle cx="210" cy="160" r="22" fill="#89b4fa"/>
+                <circle cx="290" cy="160" r="22" fill="#89b4fa"/>
+                <!-- labels -->
+                <text x="170" y="45"  text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="14">50</text>
+                <text x="90"  y="105" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="14">30</text>
+                <text x="250" y="105" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="14">70</text>
+                <text x="50"  y="165" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="12">20</text>
+                <text x="130" y="165" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="12">40</text>
+                <text x="210" y="165" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="12">60</text>
+                <text x="290" y="165" text-anchor="middle" fill="white" font-weight="bold" font-family="Courier New" font-size="12">80</text>
+                <!-- annotations -->
+                <text x="170" y="20" text-anchor="middle" fill="#667eea" font-size="11" font-family="Segoe UI">ROOT</text>
+                <text x="50"  y="192" text-anchor="middle" fill="#888" font-size="10" font-family="Segoe UI">LEAF</text>
+                <text x="130" y="192" text-anchor="middle" fill="#888" font-size="10" font-family="Segoe UI">LEAF</text>
+                <text x="210" y="192" text-anchor="middle" fill="#888" font-size="10" font-family="Segoe UI">LEAF</text>
+                <text x="290" y="192" text-anchor="middle" fill="#888" font-size="10" font-family="Segoe UI">LEAF</text>
+            </svg>
+        </div>
+
+        <div class="complexity-grid">
+            <div class="complexity-item"><div class="complexity-op">Search (BST)</div><div class="complexity-val fast">O(log n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Insert (BST)</div><div class="complexity-val fast">O(log n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Traversal</div><div class="complexity-val slow">O(n)</div></div>
+            <div class="complexity-item"><div class="complexity-op">Worst case</div><div class="complexity-val slow">O(n)</div></div>
+        </div>
+
+        <p><strong>Real uses:</strong> File systems, expression parsing, database indexes, autocomplete, game AI (decision trees).</p>
+    </div>
+
+    <h3>Traversals</h3>
+
+    <table>
+        <tr><th>Traversal</th><th>Order</th><th>Output on tree above</th></tr>
+        <tr><td><strong>Inorder</strong></td><td>Left → Root → Right</td><td>20 30 40 50 60 70 80 (sorted!)</td></tr>
+        <tr><td><strong>Preorder</strong></td><td>Root → Left → Right</td><td>50 30 20 40 70 60 80</td></tr>
+        <tr><td><strong>Postorder</strong></td><td>Left → Right → Root</td><td>20 40 30 60 80 70 50</td></tr>
+    </table>
+
+    <pre data-lang="C++"><code><span class="pp">#include &lt;iostream&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="cm">// ── Node structure ─────────────────────────────────</span>
+<span class="kw">struct</span> <span class="tp">TreeNode</span> {
+    <span class="tp">int</span>       data;
+    <span class="tp">TreeNode</span>* left;
+    <span class="tp">TreeNode</span>* right;
+    <span class="fn">TreeNode</span>(<span class="tp">int</span> val) : data(val), left(<span class="kw">NULL</span>), right(<span class="kw">NULL</span>) {}
+};
+
+<span class="cm">// ── Insert into BST ────────────────────────────────</span>
+<span class="tp">TreeNode</span>* <span class="fn">insert</span>(<span class="tp">TreeNode</span>* root, <span class="tp">int</span> val) {
+    <span class="kw">if</span> (root == <span class="kw">NULL</span>) <span class="kw">return</span> <span class="kw">new</span> <span class="tp">TreeNode</span>(val);
     <span class="kw">if</span>      (val &lt; root-&gt;data) root-&gt;left  = <span class="fn">insert</span>(root-&gt;left,  val);
     <span class="kw">else if</span> (val &gt; root-&gt;data) root-&gt;right = <span class="fn">insert</span>(root-&gt;right, val);
-    <span class="kw">return</span> root;
+    <span class="kw">return</span> root;   <span class="cm">// duplicates are ignored</span>
 }
 
-<span class="cm">// ── Search in BST ──────────────────────────────</span>
-<span class="ty">bool</span> <span class="fn">search</span>(<span class="ty">Node</span>* root, <span class="ty">int</span> key) {
-    <span class="kw">if</span> (!root)             <span class="kw">return</span> <span class="kw">false</span>;
-    <span class="kw">if</span> (key == root-&gt;data) <span class="kw">return</span> <span class="kw">true</span>;
-    <span class="kw">if</span> (key  &lt; root-&gt;data) <span class="kw">return</span> <span class="fn">search</span>(root-&gt;left,  key);
-                           <span class="kw">return</span> <span class="fn">search</span>(root-&gt;right, key);
-}   <span class="cm">// O(log n) balanced, O(n) worst case (skewed)</span>
+<span class="cm">// ── Inorder: Left → Root → Right (gives SORTED order) ─</span>
+<span class="tp">void</span> <span class="fn">inorder</span>(<span class="tp">TreeNode</span>* root) {
+    <span class="kw">if</span> (root == <span class="kw">NULL</span>) <span class="kw">return</span>;
+    <span class="fn">inorder</span>(root-&gt;left);
+    cout &lt;&lt; root-&gt;data &lt;&lt; <span class="st">" "</span>;
+    <span class="fn">inorder</span>(root-&gt;right);
+}
 
-<span class="cm">// ── Tree Traversals ────────────────────────────</span>
-<span class="ty">void</span> <span class="fn">inOrder</span>  (<span class="ty">Node</span>* r) { <span class="kw">if</span>(!r) <span class="kw">return</span>; <span class="fn">inOrder</span>(r-&gt;left); cout&lt;&lt;r-&gt;data&lt;&lt;<span class="str">" "</span>; <span class="fn">inOrder</span>(r-&gt;right); }
-<span class="ty">void</span> <span class="fn">preOrder</span> (<span class="ty">Node</span>* r) { <span class="kw">if</span>(!r) <span class="kw">return</span>; cout&lt;&lt;r-&gt;data&lt;&lt;<span class="str">" "</span>; <span class="fn">preOrder</span>(r-&gt;left); <span class="fn">preOrder</span>(r-&gt;right); }
-<span class="ty">void</span> <span class="fn">postOrder</span>(<span class="ty">Node</span>* r) { <span class="kw">if</span>(!r) <span class="kw">return</span>; <span class="fn">postOrder</span>(r-&gt;left); <span class="fn">postOrder</span>(r-&gt;right); cout&lt;&lt;r-&gt;data&lt;&lt;<span class="str">" "</span>; }
+<span class="cm">// ── Preorder: Root → Left → Right ─────────────────</span>
+<span class="tp">void</span> <span class="fn">preorder</span>(<span class="tp">TreeNode</span>* root) {
+    <span class="kw">if</span> (root == <span class="kw">NULL</span>) <span class="kw">return</span>;
+    cout &lt;&lt; root-&gt;data &lt;&lt; <span class="st">" "</span>;
+    <span class="fn">preorder</span>(root-&gt;left);
+    <span class="fn">preorder</span>(root-&gt;right);
+}
 
-<span class="cm">// For BST {50,30,70,20,40,60,80}:</span>
-<span class="cm">// In-order  → 20 30 40 50 60 70 80  (sorted!)</span>
-<span class="cm">// Pre-order → 50 30 20 40 70 60 80  (root first)</span>
-<span class="cm">// Post-order→ 20 40 30 60 80 70 50  (root last)</span></pre>
-                </div>
+<span class="cm">// ── Postorder: Left → Right → Root ────────────────</span>
+<span class="tp">void</span> <span class="fn">postorder</span>(<span class="tp">TreeNode</span>* root) {
+    <span class="kw">if</span> (root == <span class="kw">NULL</span>) <span class="kw">return</span>;
+    <span class="fn">postorder</span>(root-&gt;left);
+    <span class="fn">postorder</span>(root-&gt;right);
+    cout &lt;&lt; root-&gt;data &lt;&lt; <span class="st">" "</span>;
+}
 
-                <div class="info-box success">
-                    <strong>In-order traversal of a BST always gives sorted output.</strong><br>
-                    Height of balanced BST ≈ log₂(n). Height of skewed BST = n (worst case).
-                </div>
+<span class="cm">// ── BST Search ─────────────────────────────────────</span>
+<span class="tp">bool</span> <span class="fn">search</span>(<span class="tp">TreeNode</span>* root, <span class="tp">int</span> key) {
+    <span class="kw">if</span> (root == <span class="kw">NULL</span>)       <span class="kw">return</span> <span class="kw">false</span>;
+    <span class="kw">if</span> (root-&gt;data == key)   <span class="kw">return</span> <span class="kw">true</span>;
+    <span class="kw">if</span> (key &lt; root-&gt;data)    <span class="kw">return</span> <span class="fn">search</span>(root-&gt;left,  key);
+    <span class="kw">else</span>                     <span class="kw">return</span> <span class="fn">search</span>(root-&gt;right, key);
+}
 
-                <div class="ops-row">
-                    <div class="op-chip"><span class="o-name">Search (balanced)</span> <span class="o-time g">O(log n)</span></div>
-                    <div class="op-chip"><span class="o-name">Search (worst)</span> <span class="o-time r">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Insert (balanced)</span> <span class="o-time g">O(log n)</span></div>
-                    <div class="op-chip"><span class="o-name">Traversal</span> <span class="o-time y">O(n)</span></div>
-                    <div class="op-chip"><span class="o-name">Space</span> <span class="o-time y">O(n)</span></div>
-                </div>
-            </div>
-        </div>
+<span class="tp">int</span> <span class="fn">main</span>() {
+    <span class="tp">TreeNode</span>* root = <span class="kw">NULL</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> v : {<span class="nm">50</span>, <span class="nm">30</span>, <span class="nm">70</span>, <span class="nm">20</span>, <span class="nm">40</span>, <span class="nm">60</span>, <span class="nm">80</span>})
+        root = <span class="fn">insert</span>(root, v);
 
-        <!-- ── COMPARISON TABLE ── -->
-        <div class="section" id="comparison">
-            <div class="section-head">
-                <span class="section-icon">📊</span>
-                <h2>Structures Comparison</h2>
-                <span class="tag">Quick Reference</span>
-            </div>
-            <div class="section-body">
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Structure</th>
-                                <th>Memory</th>
-                                <th>Access</th>
-                                <th>Insert/Delete</th>
-                                <th>Search</th>
-                                <th>Order</th>
-                                <th>Best For</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>📦 Array</td>
-                                <td>Contiguous</td>
-                                <td class="complexity-good">O(1)</td>
-                                <td class="complexity-bad">O(n)</td>
-                                <td class="complexity-ok">O(n) / O(log n)*</td>
-                                <td>Fixed</td>
-                                <td>Fast access, known size</td>
-                            </tr>
-                            <tr>
-                                <td>🔗 Linked List</td>
-                                <td>Scattered</td>
-                                <td class="complexity-bad">O(n)</td>
-                                <td class="complexity-good">O(1) begin</td>
-                                <td class="complexity-bad">O(n)</td>
-                                <td>Dynamic</td>
-                                <td>Frequent insertions</td>
-                            </tr>
-                            <tr>
-                                <td>📚 Stack</td>
-                                <td>Contiguous/Linked</td>
-                                <td>Top only</td>
-                                <td class="complexity-good">O(1)</td>
-                                <td class="complexity-bad">O(n)</td>
-                                <td>LIFO</td>
-                                <td>Undo, recursion, DFS</td>
-                            </tr>
-                            <tr>
-                                <td>🚶 Queue</td>
-                                <td>Contiguous/Linked</td>
-                                <td>Front/Rear</td>
-                                <td class="complexity-good">O(1)</td>
-                                <td class="complexity-bad">O(n)</td>
-                                <td>FIFO</td>
-                                <td>Scheduling, BFS</td>
-                            </tr>
-                            <tr>
-                                <td>🌳 BST (balanced)</td>
-                                <td>Scattered</td>
-                                <td class="complexity-ok">O(log n)</td>
-                                <td class="complexity-ok">O(log n)</td>
-                                <td class="complexity-ok">O(log n)</td>
-                                <td>Sorted</td>
-                                <td>Ordered search/insert</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="color:var(--muted); font-size:0.78em; margin-top:8px;">* Binary Search is O(log n) only on sorted arrays.</div>
-            </div>
-        </div>
+    cout &lt;&lt; <span class="st">"Inorder  : "</span>; <span class="fn">inorder</span>  (root); cout &lt;&lt; <span class="st">"\n"</span>;
+    cout &lt;&lt; <span class="st">"Preorder : "</span>; <span class="fn">preorder</span> (root); cout &lt;&lt; <span class="st">"\n"</span>;
+    cout &lt;&lt; <span class="st">"Postorder: "</span>; <span class="fn">postorder</span>(root); cout &lt;&lt; <span class="st">"\n"</span>;
 
-    </div><!-- /main -->
-</div><!-- /page -->
+    cout &lt;&lt; <span class="st">"Search 40: "</span> &lt;&lt; (<span class="fn">search</span>(root, <span class="nm">40</span>) ? <span class="st">"Found"</span> : <span class="st">"Not found"</span>) &lt;&lt; <span class="st">"\n"</span>;
+    cout &lt;&lt; <span class="st">"Search 99: "</span> &lt;&lt; (<span class="fn">search</span>(root, <span class="nm">99</span>) ? <span class="st">"Found"</span> : <span class="st">"Not found"</span>) &lt;&lt; <span class="st">"\n"</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</code></pre>
+
+    <!-- Quick Comparison Summary -->
+    <h3>Quick Comparison — All Structures</h3>
+    <table>
+        <tr>
+            <th>Structure</th>
+            <th>Type</th>
+            <th>Principle</th>
+            <th>Access</th>
+            <th>Insert/Delete</th>
+            <th>Memory</th>
+        </tr>
+        <tr>
+            <td><strong>Array</strong></td>
+            <td>Linear</td>
+            <td>Indexed</td>
+            <td>O(1)</td>
+            <td>O(n)</td>
+            <td>Contiguous</td>
+        </tr>
+        <tr>
+            <td><strong>Linked List</strong></td>
+            <td>Linear</td>
+            <td>Pointer chain</td>
+            <td>O(n)</td>
+            <td>O(1) at ends</td>
+            <td>Scattered</td>
+        </tr>
+        <tr>
+            <td><strong>Stack</strong></td>
+            <td>Linear</td>
+            <td>LIFO</td>
+            <td>Top only</td>
+            <td>O(1)</td>
+            <td>Array or LL</td>
+        </tr>
+        <tr>
+            <td><strong>Queue</strong></td>
+            <td>Linear</td>
+            <td>FIFO</td>
+            <td>Front only</td>
+            <td>O(1)</td>
+            <td>Array or LL</td>
+        </tr>
+        <tr>
+            <td><strong>Binary Tree</strong></td>
+            <td>Hierarchical</td>
+            <td>L &lt; Root &lt; R</td>
+            <td>O(log n) avg</td>
+            <td>O(log n) avg</td>
+            <td>Scattered</td>
+        </tr>
+    </table>
+
+    <div class="highlight" style="margin-top:24px;">
+        <p><strong>How to choose a structure:</strong></p>
+        <ul>
+            <li>Need fast index access? → <strong>Array</strong></li>
+            <li>Lots of insertions/deletions? → <strong>Linked List</strong></li>
+            <li>Undo / function calls / backtracking? → <strong>Stack</strong></li>
+            <li>Scheduling / print queue / BFS? → <strong>Queue</strong></li>
+            <li>Need sorted data + fast search? → <strong>Binary Search Tree</strong></li>
+        </ul>
+    </div>
+</div>
+
+</div><!-- /.container -->
+
+<footer>
+    <p>CS211 — Data Structures &amp; Algorithms &nbsp;·&nbsp; Dr. Noha El-Shoafy &nbsp;·&nbsp; Matrouh University</p>
+</footer>
 
 </body>
 </html>

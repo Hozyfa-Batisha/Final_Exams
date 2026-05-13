@@ -3,115 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Structures — CS211 Exam</title>
+    <title>Data Structures & Algorithms — CS211 Quiz</title>
+    <script src="ds_questions.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
-        /* ── Header bar ── */
-        .top-bar {
+        /* ── Back Bar ── */
+        .back-bar {
             max-width: 1400px;
-            margin: 0 auto 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .top-bar .brand {
-            color: #00e5ff;
-            font-size: 1.3em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 0 0 12px rgba(0,229,255,0.4);
-        }
-
-        .top-bar .course-badge {
-            background: rgba(0,229,255,0.12);
-            border: 1px solid rgba(0,229,255,0.4);
-            color: #00e5ff;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
+            margin: 0 auto 15px auto;
         }
 
         .back-home-btn {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.2);
             color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.4);
+            padding: 10px 22px;
+            border-radius: 25px;
             font-size: 14px;
             font-weight: 600;
-            transition: all 0.3s;
+            cursor: pointer;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
 
         .back-home-btn:hover {
-            background: rgba(0,229,255,0.15);
-            border-color: #00e5ff;
-            color: #00e5ff;
+            background: rgba(255,255,255,0.35);
+            border-color: white;
         }
 
-        /* ── Hero ── */
-        .hero {
-            max-width: 1400px;
-            margin: 0 auto 28px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(0,229,255,0.2);
-            border-radius: 20px;
-            padding: 36px 40px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero h1 {
-            font-size: 2.4em;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .hero h1 span {
-            color: #00e5ff;
-        }
-
-        .hero p {
-            color: rgba(255,255,255,0.65);
-            font-size: 1.05em;
-        }
-
-        .hero .stats-row {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-chip {
-            background: rgba(0,229,255,0.1);
-            border: 1px solid rgba(0,229,255,0.3);
-            padding: 8px 20px;
-            border-radius: 12px;
-            color: #00e5ff;
-            font-weight: 700;
-            font-size: 0.9em;
-        }
-
-        /* ── Main layout ── */
-        .exam-layout {
+        /* ── Exam Layout ── */
+        .exam-wrapper {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
@@ -121,623 +55,766 @@
 
         /* ── Sidebar ── */
         .sidebar {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 22px;
-            width: 260px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            width: 450px;
             position: sticky;
             top: 20px;
             max-height: calc(100vh - 40px);
             overflow-y: auto;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             flex-shrink: 0;
         }
 
-        .sidebar::-webkit-scrollbar { width: 5px; }
-        .sidebar::-webkit-scrollbar-track { background: transparent; }
-        .sidebar::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.3); border-radius: 10px; }
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 18px;
+        }
 
-        .sidebar h3 {
-            color: #00e5ff;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 14px;
+        .sidebar-header .course-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar h2 {
+            color: #667eea;
+            font-size: 16px;
             text-align: center;
         }
 
         .progress-bar {
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            height: 18px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 22px;
             overflow: hidden;
-            margin-bottom: 6px;
+            margin: 14px 0 8px;
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #00e5ff, #00b4d8);
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             height: 100%;
             width: 0%;
-            transition: width 0.4s ease;
+            transition: width 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #0f2027;
-            font-size: 10px;
-            font-weight: 800;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
         }
 
         .progress-text {
             text-align: center;
-            color: rgba(255,255,255,0.55);
-            font-size: 12px;
-            margin-bottom: 18px;
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
 
-        .nav-grid {
+        .score-summary {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-num {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .score-num.correct { color: #28a745; }
+        .score-num.incorrect { color: #dc3545; }
+        .score-num.total { color: #667eea; }
+
+        .score-lbl {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .nav-buttons {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 5px;
         }
+
+        .nav-buttons::-webkit-scrollbar { width: 6px; }
+        .nav-buttons::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .nav-buttons::-webkit-scrollbar-thumb { background: #667eea; border-radius: 10px; }
 
         .nav-btn {
-            padding: 8px 4px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.04);
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            background: white;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            color: rgba(255,255,255,0.7);
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .nav-btn:hover { background: rgba(0,229,255,0.12); border-color: #00e5ff; color: #00e5ff; }
-        .nav-btn.active { background: #00e5ff; color: #0f2027; border-color: #00e5ff; font-weight: 800; }
-        .nav-btn.answered { background: #00c853; border-color: #00c853; color: white; }
-        .nav-btn.incorrect { background: #f44336; border-color: #f44336; color: white; }
+        .nav-btn:hover { background: #f5f5f5; transform: scale(1.05); }
+        .nav-btn.answered { background: #4caf50; color: white; border-color: #4caf50; }
+        .nav-btn.wrong { background: #dc3545; color: white; border-color: #dc3545; }
+        .nav-btn.active { background: #667eea; color: white; border-color: #667eea; box-shadow: 0 0 10px rgba(102,126,234,0.5); }
 
-        /* ── Main content ── */
+        /* ── Main Content ── */
         .main-content {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 36px;
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             flex: 1;
-            backdrop-filter: blur(10px);
+            min-height: 600px;
         }
 
         .exam-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid rgba(0,229,255,0.3);
-            padding-bottom: 16px;
-            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .exam-header h2 { color: white; font-size: 1.3em; }
+        .exam-header-left h1 {
+            color: #333;
+            font-size: 22px;
+        }
 
-        .q-counter {
-            background: rgba(0,229,255,0.15);
-            border: 1px solid rgba(0,229,255,0.4);
-            color: #00e5ff;
-            padding: 6px 16px;
-            border-radius: 16px;
+        .exam-header-left p {
+            color: #888;
             font-size: 13px;
-            font-weight: 700;
+            margin-top: 3px;
         }
 
-        /* ── Question card ── */
-        .question-container { display: none; animation: fadeIn 0.35s ease; }
+        .question-counter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ── Question ── */
+        .question-container { display: none; animation: fadeIn 0.4s ease; }
         .question-container.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(16px); }
+            from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .q-header {
-            background: rgba(0,229,255,0.06);
-            border-left: 4px solid #00e5ff;
+        .question-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
             border-radius: 10px;
-            padding: 20px 22px;
-            margin-bottom: 24px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
         }
 
-        .q-number {
-            color: #00e5ff;
-            font-size: 12px;
+        .question-type-badge {
+            display: inline-block;
+            font-size: 11px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 12px;
             margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
-        .q-text {
-            color: white;
-            font-size: 1.15em;
+        .badge-tf { background: #e3f2fd; color: #1565c0; }
+        .badge-mcq { background: #f3e5f5; color: #6a1b9a; }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #333;
             line-height: 1.7;
             font-weight: 500;
         }
 
-        /* ── Options ── */
-        .options { margin: 20px 0; }
+        .options { margin: 25px 0; }
 
         .option {
             display: flex;
             align-items: center;
             padding: 15px 18px;
             margin: 10px 0;
-            border: 2px solid rgba(255,255,255,0.12);
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.25s;
-            background: rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+            background: white;
         }
 
         .option:hover:not(.disabled) {
-            background: rgba(0,229,255,0.08);
-            border-color: #00e5ff;
-            transform: translateX(6px);
+            background: #f8f9fa;
+            border-color: #667eea;
+            transform: translateX(5px);
         }
 
         .option.disabled { cursor: not-allowed; }
 
         .option input[type="radio"] {
-            margin-right: 14px;
-            width: 18px;
-            height: 18px;
-            accent-color: #00e5ff;
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
+            accent-color: #667eea;
         }
 
-        .option.disabled input { cursor: not-allowed; }
+        .option.disabled input[type="radio"] { cursor: not-allowed; }
 
-        .option-label { color: rgba(255,255,255,0.85); font-size: 15px; flex: 1; line-height: 1.5; }
+        .option-label {
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
 
-        .option.correct { background: rgba(0,200,83,0.15); border-color: #00c853; border-width: 3px; }
-        .option.correct .option-label { color: #69f0ae; }
-        .option.wrong   { background: rgba(244,67,54,0.15); border-color: #f44336; border-width: 3px; }
-        .option.wrong   .option-label { color: #ff8a80; }
+        .option.disabled .option-label { cursor: not-allowed; }
+        .option.correct { background: #d4edda; border-color: #28a745; border-width: 3px; }
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; border-width: 3px; }
 
-        /* ── Feedback ── */
         .feedback {
             margin-top: 18px;
             padding: 14px 18px;
-            border-radius: 8px;
+            border-radius: 10px;
             display: none;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .feedback.show { display: block; animation: slideDown 0.3s ease; }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-8px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .feedback.correct { background: rgba(0,200,83,0.12); color: #69f0ae; border: 1px solid #00c853; }
-        .feedback.incorrect { background: rgba(244,67,54,0.12); color: #ff8a80; border: 1px solid #f44336; }
+        .feedback.correct { background: #d4edda; color: #155724; border: 2px solid #28a745; }
+        .feedback.incorrect { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
 
         .explanation-box {
-            margin-top: 12px;
-            padding: 14px 18px;
-            background: rgba(0,229,255,0.06);
-            border-left: 3px solid #00e5ff;
+            margin-top: 14px;
+            padding: 16px 20px;
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
             border-radius: 8px;
             display: none;
+            animation: slideDown 0.3s ease;
         }
 
-        .explanation-box.show { display: block; animation: slideDown 0.3s ease; }
+        .explanation-box.show { display: block; }
 
         .explanation-title {
-            font-weight: 700;
-            color: #00e5ff;
-            font-size: 13px;
-            margin-bottom: 6px;
+            font-weight: bold;
+            color: #1976D2;
+            font-size: 14px;
+            margin-bottom: 7px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
         }
 
         .explanation-title::before { content: "💡"; font-size: 16px; }
 
-        .explanation-text { color: rgba(255,255,255,0.7); font-size: 13px; line-height: 1.6; }
-
-        /* ── Nav buttons ── */
-        .nav-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 32px;
-            padding-top: 22px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .explanation-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.65;
+            font-weight: normal;
         }
 
-        .arrow-btn {
-            padding: 11px 28px;
-            border: 2px solid rgba(0,229,255,0.5);
-            background: transparent;
-            color: #00e5ff;
+        /* ── Navigation Buttons ── */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-button {
+            padding: 12px 30px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
             border-radius: 8px;
             cursor: pointer;
             font-size: 15px;
             font-weight: 600;
-            transition: all 0.25s;
+            transition: all 0.3s ease;
         }
 
-        .arrow-btn:hover:not(:disabled) {
-            background: #00e5ff;
-            color: #0f2027;
+        .nav-button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102,126,234,0.3);
         }
 
-        .arrow-btn:disabled { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.25); cursor: not-allowed; }
+        .nav-button:disabled {
+            border-color: #ccc;
+            color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
 
-        /* ── Completion modal ── */
-        .modal {
+        /* ── Completion Modal ── */
+        .completion-modal {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
             z-index: 9999;
             align-items: center;
             justify-content: center;
         }
 
-        .modal.show { display: flex; }
+        .completion-modal.show { display: flex; }
 
-        .modal-box {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border: 1px solid rgba(0,229,255,0.3);
+        .completion-content {
+            background: white;
             border-radius: 20px;
-            padding: 50px 40px;
-            max-width: 520px;
+            padding: 50px;
+            max-width: 600px;
+            width: 90%;
             text-align: center;
-            animation: modalPop 0.45s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.5s ease;
         }
 
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.85) translateY(-30px); }
-            to   { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .modal-icon { font-size: 72px; margin-bottom: 16px; }
-        .modal-box h2 { color: #00e5ff; font-size: 2em; margin-bottom: 10px; }
-        .modal-box p { color: rgba(255,255,255,0.65); margin-bottom: 24px; }
+        .completion-icon { font-size: 80px; margin-bottom: 20px; }
 
-        .score-row {
+        .completion-content h2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
             display: flex;
             justify-content: space-around;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
+            margin: 25px 0;
             padding: 20px;
-            margin: 24px 0;
+            background: #f8f9fa;
+            border-radius: 15px;
         }
 
-        .score-item { text-align: center; }
-        .score-num { font-size: 2.2em; font-weight: 800; color: #00e5ff; }
-        .score-lbl { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+        .score-item-modal { text-align: center; }
 
-        .modal-btns { display: flex; gap: 12px; justify-content: center; margin-top: 10px; }
+        .score-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
 
-        .mbtn {
-            padding: 12px 26px;
-            border-radius: 10px;
+        .score-number.c { color: #28a745; }
+        .score-number.i { color: #dc3545; }
+        .score-number.p { color: #667eea; }
+
+        .score-label { color: #666; font-size: 13px; margin-top: 4px; }
+
+        .completion-message { color: #666; font-size: 16px; margin: 15px 0; line-height: 1.6; }
+
+        .completion-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .completion-btn {
+            padding: 13px 28px;
             border: none;
-            cursor: pointer;
+            border-radius: 10px;
             font-size: 15px;
-            font-weight: 700;
-            transition: all 0.2s;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .mbtn-review { background: rgba(0,229,255,0.15); color: #00e5ff; border: 1px solid #00e5ff; }
-        .mbtn-review:hover { background: rgba(0,229,255,0.25); }
-        .mbtn-home  { background: #00e5ff; color: #0f2027; }
-        .mbtn-home:hover  { background: #00b4d8; }
+        .btn-retry { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-retry:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+        .btn-task { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); color: white; }
+        .btn-task:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,184,148,0.4); }
+        .btn-home { background: #f0f0f0; color: #333; }
+        .btn-home:hover { background: #e0e0e0; }
 
         /* ── Responsive ── */
-        @media (max-width: 900px) {
-            .exam-layout { flex-direction: column; }
-            .sidebar { width: 100%; position: static; max-height: none; }
-            .nav-grid { grid-template-columns: repeat(8, 1fr); }
+        @media (max-width: 1024px) {
+            .exam-wrapper { flex-direction: column; }
+            .sidebar { position: relative; width: 100%; top: 0; max-height: none; order: 2; margin-top: 20px; }
+            .main-content { order: 1; }
+            .nav-buttons { grid-template-columns: repeat(8, 1fr); max-height: 200px; }
         }
 
-        @media (max-width: 600px) {
-            .hero { padding: 24px 20px; }
-            .hero h1 { font-size: 1.6em; }
+        @media (max-width: 768px) {
             .main-content { padding: 20px; }
-            .q-text { font-size: 1em; }
-            .nav-grid { grid-template-columns: repeat(6, 1fr); }
+            .exam-header h1 { font-size: 18px; }
+            .question-text { font-size: 16px; }
+            .nav-buttons { grid-template-columns: repeat(6, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .main-content { padding: 15px; }
+            .nav-buttons { grid-template-columns: repeat(5, 1fr); }
+            .completion-content { padding: 30px 20px; }
+            .score-display { flex-direction: column; gap: 15px; }
+            .completion-buttons { flex-direction: column; }
+            .completion-btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top bar -->
-    <div class="top-bar">
-        <div class="brand">⚡ CS211 · Data Structures</div>
-        <div class="course-badge">C++ · CS Level 2</div>
-        <a class="back-home-btn" href="index.html">← Home</a>
+    <div class="back-bar">
+        <a href="index.html" class="back-home-btn">← Back to Home</a>
     </div>
 
-    <!-- Hero -->
-    <div class="hero">
-        <h1>Data Structures &amp; Algorithms <span>Exam</span></h1>
-        <p>CS211 · Dr. Noha El-Shoafy · Matrouh University — Faculty of Computers &amp; AI</p>
-        <div class="stats-row">
-            <div class="stat-chip">40 Questions</div>
-            <div class="stat-chip">MCQ Format</div>
-            <div class="stat-chip">Arrays · Sorting · Pointers · Lists · Trees</div>
-        </div>
-    </div>
+    <div class="exam-wrapper">
 
-    <!-- Exam layout -->
-    <div class="exam-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="course-badge">CS211</div>
+                <h2>Data Structures &amp; Algorithms</h2>
+            </div>
 
-        <!-- Main content -->
-        <div class="main-content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText">0 / 45 Answered</p>
+
+            <div class="score-summary">
+                <div class="score-item">
+                    <div class="score-num correct" id="liveCorrect">0</div>
+                    <div class="score-lbl">Correct</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-num incorrect" id="liveIncorrect">0</div>
+                    <div class="score-lbl">Incorrect</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-num total" id="liveTotal">45</div>
+                    <div class="score-lbl">Total</div>
+                </div>
+            </div>
+
+            <div class="nav-buttons" id="navButtons"></div>
+        </aside>
+
+        <!-- Main quiz area -->
+        <main class="main-content">
             <div class="exam-header">
-                <h2>💻 DS &amp; Algorithms — Sheet Practice</h2>
-                <div class="q-counter" id="qCounter">Question 1</div>
+                <div class="exam-header-left">
+                    <h1>CS211 — Data Structures Quiz</h1>
+                    <p>True/False &amp; Multiple Choice · Dr. Noha El-Shoafy</p>
+                </div>
+                <div class="question-counter" id="questionCounter">Question 1 of 45</div>
             </div>
 
             <div id="questionsContainer"></div>
 
-            <div class="nav-row">
-                <button class="arrow-btn" id="prevBtn" onclick="navigate(-1)" disabled>← Prev</button>
-                <button class="arrow-btn" id="nextBtn" onclick="navigate(1)">Next →</button>
+            <div class="navigation-buttons">
+                <button class="nav-button" id="prevBtn" onclick="navigateQuestion(-1)" disabled>← Previous</button>
+                <button class="nav-button" id="nextBtn" onclick="navigateQuestion(1)">Next →</button>
             </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h3>Navigation</h3>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text" id="progressText">0 / 0 Answered</div>
-            <div class="nav-grid" id="navGrid"></div>
-        </div>
+        </main>
 
     </div>
 
-    <!-- Completion modal -->
-    <div class="modal" id="completionModal">
-        <div class="modal-box">
-            <div class="modal-icon" id="modalIcon">🎉</div>
-            <h2>Exam Completed!</h2>
-            <p id="modalMsg">Great work — keep revising!</p>
-            <div class="score-row">
-                <div class="score-item">
-                    <div class="score-num" id="scoreCorrect">0</div>
-                    <div class="score-lbl">Correct</div>
+    <!-- Completion Modal -->
+    <div class="completion-modal" id="completionModal">
+        <div class="completion-content">
+            <div class="completion-icon" id="completionIcon">🏆</div>
+            <h2>Quiz Complete!</h2>
+            <div class="score-display">
+                <div class="score-item-modal">
+                    <span class="score-number c" id="correctCount">0</span>
+                    <div class="score-label">Correct</div>
                 </div>
-                <div class="score-item">
-                    <div class="score-num" id="scoreWrong">0</div>
-                    <div class="score-lbl">Incorrect</div>
+                <div class="score-item-modal">
+                    <span class="score-number i" id="incorrectCount">0</span>
+                    <div class="score-label">Incorrect</div>
                 </div>
-                <div class="score-item">
-                    <div class="score-num" id="scorePct">0%</div>
-                    <div class="score-lbl">Score</div>
+                <div class="score-item-modal">
+                    <span class="score-number p" id="scorePercentage">0%</span>
+                    <div class="score-label">Score</div>
                 </div>
             </div>
-            <div class="modal-btns">
-                <button class="mbtn mbtn-review" onclick="closeModal()">Review Answers</button>
-                <button class="mbtn mbtn-home"   onclick="window.location.href='index.html'">🏠 Home</button>
+            <p class="completion-message" id="completionMessage"></p>
+            <div class="completion-buttons">
+                <button class="completion-btn btn-retry" onclick="retryQuiz()">🔄 Retry Quiz</button>
+                <button class="completion-btn btn-task" onclick="window.location.href='ds_task.html'">📝 Coding &amp; Revision</button>
+                <button class="completion-btn btn-home" onclick="window.location.href='index.html'">🏠 Home</button>
             </div>
         </div>
     </div>
 
-    <script src="ds_questions.js"></script>
     <script>
         // ── State ──
-        let currentQ = 1;
-        let totalQ   = 0;
-        let answered  = new Set();
-        let correct   = 0;
-        let wrong     = 0;
-        let wrongSet  = new Set();
-        let allQuestions = [];
+        let currentQuestion = 1;
+        let totalQuestions  = 0;
+        let answeredQuestions = new Set();
+        let correctAnswers    = 0;
+        let incorrectAnswers  = 0;
+        let questionsData     = [];
 
         // ── Parse ──
-        function parse(raw) {
+        function parseQuestions(raw) {
             return raw.trim().split('\n')
-                .map(l => l.trim()).filter(Boolean)
+                .filter(l => l.trim())
                 .map(line => {
                     const p = line.split('|');
-                    if (p.length >= 6) return {
-                        topic: p[0].trim(),
-                        q:     p[1].trim(),
-                        a:     p[2].trim(),
-                        b:     p[3].trim(),
-                        c:     p[4].trim(),
-                        ans:   p[5].trim(),
-                        exp:   p[6] ? p[6].trim() : ''
+                    if (p.length < 6) return null;
+                    return {
+                        category:    p[0].trim(),
+                        question:    p[1].trim(),
+                        options:     { A: p[2].trim(), B: p[3].trim(), C: p[4].trim() },
+                        correct:     p[5].trim(),
+                        explanation: p[6] ? p[6].trim() : ''
                     };
-                    return null;
-                }).filter(Boolean);
+                })
+                .filter(Boolean);
         }
 
-        // ── Build HTML ──
-        function buildQuestions() {
+        // ── Determine badge ──
+        function getBadge(q) {
+            const a = q.options.A.toLowerCase();
+            const b = q.options.B.toLowerCase();
+            if ((a === 'true' && b === 'false') || (a === 'false' && b === 'true')) {
+                return '<span class="question-type-badge badge-tf">TRUE / FALSE</span>';
+            }
+            return '<span class="question-type-badge badge-mcq">MULTIPLE CHOICE</span>';
+        }
+
+        // ── Build DOM ──
+        function generateQuestions() {
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
-
-            allQuestions.forEach((q, i) => {
-                const n = i + 1;
+            questionsData.forEach((q, idx) => {
+                const n = idx + 1;
                 container.innerHTML += `
-                <div class="question-container" data-q="${n}" data-ans="${q.ans}" data-exp="${(q.exp||'').replace(/"/g,'&quot;')}">
-                    <div class="q-header">
-                        <div class="q-number">Question ${n} of ${allQuestions.length}</div>
-                        <div class="q-text">${q.q}</div>
-                    </div>
-                    <div class="options">
-                        <label class="option" onclick="checkAnswer(${n},'A')">
-                            <input type="radio" name="q${n}" value="A">
-                            <span class="option-label"><strong>A.</strong> ${q.a}</span>
-                        </label>
-                        <label class="option" onclick="checkAnswer(${n},'B')">
-                            <input type="radio" name="q${n}" value="B">
-                            <span class="option-label"><strong>B.</strong> ${q.b}</span>
-                        </label>
-                        <label class="option" onclick="checkAnswer(${n},'C')">
-                            <input type="radio" name="q${n}" value="C">
-                            <span class="option-label"><strong>C.</strong> ${q.c}</span>
-                        </label>
-                    </div>
-                    <div class="feedback" id="fb-${n}"></div>
-                    <div class="explanation-box" id="exp-${n}">
-                        <div class="explanation-title">Explanation</div>
-                        <div class="explanation-text"></div>
-                    </div>
-                </div>`;
+                    <div class="question-container" data-question="${n}"
+                         data-correct="${q.correct}"
+                         data-explanation="${q.explanation.replace(/"/g, '&quot;')}">
+                        <div class="question-header">
+                            ${getBadge(q)}
+                            <div class="question-number">Question ${n} of ${totalQuestions}</div>
+                            <div class="question-text">${q.question}</div>
+                        </div>
+                        <div class="options">
+                            ${['A','B','C'].map(letter => `
+                            <label class="option" onclick="checkAnswer(${n},'${letter}')">
+                                <input type="radio" name="q${n}" value="${letter}">
+                                <span class="option-label"><strong>${letter}.</strong> ${q.options[letter]}</span>
+                            </label>`).join('')}
+                        </div>
+                        <div class="feedback" id="feedback-${n}"></div>
+                        <div class="explanation-box" id="explanation-${n}">
+                            <div class="explanation-title">Explanation</div>
+                            <div class="explanation-text"></div>
+                        </div>
+                    </div>`;
             });
         }
 
-        // ── Nav grid ──
-        function buildNavGrid() {
-            const grid = document.getElementById('navGrid');
-            grid.innerHTML = '';
-            for (let i = 1; i <= totalQ; i++) {
+        // ── Nav buttons ──
+        function buildNavButtons() {
+            const nav = document.getElementById('navButtons');
+            nav.innerHTML = '';
+            for (let i = 1; i <= totalQuestions; i++) {
                 const btn = document.createElement('button');
                 btn.className = 'nav-btn';
                 btn.textContent = i;
-                btn.id = `nb-${i}`;
-                btn.onclick = () => showQ(i);
-                grid.appendChild(btn);
+                btn.onclick = () => showQuestion(i);
+                nav.appendChild(btn);
             }
         }
 
         // ── Show question ──
-        function showQ(n) {
-            document.querySelectorAll('.question-container').forEach(el => el.classList.remove('active'));
+        function showQuestion(n) {
+            document.querySelectorAll('.question-container').forEach(q => q.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-            const qEl = document.querySelector(`[data-q="${n}"]`);
-            if (qEl) qEl.classList.add('active');
+            const target = document.querySelector(`[data-question="${n}"]`);
+            if (!target) return;
+            target.classList.add('active');
 
-            const nb = document.getElementById(`nb-${n}`);
-            if (nb && !nb.classList.contains('answered') && !nb.classList.contains('incorrect')) nb.classList.add('active');
+            const navBtns = document.querySelectorAll('.nav-btn');
+            if (navBtns[n - 1]) navBtns[n - 1].classList.add('active');
 
-            currentQ = n;
-            document.getElementById('qCounter').textContent = `Question ${n} of ${totalQ}`;
-            document.getElementById('prevBtn').disabled = n === 1;
-            document.getElementById('nextBtn').disabled = n === totalQ;
+            currentQuestion = n;
+            document.getElementById('questionCounter').textContent = `Question ${n} of ${totalQuestions}`;
+            document.getElementById('prevBtn').disabled = (n === 1);
+            document.getElementById('nextBtn').disabled = (n === totalQuestions);
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ── Navigate ──
-        function navigate(dir) {
-            const next = currentQ + dir;
-            if (next >= 1 && next <= totalQ) showQ(next);
+        // ── Navigate prev/next ──
+        function navigateQuestion(dir) {
+            const next = currentQuestion + dir;
+            if (next >= 1 && next <= totalQuestions) showQuestion(next);
         }
 
         // ── Check answer ──
-        function checkAnswer(n, chosen) {
-            if (answered.has(n)) return;
+        function checkAnswer(n, selected) {
+            if (answeredQuestions.has(n)) return;
 
-            const qEl  = document.querySelector(`[data-q="${n}"]`);
-            const ans  = qEl.dataset.ans;
-            const exp  = qEl.dataset.exp;
-            const fb   = document.getElementById(`fb-${n}`);
-            const expBox = document.getElementById(`exp-${n}`);
+            const qDiv    = document.querySelector(`[data-question="${n}"]`);
+            const correct = qDiv.dataset.correct;
+            const expl    = qDiv.dataset.explanation;
+            const feedback   = document.getElementById(`feedback-${n}`);
+            const explBox    = document.getElementById(`explanation-${n}`);
+            const options = qDiv.querySelectorAll('.option');
 
             // Mark radio
-            const radio = qEl.querySelector(`input[value="${chosen}"]`);
+            const radio = qDiv.querySelector(`input[value="${selected}"]`);
             if (radio) radio.checked = true;
 
-            // Disable all
-            qEl.querySelectorAll('.option').forEach(o => {
-                o.classList.add('disabled');
-                o.querySelector('input').disabled = true;
+            // Disable options
+            options.forEach(opt => {
+                opt.classList.add('disabled');
+                opt.querySelector('input[type="radio"]').disabled = true;
             });
 
-            // Highlight
-            qEl.querySelectorAll('.option').forEach(o => {
-                const v = o.querySelector('input').value;
-                if (v === ans) o.classList.add('correct');
-                else if (v === chosen && chosen !== ans) o.classList.add('wrong');
+            // Colour correct / incorrect
+            options.forEach(opt => {
+                const val = opt.querySelector('input[type="radio"]').value;
+                if (val === correct) opt.classList.add('correct');
+                else if (val === selected && selected !== correct) opt.classList.add('incorrect');
             });
 
             // Feedback
-            if (chosen === ans) {
-                fb.className = 'feedback correct show';
-                fb.innerHTML = '✓ Correct! Well done!';
-                correct++;
+            if (selected === correct) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '✓ Correct!';
+                correctAnswers++;
             } else {
-                fb.className = 'feedback incorrect show';
-                fb.innerHTML = `✗ Incorrect. Correct answer: <strong>${ans}</strong>`;
-                wrong++;
-                wrongSet.add(n);
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `✗ Incorrect. Correct answer: <strong>${correct}</strong>`;
+                incorrectAnswers++;
             }
 
             // Explanation
-            if (exp && exp.trim()) {
-                expBox.querySelector('.explanation-text').textContent = exp;
-                expBox.classList.add('show');
+            if (expl && expl.trim()) {
+                explBox.querySelector('.explanation-text').textContent = expl;
+                explBox.classList.add('show');
             }
 
-            // Nav button
-            answered.add(n);
-            const nb = document.getElementById(`nb-${n}`);
-            if (nb) {
-                nb.classList.remove('active');
-                nb.classList.add(chosen === ans ? 'answered' : 'incorrect');
+            // Mark answered
+            answeredQuestions.add(n);
+            const navBtns = document.querySelectorAll('.nav-btn');
+            if (navBtns[n - 1]) {
+                navBtns[n - 1].classList.add(selected === correct ? 'answered' : 'wrong');
             }
 
             updateProgress();
 
-            if (answered.size === totalQ) setTimeout(showModal, 900);
+            if (answeredQuestions.size === totalQuestions) {
+                setTimeout(showCompletionModal, 900);
+            }
         }
 
         // ── Progress ──
         function updateProgress() {
-            const pct = totalQ ? (answered.size / totalQ) * 100 : 0;
+            const pct = totalQuestions > 0 ? (answeredQuestions.size / totalQuestions) * 100 : 0;
             const fill = document.getElementById('progressFill');
             fill.style.width = pct + '%';
-            fill.textContent = pct > 8 ? Math.round(pct) + '%' : '';
-            document.getElementById('progressText').textContent = `${answered.size} / ${totalQ} Answered`;
+            fill.textContent = pct > 5 ? Math.round(pct) + '%' : '';
+            document.getElementById('progressText').textContent = `${answeredQuestions.size} / ${totalQuestions} Answered`;
+            document.getElementById('liveCorrect').textContent   = correctAnswers;
+            document.getElementById('liveIncorrect').textContent = incorrectAnswers;
         }
 
-        // ── Modal ──
-        function showModal() {
-            const pct = Math.round((correct / totalQ) * 100);
-            document.getElementById('scoreCorrect').textContent = correct;
-            document.getElementById('scoreWrong').textContent   = wrong;
-            document.getElementById('scorePct').textContent     = pct + '%';
+        // ── Completion modal ──
+        function showCompletionModal() {
+            const pct = Math.round((correctAnswers / totalQuestions) * 100);
+            document.getElementById('correctCount').textContent   = correctAnswers;
+            document.getElementById('incorrectCount').textContent = incorrectAnswers;
+            document.getElementById('scorePercentage').textContent = pct + '%';
 
-            const icon = document.getElementById('modalIcon');
-            const msg  = document.getElementById('modalMsg');
-            if      (pct >= 90) { icon.textContent = '🏆'; msg.textContent = 'Outstanding! You mastered Data Structures!'; }
-            else if (pct >= 75) { icon.textContent = '🎉'; msg.textContent = 'Great job! Solid understanding of DS!'; }
-            else if (pct >= 60) { icon.textContent = '👍'; msg.textContent = 'Good work! Keep practising!'; }
-            else                { icon.textContent = '📚'; msg.textContent = 'Review the material and try again!'; }
+            const icon = document.getElementById('completionIcon');
+            const msg  = document.getElementById('completionMessage');
+            if (pct >= 90)      { icon.textContent = '🏆'; msg.textContent = 'Outstanding! You have mastered the material!'; }
+            else if (pct >= 75) { icon.textContent = '🎉'; msg.textContent = 'Great job! Solid understanding of Data Structures!'; }
+            else if (pct >= 60) { icon.textContent = '👍'; msg.textContent = 'Good effort! Review the explanations and try again.'; }
+            else                { icon.textContent = '📚'; msg.textContent = 'Keep studying! Check the Revision page for a full review.'; }
 
             document.getElementById('completionModal').classList.add('show');
         }
 
-        function closeModal() {
+        // ── Retry ──
+        function retryQuiz() {
+            answeredQuestions.clear();
+            correctAnswers   = 0;
+            incorrectAnswers = 0;
             document.getElementById('completionModal').classList.remove('show');
+            init();
         }
 
         // ── Init ──
         function init() {
             if (typeof dsQuestionsData === 'undefined') {
-                alert('Error: ds_questions.js not found!');
+                document.body.innerHTML = '<p style="color:white;padding:40px;font-size:20px;">Error: ds_questions.js not found!</p>';
                 return;
             }
-            allQuestions = parse(dsQuestionsData);
-            totalQ = allQuestions.length;
-            buildQuestions();
-            buildNavGrid();
-            showQ(1);
+            questionsData  = parseQuestions(dsQuestionsData);
+            totalQuestions = questionsData.length;
+
+            document.getElementById('liveTotal').textContent = totalQuestions;
+            document.getElementById('questionCounter').textContent = `Question 1 of ${totalQuestions}`;
+
+            generateQuestions();
+            buildNavButtons();
+            showQuestion(1);
             updateProgress();
         }
 
-        window.onload = init;
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
