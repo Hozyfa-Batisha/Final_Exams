@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Systems I — Complete Revision</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links { display: flex; gap: 6px; list-style: none; flex-wrap: wrap; }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .nav-links a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* ── Container ── */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px 60px; }
+
+        /* ── Hero ── */
+        .hero {
+            background: white;
+            border-radius: 28px;
+            padding: 50px 60px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .hero p { font-size: 1.1em; color: #666; margin-bottom: 6px; }
+
+        .hero-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+        .pill {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ── Section ── */
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 45px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .label-blue  { background: #e3f2fd; color: #1565c0; }
+        .label-purple{ background: #f3e5f5; color: #6a1b9a; }
+        .label-green { background: #e8f5e9; color: #2e7d32; }
+        .label-orange{ background: #fff3e0; color: #e65100; }
+        .label-teal  { background: #e0f2f1; color: #00695c; }
+
+        .section h2 {
+            font-size: 1.9em;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .section > p { color: #666; font-size: 1em; margin-bottom: 24px; line-height: 1.7; }
+        .section h3 { font-size: 1.25em; color: #444; margin: 28px 0 12px; border-left: 4px solid #667eea; padding-left: 12px; }
+
+        /* ── Tables ── */
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 14px; text-align: left; }
+        td { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+        tr:nth-child(even) td { background: #fafafa; }
+        tr:hover td { background: #f0f4ff; }
+
+        /* ── Code blocks ── */
+        pre {
+            background: #1e1e2e;
+            border-radius: 12px;
+            padding: 22px 26px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-size: 13.5px;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        pre[data-lang]::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            color: #888;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; color: #cdd6f4; }
+
+        .kw  { color: #cba6f7; }   /* keywords */
+        .tp  { color: #89b4fa; }   /* types */
+        .fn  { color: #89dceb; }   /* functions */
+        .st  { color: #a6e3a1; }   /* strings */
+        .cm  { color: #6c7086; font-style: italic; }  /* comments */
+        .nm  { color: #fab387; }   /* numbers */
+        .pp  { color: #f38ba8; }   /* preprocessor / SQL keywords */
+        .cl  { color: #f9e2af; }   /* SQL clauses */
+
+        /* ── Highlight boxes ── */
+        .highlight {
+            background: #fffbf0;
+            border: 2px solid #f6d860;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 16px 0;
+        }
+
+        .highlight strong { color: #b7791f; }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #1a3a5c;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border-left: 5px solid #dc3545;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #721c24;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .success-box {
+            background: #f0fff4;
+            border-left: 5px solid #28a745;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #155724;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* ── Key rules grid ── */
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+
+        .rule-card {
+            background: #f8f9ff;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            padding: 18px 20px;
+        }
+
+        .rule-card .rule-num {
+            font-size: 11px;
+            font-weight: 800;
+            color: #667eea;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .rule-card p { color: #444; font-size: 13.5px; line-height: 1.6; }
+        .rule-card code { background: #e0e7ff; padding: 1px 5px; border-radius: 4px; color: #3730a3; font-size: 12px; }
+
+        /* ── Join diagram ── */
+        .join-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 20px 0; }
+
+        .join-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .join-card .join-name { font-weight: 700; color: #333; font-size: 15px; margin-bottom: 8px; }
+        .join-card .join-desc { color: #666; font-size: 13px; line-height: 1.5; }
+        .join-card.inner { border-color: #667eea; background: #f0f4ff; }
+        .join-card.left  { border-color: #00b894; background: #f0fff4; }
+        .join-card.right { border-color: #e17055; background: #fff5f0; }
+        .join-card.cross { border-color: #6c5ce7; background: #f5f0ff; }
+        .join-card.self  { border-color: #fdcb6e; background: #fffbf0; }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero { padding: 35px 25px; }
+            .hero h1 { font-size: 2em; }
+            .section { padding: 25px 20px; }
+            .nav-content { padding: 12px 20px; }
+            pre { font-size: 12px; padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="navbar">
+    <div class="nav-content">
+        <div class="logo">📊 DB Systems I</div>
+        <ul class="nav-links">
+            <li><a href="#ch1">Chapter 1</a></li>
+            <li><a href="#ch2">Chapter 2</a></li>
+            <li><a href="#ch3">Chapter 3</a></li>
+            <li><a href="#ch4">Chapter 4</a></li>
+            <li><a href="#ch5">Chapter 5.1</a></li>
+            <li><a href="#cheatsheet">Cheat Sheet</a></li>
+            <li><a href="db_questions.html" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;">🧪 Take Quiz</a></li>
+            <li><a href="index.html">🏠 Home</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>Database Systems I — Complete Revision</h1>
+        <p>Chapters 1 → 5.1 · Dr. Muhammad Mahmoud · Faculty of Computers & Information Systems</p>
+        <p style="color:#999;font-size:0.95em;">ER Modeling · Relational Model · SQL DDL & DML · JOINs · Subqueries · Views</p>
+        <div class="hero-pills">
+            <span class="pill">Chapter 1 — Intro & DBMS</span>
+            <span class="pill">Chapter 2 — ER Modeling</span>
+            <span class="pill">Chapter 3 — Relational Model</span>
+            <span class="pill">Chapter 4 — SQL Fundamentals</span>
+            <span class="pill">Chapter 5.1 — JOINs</span>
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ CHAPTER 1 ━━━━━━━━━━━━ -->
+    <div class="section" id="ch1">
+        <div class="section-label label-blue">📘 CHAPTER 1</div>
+        <h2>Introduction to Databases &amp; DBMS</h2>
+        <p>From file-based chaos to organized, persistent, shared data managed by a DBMS.</p>
+
+        <h3>1.1 What Is a Database?</h3>
+        <div class="info-box">
+            A <strong>database</strong> is an <strong>organized</strong> (defined structure), <strong>persistent</strong> (survives after program stops), collection of <strong>related</strong> (meaningfully connected) data that models some aspect of the real world.
+        </div>
+
+        <h3>1.2 Evolution of Database Systems</h3>
+        <table>
+            <tr><th>Era</th><th>Model</th><th>Key Characteristics</th></tr>
+            <tr><td>1950s–60s</td><td>File Systems</td><td>Flat files on magnetic tape. No structure, no queries, no sharing.</td></tr>
+            <tr><td>1960s–70s</td><td>Hierarchical + Network</td><td>IBM IMS (tree), CODASYL (graph). Fast but rigid.</td></tr>
+            <tr><td>1970s–80s</td><td><strong>Relational DBMS</strong></td><td>E.F. Codd 1970. SQL invented. Oracle, IBM DB2. Tables + queries.</td></tr>
+            <tr><td>1990s–00s</td><td>Object + Web Era</td><td>ORM frameworks, MySQL/LAMP stack. Internet boom.</td></tr>
+            <tr><td>2000s–10s</td><td>NoSQL Revolution</td><td>MongoDB, Cassandra, Redis. Big Data. Horizontal scaling.</td></tr>
+            <tr><td>2010s–Now</td><td>Cloud + AI Era</td><td>DBaaS (RDS, Cosmos), Vector DBs, AI-generated SQL, serverless.</td></tr>
+        </table>
+
+        <h3>1.3 Six Problems of File-Based Systems</h3>
+        <table>
+            <tr><th>Problem</th><th>What Goes Wrong</th><th>University Example</th></tr>
+            <tr><td><strong>Data Redundancy</strong></td><td>Same fact stored in multiple files</td><td>Student name in Admissions + Finance + Registrar files</td></tr>
+            <tr><td><strong>Data Inconsistency</strong></td><td>Updates in one file not reflected in others</td><td>Ali has 3 different phone numbers across 3 systems</td></tr>
+            <tr><td><strong>Data Isolation</strong></td><td>Scattered, incompatible formats (CSV, XML, binary)</td><td>Cannot run one query across all departments</td></tr>
+            <tr><td><strong>Integrity Problems</strong></td><td>No automatic rule enforcement</td><td>GPA of 9.9 silently accepted</td></tr>
+            <tr><td><strong>Concurrent Access</strong></td><td>Two programs write same file → corruption</td><td>Race conditions destroy enrollment records</td></tr>
+            <tr><td><strong>Poor Security</strong></td><td>Only coarse file permissions</td><td>Cannot hide salary column from junior staff</td></tr>
+        </table>
+
+        <h3>1.4 Six Core Functions of a DBMS</h3>
+        <table>
+            <tr><th>Function</th><th>Commands</th><th>Description</th></tr>
+            <tr><td><strong>Data Definition (DDL)</strong></td><td>CREATE, ALTER, DROP</td><td>Define and modify database structure: tables, types, constraints, indexes</td></tr>
+            <tr><td><strong>Data Manipulation (DML)</strong></td><td>INSERT, UPDATE, DELETE, SELECT</td><td>Create, read, update, delete data rows — most frequent daily operations</td></tr>
+            <tr><td><strong>Data Sharing</strong></td><td>(internal)</td><td>Multiple users and apps access same data simultaneously and safely</td></tr>
+            <tr><td><strong>Data Security</strong></td><td>GRANT, REVOKE</td><td>Authentication (who you are) + Authorization (what you can do)</td></tr>
+            <tr><td><strong>Data Integrity</strong></td><td>NOT NULL, CHECK, FK</td><td>Automatically rejects invalid data before it reaches the disk</td></tr>
+            <tr><td><strong>Backup and Recovery</strong></td><td>(WAL)</td><td>Write-Ahead Logging ensures no committed transaction is ever lost</td></tr>
+        </table>
+
+        <h3>1.5 Three-Level Architecture (ANSI/SPARC 1975)</h3>
+        <pre data-lang="Architecture"><code>┌────────────────────────────────────────────┐
+│  EXTERNAL LEVEL (User Views)               │  ← Student sees own grades only
+│  What individual users / apps see          │     Finance sees tuition, not grades
+├────────────────────────────────────────────┤
+│  CONCEPTUAL LEVEL (Logical Schema)         │  ← All tables, columns, FK relationships
+│  Full logical picture of the entire DB     │     All business constraints
+├────────────────────────────────────────────┤
+│  INTERNAL LEVEL (Physical Storage)         │  ← B+Tree index files, 16KB pages
+│  How data is physically stored on disk     │     Compression format, file locations
+└────────────────────────────────────────────┘</code></pre>
+        <div class="highlight">
+            <p><strong>Physical Data Independence:</strong> Change how data is stored (add index, change page size) → no application code changes needed.</p>
+            <p><strong>Logical Data Independence:</strong> Add new tables or columns → existing application views still work. <em>Harder to achieve.</em></p>
+        </div>
+
+        <h3>1.6 Database User Categories</h3>
+        <table>
+            <tr><th>Category</th><th>Role &amp; Tasks</th></tr>
+            <tr><td><strong>End Users</strong></td><td>Non-technical — use web forms &amp; apps. Never write SQL directly (students, staff).</td></tr>
+            <tr><td><strong>Application Programmers</strong></td><td>Write PHP/Python/Java apps with embedded SQL. Build the interfaces end users see.</td></tr>
+            <tr><td><strong>Database Designer</strong></td><td>Creates ER diagrams and logical schema. Decides entities, attributes, relationships.</td></tr>
+            <tr><td><strong>DBA</strong></td><td>Installs DBMS, manages accounts, performance tuning, backups, security auditing, capacity planning.</td></tr>
+            <tr><td><strong>System Analyst</strong></td><td>Bridges business requirements and technical design. Translates needs into DB specifications.</td></tr>
+        </table>
+
+        <h3>1.7 Key Data Models</h3>
+        <table>
+            <tr><th>Model</th><th>Structure</th><th>Best Use Case</th></tr>
+            <tr><td>Hierarchical</td><td>Tree (one parent, many children)</td><td>Fast for tree data; can't do M:N without duplication</td></tr>
+            <tr><td>Network</td><td>Graph of records linked by pointers</td><td>More flexible but developers navigate pointer chains manually</td></tr>
+            <tr><td><strong>Relational</strong></td><td>Tables with rows and columns (SQL)</td><td>General purpose — dominant for 50+ years</td></tr>
+            <tr><td>Document</td><td>JSON/BSON (MongoDB)</td><td>Schema-flexible, nested data, rapid iteration</td></tr>
+            <tr><td>Graph</td><td>Nodes and edges (Neo4j)</td><td>Social networks, fraud detection — highly connected data</td></tr>
+            <tr><td>Key-Value</td><td>Dictionary (Redis)</td><td>Fastest lookup; simple structure; no complex queries</td></tr>
+        </table>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ CHAPTER 2 ━━━━━━━━━━━━ -->
+    <div class="section" id="ch2">
+        <div class="section-label label-purple">📐 CHAPTER 2</div>
+        <h2>Entity-Relationship Modeling</h2>
+        <p>Designing databases visually before writing a single line of SQL.</p>
+
+        <div class="warning-box">
+            <strong>Cost of fixing a design error:</strong> Whiteboard = seconds · Before data loaded = hours · After data loaded = days · Live production = weeks/months. Always model first!
+        </div>
+
+        <h3>2.1 Chen Notation Reference</h3>
+        <table>
+            <tr><th>Symbol</th><th>Meaning</th><th>University Example</th></tr>
+            <tr><td>Single Rectangle <code>[ ]</code></td><td>Strong entity type</td><td>STUDENT, COURSE, DEPARTMENT</td></tr>
+            <tr><td>Double Rectangle <code>[[ ]]</code></td><td>Weak entity type</td><td>DEPENDENT, ORDER_LINE, COURSE_SECTION</td></tr>
+            <tr><td>Single Diamond <code>&lt; &gt;</code></td><td>Regular relationship</td><td>ENROLLS_IN, TEACHES, BELONGS_TO</td></tr>
+            <tr><td>Double Diamond <code>&lt;&lt; &gt;&gt;</code></td><td>Identifying relationship</td><td>HAS (EMPLOYEE–DEPENDENT)</td></tr>
+            <tr><td>Solid Oval</td><td>Simple or composite attribute</td><td>name, gpa, email, address</td></tr>
+            <tr><td>Dashed Oval</td><td>Derived attribute (not stored)</td><td>age (from birth_date), days_enrolled</td></tr>
+            <tr><td>Double Oval</td><td>Multi-valued attribute</td><td>phone_numbers, email_addresses</td></tr>
+            <tr><td>Underlined name</td><td>Key attribute</td><td>student_id, national_id, course_code</td></tr>
+        </table>
+
+        <h3>2.2 Six Attribute Types</h3>
+        <table>
+            <tr><th>Type</th><th>Definition</th><th>Example</th></tr>
+            <tr><td><strong>Simple</strong></td><td>Atomic, cannot be subdivided. Stored directly.</td><td>student_id, gpa, phone_number</td></tr>
+            <tr><td><strong>Composite</strong></td><td>Made of sub-attributes each stored separately.</td><td>full_name = {first_name, middle_name, last_name}</td></tr>
+            <tr><td><strong>Multi-valued</strong></td><td>Multiple values per instance. Needs separate table.</td><td>phone_numbers, email_addresses, degrees_held</td></tr>
+            <tr><td><strong>Derived</strong></td><td>Calculated from other data at query time. Not stored.</td><td>age (from birth_date), enrollment_count</td></tr>
+            <tr><td><strong>Key</strong></td><td>Uniquely identifies each instance. Underlined in Chen.</td><td>student_id, national_id, email</td></tr>
+            <tr><td><strong>Null-allowed</strong></td><td>Optional — some instances may have no value.</td><td>middle_name, alternative_email</td></tr>
+        </table>
+
+        <h3>2.3 Cardinality Constraints</h3>
+        <table>
+            <tr><th>Type</th><th>Definition</th><th>Example</th><th>SQL Approach</th></tr>
+            <tr><td><strong>1:1</strong></td><td>Each A → at most one B, each B → at most one A</td><td>Employee — Office</td><td>FK on total-participation side</td></tr>
+            <tr><td><strong>1:N</strong></td><td>One A → many Bs; each B → exactly one A</td><td>Department → Students</td><td>FK (dept_id) goes in STUDENT table</td></tr>
+            <tr><td><strong>M:N</strong></td><td>Many A → many B</td><td>Student ↔ Course</td><td>Junction table ENROLLMENT with FKs to both</td></tr>
+        </table>
+        <div class="warning-box">
+            <strong>KEY RULE:</strong> A M:N relationship CANNOT be represented with just two tables. You MUST create a third junction table containing the PKs of both entities as FKs. Relationship attributes (grade, semester, status) become columns in this junction table.
+        </div>
+
+        <h3>2.4 Seven ER-to-Relational Mapping Rules</h3>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <div class="rule-num">RULE 1 — STRONG ENTITY</div>
+                <p>Each strong entity → table. Key attribute → PK. Composite → separate columns. <strong>Omit derived attributes</strong> (compute at query time).</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">RULE 2 — WEAK ENTITY</div>
+                <p>Weak entity → table. Include partial key + owner's PK = composite PK. Add FK referencing the owner entity with CASCADE delete.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">RULE 3 — 1:1 RELATIONSHIP</div>
+                <p>Add PK of one entity as FK in the other. Prefer total-participation side to receive the FK. Or merge both if always present together.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">RULE 4 — 1:N RELATIONSHIP</div>
+                <p>Add PK of the "one" side as FK in the "many" side table. <strong>No separate table needed.</strong> Example: dept_id FK goes in STUDENT.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">RULE 5 — M:N RELATIONSHIP</div>
+                <p>Create new junction table with PKs of both entities as FKs. These form the PK (or add surrogate PK). All relationship attributes → columns.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">RULE 6 — MULTI-VALUED ATTRIBUTE</div>
+                <p>New table: entity FK + attribute value. PK = (entity FK + value). Example: <code>STUDENT_PHONE(student_id FK, phone_number)</code></p>
+            </div>
+        </div>
+
+        <h3>2.5 University Schema (After Mapping)</h3>
+        <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities → tables</span>
+<span class="pp">DEPARTMENT</span>  (dept_id PK, name, code, head_name, location)
+<span class="pp">STUDENT</span>     (student_id PK, s_code, first_name, last_name, email, gpa, enroll_year, status)
+<span class="pp">COURSE</span>      (course_id PK, code, title, credit_hours, max_students)
+<span class="pp">PROFESSOR</span>   (prof_id PK, name, email, rank)
+
+<span class="cm">-- Rule 4: 1:N relationships → FK on the "many" side</span>
+<span class="pp">STUDENT</span>.dept_id    FK → DEPARTMENT.dept_id
+<span class="pp">COURSE</span>.dept_id     FK → DEPARTMENT.dept_id
+<span class="pp">PROFESSOR</span>.dept_id  FK → DEPARTMENT.dept_id
+
+<span class="cm">-- Rule 5: M:N relationship → junction table</span>
+<span class="pp">ENROLLMENT</span>  (enroll_id PK, student_id FK, course_id FK, semester, year, grade, status)
+
+<span class="cm">-- Rule 6: Multi-valued attribute → separate table</span>
+<span class="pp">STUDENT_PHONE</span>  (student_id FK, phone_number)  PK = (student_id, phone_number)</code></pre>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ CHAPTER 3 ━━━━━━━━━━━━ -->
+    <div class="section" id="ch3">
+        <div class="section-label label-green">🔢 CHAPTER 3</div>
+        <h2>The Relational Model &amp; Algebra</h2>
+        <p>Formal foundations: tables, keys, integrity constraints, NULL, and the math behind SQL.</p>
+
+        <h3>3.1 Formal Terminology</h3>
+        <table>
+            <tr><th>Term</th><th>Definition</th><th>Example</th></tr>
+            <tr><td><strong>Relation</strong></td><td>A set of unique tuples (= a table)</td><td>STUDENT table</td></tr>
+            <tr><td><strong>Tuple</strong></td><td>One row in the relation</td><td>One student record</td></tr>
+            <tr><td><strong>Attribute</strong></td><td>One column (named property)</td><td>first_name, gpa, dept_id</td></tr>
+            <tr><td><strong>Domain</strong></td><td>Set of all valid values for an attribute</td><td>gpa domain = [0.00, 4.00]</td></tr>
+            <tr><td><strong>Degree</strong></td><td>Number of attributes (columns)</td><td>STUDENT with 9 columns → degree 9</td></tr>
+            <tr><td><strong>Cardinality</strong></td><td>Number of tuples (rows)</td><td>500 students → cardinality 500</td></tr>
+        </table>
+
+        <h3>3.2 Key Type Hierarchy</h3>
+        <pre data-lang="Key Hierarchy"><code>SUPERKEY (any set of attributes that uniquely identifies rows — may be redundant)
+    ↓  minimal: remove any attribute → no longer unique
+CANDIDATE KEY (minimal superkey — multiple can exist per table)
+    ↓  designer picks ONE
+PRIMARY KEY ← chosen as official identifier — NEVER NULL, always UNIQUE
+    ↓  remaining candidate keys
+ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
+
+        <div class="info-box">
+            <strong>Example on STUDENT(student_id, national_id, email, first_name, dept_id):</strong><br>
+            Superkeys: {student_id}, {national_id}, {email}, {student_id, national_id}, ...<br>
+            Candidate Keys: {student_id}, {national_id}, {email}<br>
+            Primary Key: <strong>student_id</strong> (surrogate — always available, never null)<br>
+            Alternate Keys: national_id (UNIQUE), email (UNIQUE)
+        </div>
+
+        <table>
+            <tr><th>Key Type</th><th>Definition</th></tr>
+            <tr><td><strong>Superkey</strong></td><td>Any set that uniquely identifies all rows (may include unnecessary attributes)</td></tr>
+            <tr><td><strong>Candidate Key</strong></td><td>Minimal superkey — no attribute can be removed while preserving uniqueness</td></tr>
+            <tr><td><strong>Primary Key</strong></td><td>One chosen candidate key — NEVER NULL</td></tr>
+            <tr><td><strong>Alternate Key</strong></td><td>Remaining candidate keys — enforced with UNIQUE</td></tr>
+            <tr><td><strong>Foreign Key</strong></td><td>References PK of another table — enforces referential integrity</td></tr>
+            <tr><td><strong>Composite Key</strong></td><td>PK composed of 2+ attributes (used when no single attribute is unique)</td></tr>
+            <tr><td><strong>Natural Key</strong></td><td>Derived from real-world data (national_id, ISBN) — can change over time</td></tr>
+            <tr><td><strong>Surrogate Key</strong></td><td>Artificial AUTO_INCREMENT integer — stable, simple, always available</td></tr>
+        </table>
+
+        <h3>3.3 Five Integrity Constraints</h3>
+        <table>
+            <tr><th>Type</th><th>Rule</th><th>SQL Enforcement</th></tr>
+            <tr><td><strong>Domain</strong></td><td>Every value must belong to the attribute's defined domain</td><td><code>CHECK(gpa BETWEEN 0.00 AND 4.00)</code></td></tr>
+            <tr><td><strong>Entity</strong></td><td>PRIMARY KEY can NEVER be NULL — every row must be identifiable</td><td><code>PRIMARY KEY</code> (implicit NOT NULL)</td></tr>
+            <tr><td><strong>Referential</strong></td><td>FK must match existing PK value or be NULL (no orphan records)</td><td><code>FOREIGN KEY ... REFERENCES</code></td></tr>
+            <tr><td><strong>Key</strong></td><td>All PK values must be unique across all rows</td><td><code>PRIMARY KEY</code> constraint</td></tr>
+            <tr><td><strong>Semantic</strong></td><td>Business rules beyond structural: hire_date ≤ TODAY, salary &gt; 0</td><td><code>CHECK</code>, triggers, stored procedures</td></tr>
+        </table>
+
+        <h3>3.4 Referential Integrity Actions</h3>
+        <table>
+            <tr><th>Action</th><th>Behavior When Parent Row Deleted/Updated</th><th>Use When</th></tr>
+            <tr><td><strong>RESTRICT</strong> (default)</td><td>Block deletion if any FK row references it</td><td>Child data cannot exist without parent</td></tr>
+            <tr><td><strong>CASCADE</strong></td><td>Auto-delete or auto-update all referencing FK rows</td><td>Child records are meaningless without parent</td></tr>
+            <tr><td><strong>SET NULL</strong></td><td>Set FK columns to NULL when referenced row deleted</td><td>Relationship is optional</td></tr>
+            <tr><td><strong>SET DEFAULT</strong></td><td>Set FK to its DEFAULT value</td><td>Rarely used in practice</td></tr>
+        </table>
+
+        <h3>3.5 NULL Values — Critical Rules</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- NULL arithmetic: any operation involving NULL returns NULL</span>
+<span class="kw">SELECT</span> <span class="nm">5</span> + <span class="kw">NULL</span>;        <span class="cm">-- Result: NULL (not 5!)</span>
+<span class="kw">SELECT</span> <span class="nm">100</span> * <span class="kw">NULL</span>;      <span class="cm">-- Result: NULL</span>
+
+<span class="cm">-- NULL comparison → UNKNOWN (not TRUE or FALSE)</span>
+<span class="kw">SELECT</span> <span class="kw">NULL</span> = <span class="kw">NULL</span>;    <span class="cm">-- UNKNOWN (not TRUE!)</span>
+<span class="kw">SELECT</span> <span class="kw">NULL</span> &lt;&gt; <span class="kw">NULL</span>;   <span class="cm">-- UNKNOWN (not FALSE!)</span>
+
+<span class="cm">-- CORRECT ways to test for NULL</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> students <span class="kw">WHERE</span> phone <span class="kw">IS NULL</span>;      <span class="cm">-- ✓ CORRECT</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> students <span class="kw">WHERE</span> phone <span class="kw">IS NOT NULL</span>;  <span class="cm">-- ✓ CORRECT</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> students <span class="kw">WHERE</span> phone = <span class="kw">NULL</span>;       <span class="cm">-- ✗ WRONG: always 0 rows</span>
+
+<span class="cm">-- Aggregate functions and NULL</span>
+<span class="fn">COUNT</span>(*)          <span class="cm">-- counts ALL rows including NULLs</span>
+<span class="fn">COUNT</span>(grade)      <span class="cm">-- counts ONLY rows where grade IS NOT NULL</span>
+<span class="fn">AVG</span>(grade)        <span class="cm">-- NULLs excluded from average</span>
+<span class="fn">SUM</span>(grade)        <span class="cm">-- NULLs excluded from sum</span></code></pre>
+
+        <h3>3.6 Relational Algebra Operations</h3>
+        <table>
+            <tr><th>Operation</th><th>Symbol</th><th>SQL Equivalent</th><th>Example</th></tr>
+            <tr><td><strong>Selection</strong></td><td>σ (sigma)</td><td>WHERE clause</td><td>σ(gpa&gt;3.0)(STUDENT)</td></tr>
+            <tr><td><strong>Projection</strong></td><td>π (pi)</td><td>SELECT col1, col2</td><td>π(name, gpa)(STUDENT)</td></tr>
+            <tr><td><strong>Union</strong></td><td>∪</td><td>UNION</td><td>CS_students ∪ IS_students</td></tr>
+            <tr><td><strong>Intersection</strong></td><td>∩</td><td>INTERSECT</td><td>active ∩ honor_roll</td></tr>
+            <tr><td><strong>Difference</strong></td><td>−</td><td>EXCEPT / NOT IN</td><td>all_students − enrolled_students</td></tr>
+            <tr><td><strong>Cartesian Product</strong></td><td>×</td><td>FROM R, S (implicit)</td><td>STUDENT × COURSE</td></tr>
+            <tr><td><strong>Natural Join</strong></td><td>⋈</td><td>JOIN ... ON</td><td>STUDENT ⋈ ENROLLMENT</td></tr>
+            <tr><td><strong>Division</strong></td><td>÷</td><td>NOT EXISTS (no direct SQL)</td><td>Students who took ALL required courses</td></tr>
+        </table>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ CHAPTER 4 ━━━━━━━━━━━━ -->
+    <div class="section" id="ch4">
+        <div class="section-label label-orange">⚙️ CHAPTER 4</div>
+        <h2>SQL Fundamentals — DDL &amp; DML</h2>
+        <p>Creating, populating, and querying the University Database.</p>
+
+        <h3>4.1 SQL Language Categories</h3>
+        <table>
+            <tr><th>Category</th><th>Commands</th><th>Purpose</th></tr>
+            <tr><td><strong>DDL</strong> — Data Definition</td><td>CREATE, ALTER, DROP, TRUNCATE</td><td>Define and modify database structure (schema)</td></tr>
+            <tr><td><strong>DML</strong> — Data Manipulation</td><td>INSERT, UPDATE, DELETE, SELECT</td><td>Create, read, update, delete actual data rows</td></tr>
+            <tr><td><strong>DCL</strong> — Data Control</td><td>GRANT, REVOKE</td><td>Control user permissions and access</td></tr>
+            <tr><td><strong>TCL</strong> — Transaction Control</td><td>COMMIT, ROLLBACK, SAVEPOINT</td><td>Manage transactions and data consistency</td></tr>
+        </table>
+
+        <h3>4.2 Data Types — Choosing Correctly</h3>
+        <table>
+            <tr><th>Type</th><th>Storage</th><th>Best Use Case</th></tr>
+            <tr><td><code>TINYINT</code></td><td>1 byte</td><td>Boolean flags, ratings 1–5, age categories</td></tr>
+            <tr><td><code>INT</code></td><td>4 bytes</td><td>IDs, quantities, counts — most common integer choice</td></tr>
+            <tr><td><code>BIGINT</code></td><td>8 bytes</td><td>Very large IDs, Unix timestamps in microseconds</td></tr>
+            <tr><td><code><strong>DECIMAL(p,s)</strong></code></td><td>Exact fixed-point</td><td><strong>Money, GPA, percentages — NEVER use FLOAT for money</strong></td></tr>
+            <tr><td><code>FLOAT / DOUBLE</code></td><td>Approximate IEEE 754</td><td>Scientific data only. Avoid for financial calculations.</td></tr>
+            <tr><td><code>CHAR(n)</code></td><td>Always n bytes</td><td>Fixed codes: country CHAR(2), gender CHAR(1)</td></tr>
+            <tr><td><code>VARCHAR(n)</code></td><td>Variable 0 to n+2</td><td>Names, emails, titles — variable length text</td></tr>
+            <tr><td><code>TEXT</code></td><td>Up to 65KB</td><td>Long descriptions, comments, blog post bodies</td></tr>
+            <tr><td><code>ENUM</code></td><td>1–2 bytes</td><td>Controlled vocabulary: status ENUM('active','inactive')</td></tr>
+            <tr><td><code>DATE</code></td><td>3 bytes, YYYY-MM-DD</td><td>birth_date, hire_date, enrollment_date</td></tr>
+            <tr><td><code>DATETIME</code></td><td>8 bytes, no timezone</td><td>Event timestamps for apps in one timezone</td></tr>
+            <tr><td><code>TIMESTAMP</code></td><td>4 bytes, UTC</td><td>created_at, updated_at — auto DEFAULT CURRENT_TIMESTAMP</td></tr>
+            <tr><td><code>YEAR</code></td><td>1 byte</td><td>enroll_year, graduation_year — just a 4-digit year</td></tr>
+        </table>
+
+        <div class="warning-box">
+            <strong>FLOAT rounding error:</strong> SELECT 0.1 + 0.2 in FLOAT returns 0.30000000000000004. Use DECIMAL for money and GPA — it stores values exactly. The extra storage cost is worth absolute precision.
+        </div>
+
+        <h3>4.3 Complete University DDL</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Create database</span>
+<span class="kw">CREATE DATABASE IF NOT EXISTS</span> university
+    <span class="kw">CHARACTER SET</span> utf8mb4 <span class="kw">COLLATE</span> utf8mb4_unicode_ci;
+<span class="kw">USE</span> university;
+
+<span class="cm">-- DEPARTMENT (no FK — create first)</span>
+<span class="kw">CREATE TABLE</span> departments (
+    dept_id    <span class="tp">INT</span>           <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name       <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    code       <span class="tp">CHAR</span>(<span class="nm">5</span>)       <span class="kw">NOT NULL</span>,
+    head_name  <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">DEFAULT NULL</span>,
+    created_at <span class="tp">TIMESTAMP</span>     <span class="kw">DEFAULT CURRENT_TIMESTAMP</span>,
+    <span class="kw">CONSTRAINT</span> pk_dept      <span class="kw">PRIMARY KEY</span> (dept_id),
+    <span class="kw">CONSTRAINT</span> uq_dept_code <span class="kw">UNIQUE</span> (code)
+);
+
+<span class="cm">-- STUDENT (references DEPARTMENT)</span>
+<span class="kw">CREATE TABLE</span> students (
+    student_id  <span class="tp">INT</span>           <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    s_code      <span class="tp">VARCHAR</span>(<span class="nm">20</span>)  <span class="kw">NOT NULL</span>,
+    first_name  <span class="tp">VARCHAR</span>(<span class="nm">50</span>)  <span class="kw">NOT NULL</span>,
+    last_name   <span class="tp">VARCHAR</span>(<span class="nm">50</span>)  <span class="kw">NOT NULL</span>,
+    email       <span class="tp">VARCHAR</span>(<span class="nm">150</span>) <span class="kw">NOT NULL</span>,
+    gpa         <span class="tp">DECIMAL</span>(<span class="nm">3</span>,<span class="nm">2</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="nm">0.00</span>,
+    dept_id     <span class="tp">INT</span>           <span class="kw">NOT NULL</span>,
+    enroll_year <span class="tp">YEAR</span>          <span class="kw">NOT NULL</span>,
+    status      <span class="tp">ENUM</span>(<span class="st">'active'</span>,<span class="st">'inactive'</span>,<span class="st">'graduated'</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="st">'active'</span>,
+    <span class="kw">CONSTRAINT</span> pk_students     <span class="kw">PRIMARY KEY</span> (student_id),
+    <span class="kw">CONSTRAINT</span> uq_s_code       <span class="kw">UNIQUE</span> (s_code),
+    <span class="kw">CONSTRAINT</span> uq_email        <span class="kw">UNIQUE</span> (email),
+    <span class="kw">CONSTRAINT</span> chk_gpa         <span class="kw">CHECK</span> (gpa <span class="kw">BETWEEN</span> <span class="nm">0.00</span> <span class="kw">AND</span> <span class="nm">4.00</span>),
+    <span class="kw">CONSTRAINT</span> fk_student_dept <span class="kw">FOREIGN KEY</span> (dept_id)
+        <span class="kw">REFERENCES</span> departments(dept_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- ENROLLMENT (junction table for M:N)</span>
+<span class="kw">CREATE TABLE</span> enrollments (
+    enroll_id  <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    student_id <span class="tp">INT</span>          <span class="kw">NOT NULL</span>,
+    course_id  <span class="tp">INT</span>          <span class="kw">NOT NULL</span>,
+    semester   <span class="tp">VARCHAR</span>(<span class="nm">20</span>) <span class="kw">NOT NULL</span>,
+    year       <span class="tp">YEAR</span>         <span class="kw">NOT NULL</span>,
+    grade      <span class="tp">DECIMAL</span>(<span class="nm">4</span>,<span class="nm">2</span>) <span class="kw">DEFAULT NULL</span>,
+    status     <span class="tp">ENUM</span>(<span class="st">'enrolled'</span>,<span class="st">'completed'</span>,<span class="st">'dropped'</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="st">'enrolled'</span>,
+    <span class="kw">CONSTRAINT</span> pk_enrollments    <span class="kw">PRIMARY KEY</span> (enroll_id),
+    <span class="kw">CONSTRAINT</span> uq_enrollment     <span class="kw">UNIQUE</span> (student_id, course_id, semester, year),
+    <span class="kw">CONSTRAINT</span> chk_grade         <span class="kw">CHECK</span> (grade <span class="kw">BETWEEN</span> <span class="nm">0</span> <span class="kw">AND</span> <span class="nm">100</span>),
+    <span class="kw">CONSTRAINT</span> fk_enroll_student <span class="kw">FOREIGN KEY</span> (student_id)
+        <span class="kw">REFERENCES</span> students(student_id) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_enroll_course  <span class="kw">FOREIGN KEY</span> (course_id)
+        <span class="kw">REFERENCES</span> courses(course_id) <span class="kw">ON DELETE RESTRICT</span>
+);</code></pre>
+
+        <h3>4.4 ALTER TABLE</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Add a column</span>
+<span class="kw">ALTER TABLE</span> students <span class="kw">ADD COLUMN</span> phone <span class="tp">VARCHAR</span>(<span class="nm">20</span>) <span class="kw">NULL AFTER</span> email;
+
+<span class="cm">-- Rename a column (MySQL 8.0+)</span>
+<span class="kw">ALTER TABLE</span> students <span class="kw">RENAME COLUMN</span> s_code <span class="kw">TO</span> student_code;
+
+<span class="cm">-- Add a CHECK constraint</span>
+<span class="kw">ALTER TABLE</span> students
+    <span class="kw">ADD CONSTRAINT</span> chk_phone <span class="kw">CHECK</span> (phone <span class="kw">REGEXP</span> <span class="st">'^[0-9]{8,15}$'</span>);
+
+<span class="cm">-- Drop a column</span>
+<span class="kw">ALTER TABLE</span> students <span class="kw">DROP COLUMN</span> phone;
+
+<span class="cm">-- Inspect structure</span>
+<span class="kw">DESCRIBE</span> students;
+<span class="kw">SHOW CREATE TABLE</span> students;   <span class="cm">-- Full DDL with all constraints</span></code></pre>
+
+        <h3>4.5 DROP vs TRUNCATE vs DELETE</h3>
+        <table>
+            <tr><th>Command</th><th>Removes Structure?</th><th>Removes Data?</th><th>Rollback?</th><th>Resets AUTO_INCREMENT?</th></tr>
+            <tr><td><code>DROP TABLE</code></td><td>YES</td><td>YES (all)</td><td>NO</td><td>N/A (table gone)</td></tr>
+            <tr><td><code>TRUNCATE TABLE</code></td><td>NO</td><td>YES (all rows)</td><td>NO (DDL in MySQL)</td><td>YES → back to 1</td></tr>
+            <tr><td><code>DELETE FROM table</code></td><td>NO</td><td>Specific rows</td><td>YES</td><td>NO</td></tr>
+        </table>
+
+        <h3>4.6 DML — INSERT, UPDATE, SELECT</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Multi-row INSERT (one round trip)</span>
+<span class="kw">INSERT INTO</span> departments (name, code, head_name) <span class="kw">VALUES</span>
+    (<span class="st">'Computer Science'</span>,    <span class="st">'CS'</span>,  <span class="st">'Dr. Amina Hassan'</span>),
+    (<span class="st">'Information Systems'</span>,  <span class="st">'IS'</span>,  <span class="st">'Dr. Khaled Omar'</span>),
+    (<span class="st">'Artificial Intelligence'</span>,<span class="st">'AI'</span>, <span class="st">'Dr. Sara Nabil'</span>);
+
+<span class="cm">-- BEST PRACTICE: run SELECT first, then UPDATE</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> students <span class="kw">WHERE</span> student_id = <span class="nm">5</span>;  <span class="cm">-- verify first</span>
+<span class="kw">UPDATE</span> students
+    <span class="kw">SET</span> gpa = <span class="nm">3.75</span>, status = <span class="st">'active'</span>
+    <span class="kw">WHERE</span> student_id = <span class="nm">5</span>;
+
+<span class="cm">-- Safe mode (prevents accidental full-table updates)</span>
+<span class="kw">SET</span> SQL_SAFE_UPDATES = <span class="nm">1</span>;
+
+<span class="cm">-- SELECT with WHERE, ORDER BY, LIMIT, OFFSET</span>
+<span class="kw">SELECT</span> first_name, last_name, gpa
+<span class="kw">FROM</span> students
+<span class="kw">WHERE</span> status = <span class="st">'active'</span> <span class="kw">AND</span> gpa <span class="kw">BETWEEN</span> <span class="nm">2.5</span> <span class="kw">AND</span> <span class="nm">4.0</span>
+<span class="kw">ORDER BY</span> gpa <span class="kw">DESC</span>, last_name <span class="kw">ASC</span>
+<span class="kw">LIMIT</span> <span class="nm">20</span> <span class="kw">OFFSET</span> <span class="nm">40</span>;    <span class="cm">-- page 3 (records 41-60)</span>
+
+<span class="cm">-- LIKE patterns</span>
+<span class="kw">WHERE</span> last_name  <span class="kw">LIKE</span> <span class="st">'Al%'</span>       <span class="cm">-- starts with Al</span>
+<span class="kw">WHERE</span> email      <span class="kw">LIKE</span> <span class="st">'%@uni.edu'</span>  <span class="cm">-- ends with @uni.edu</span>
+<span class="kw">WHERE</span> first_name <span class="kw">LIKE</span> <span class="st">'____'</span>       <span class="cm">-- exactly 4 characters long</span>
+
+<span class="cm">-- IN and BETWEEN</span>
+<span class="kw">WHERE</span> dept_id <span class="kw">IN</span> (<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>)
+<span class="kw">WHERE</span> gpa <span class="kw">BETWEEN</span> <span class="nm">3.0</span> <span class="kw">AND</span> <span class="nm">4.0</span>    <span class="cm">-- inclusive on both ends</span>
+
+<span class="cm">-- INSERT from SELECT (archive graduated students)</span>
+<span class="kw">INSERT INTO</span> archive_students (student_id, full_name, email, archived_at)
+    <span class="kw">SELECT</span> student_id, <span class="fn">CONCAT</span>(first_name, <span class="st">' '</span>, last_name), email, <span class="fn">NOW</span>()
+    <span class="kw">FROM</span> students <span class="kw">WHERE</span> status = <span class="st">'graduated'</span>;</code></pre>
+
+        <h3>4.7 SQL Logical Execution Order</h3>
+        <pre data-lang="Execution Order"><code>1. FROM       → identify source tables, perform JOINs
+2. WHERE      → filter individual rows (before aggregation)
+3. GROUP BY   → group rows into aggregation groups
+4. HAVING     → filter groups (after aggregation)
+5. SELECT     → choose columns, compute expressions, aliases
+6. DISTINCT   → remove duplicate result rows
+7. ORDER BY   → sort the result set
+8. LIMIT      → restrict row count / paginate</code></pre>
+        <div class="warning-box">
+            <strong>Why you CANNOT use a SELECT alias in WHERE:</strong> SELECT (step 5) runs AFTER WHERE (step 2). The alias doesn't exist yet when WHERE is evaluated. Use the full expression in WHERE, or wrap in a subquery.
+        </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ CHAPTER 5.1 ━━━━━━━━━━━━ -->
+    <div class="section" id="ch5">
+        <div class="section-label label-teal">🔗 CHAPTER 5.1</div>
+        <h2>JOIN Operations — The Heart of SQL</h2>
+        <p>JOINs combine rows from two or more tables based on a related column — the fundamental operation of relational databases.</p>
+
+        <h3>5.1.1 JOIN Types Overview</h3>
+        <div class="join-grid">
+            <div class="join-card inner">
+                <div class="join-name">INNER JOIN</div>
+                <div class="join-desc">Only rows with a match in BOTH tables. Unmatched rows from either table are excluded.</div>
+            </div>
+            <div class="join-card left">
+                <div class="join-name">LEFT JOIN</div>
+                <div class="join-desc">ALL rows from left table + matching right rows. NULL in right columns when no match.</div>
+            </div>
+            <div class="join-card right">
+                <div class="join-name">RIGHT JOIN</div>
+                <div class="join-desc">ALL rows from right table + matching left rows. NULL in left columns when no match.</div>
+            </div>
+            <div class="join-card cross">
+                <div class="join-name">CROSS JOIN</div>
+                <div class="join-desc">Every combination of rows (Cartesian Product). n × m rows. Always use with LIMIT.</div>
+            </div>
+            <div class="join-card self">
+                <div class="join-name">SELF JOIN</div>
+                <div class="join-desc">Table joined with itself using two aliases. Finds relationships within the same table.</div>
+            </div>
+        </div>
+
+        <h3>5.1.2 INNER JOIN Examples</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Students with their department name</span>
+<span class="kw">SELECT</span>
+    s.s_code,
+    <span class="fn">CONCAT</span>(s.first_name, <span class="st">' '</span>, s.last_name) <span class="kw">AS</span> student_name,
+    s.gpa,
+    d.name <span class="kw">AS</span> department
+<span class="kw">FROM</span> students s
+<span class="kw">INNER JOIN</span> departments d <span class="kw">ON</span> s.dept_id = d.dept_id
+<span class="kw">WHERE</span> s.status = <span class="st">'active'</span>
+<span class="kw">ORDER BY</span> s.gpa <span class="kw">DESC</span>;
+
+<span class="cm">-- Three-table JOIN: student + enrollment + course</span>
+<span class="kw">SELECT</span>
+    s.first_name, s.last_name,
+    c.code, c.title,
+    e.semester, e.year, e.grade
+<span class="kw">FROM</span> students s
+<span class="kw">JOIN</span> enrollments e <span class="kw">ON</span> s.student_id = e.student_id
+<span class="kw">JOIN</span> courses c     <span class="kw">ON</span> e.course_id  = c.course_id
+<span class="kw">WHERE</span> e.status = <span class="st">'completed'</span>
+<span class="kw">ORDER BY</span> s.last_name, c.code;</code></pre>
+
+        <h3>5.1.3 LEFT JOIN &amp; Anti-Join Pattern</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- LEFT JOIN: all students, with or without enrollments</span>
+<span class="kw">SELECT</span> s.s_code, s.first_name, s.last_name, e.course_id, e.grade
+<span class="kw">FROM</span> students s
+<span class="kw">LEFT JOIN</span> enrollments e <span class="kw">ON</span> s.student_id = e.student_id
+<span class="kw">ORDER BY</span> s.last_name;
+
+<span class="cm">-- ANTI-JOIN PATTERN: students NOT enrolled in any course</span>
+<span class="cm">-- NULL in right-table column = no match found</span>
+<span class="kw">SELECT</span> s.s_code, s.first_name, s.last_name
+<span class="kw">FROM</span> students s
+<span class="kw">LEFT JOIN</span> enrollments e <span class="kw">ON</span> s.student_id = e.student_id
+<span class="kw">WHERE</span> e.student_id <span class="kw">IS NULL</span>   <span class="cm">-- ← key line: NULL means no enrollment found</span>
+<span class="kw">ORDER BY</span> s.last_name;
+
+<span class="cm">-- Departments with NO active students</span>
+<span class="kw">SELECT</span> d.name, d.code
+<span class="kw">FROM</span> departments d
+<span class="kw">LEFT JOIN</span> students s <span class="kw">ON</span> d.dept_id = s.dept_id <span class="kw">AND</span> s.status = <span class="st">'active'</span>
+<span class="kw">WHERE</span> s.student_id <span class="kw">IS NULL</span>;</code></pre>
+
+        <div class="success-box">
+            <strong>Anti-Join Pattern Summary:</strong><br>
+            1. LEFT JOIN both tables on the key relationship<br>
+            2. Add WHERE right_table.id IS NULL<br>
+            3. NULL means "no matching row was found in the right table"<br>
+            → Result: only rows from the left table that have NO match in the right table
+        </div>
+
+        <h3>5.1.4 SELF JOIN &amp; CROSS JOIN</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- SELF JOIN: pairs of students in the same department</span>
+<span class="kw">SELECT</span>
+    a.first_name <span class="kw">AS</span> student_a,
+    b.first_name <span class="kw">AS</span> student_b,
+    a.dept_id
+<span class="kw">FROM</span> students a
+<span class="kw">JOIN</span> students b
+    <span class="kw">ON</span>  a.dept_id    = b.dept_id
+    <span class="kw">AND</span> a.student_id &lt; b.student_id  <span class="cm">-- avoids duplicates AND self-match</span>
+<span class="kw">ORDER BY</span> a.dept_id, a.first_name;
+
+<span class="cm">-- CROSS JOIN: all student-course combinations (Cartesian Product)</span>
+<span class="kw">SELECT</span> s.s_code, c.code
+<span class="kw">FROM</span> students s
+<span class="kw">CROSS JOIN</span> courses c
+<span class="kw">WHERE</span> s.dept_id = c.dept_id   <span class="cm">-- always filter CROSS JOINs</span>
+<span class="kw">LIMIT</span> <span class="nm">100</span>;                    <span class="cm">-- always LIMIT CROSS JOINs</span></code></pre>
+
+        <h3>5.1.5 JOIN Quick Reference Table</h3>
+        <table>
+            <tr><th>JOIN Type</th><th>Returns</th><th>NULL in Result?</th><th>Common Use</th></tr>
+            <tr><td><strong>INNER JOIN</strong></td><td>Only matching rows from both tables</td><td>No</td><td>Get related data (student + department)</td></tr>
+            <tr><td><strong>LEFT JOIN</strong></td><td>All left rows + matching right rows</td><td>Yes (right side)</td><td>Optional relationships, reports</td></tr>
+            <tr><td><strong>RIGHT JOIN</strong></td><td>All right rows + matching left rows</td><td>Yes (left side)</td><td>Mirror of LEFT JOIN (rarely used)</td></tr>
+            <tr><td><strong>CROSS JOIN</strong></td><td>All combinations (n × m)</td><td>No</td><td>Scheduling, combinations (use carefully)</td></tr>
+            <tr><td><strong>SELF JOIN</strong></td><td>Table rows matched to same table rows</td><td>Depends on type</td><td>Org charts, pairs, hierarchy</td></tr>
+        </table>
+
+        <h3>5.1.6 WHERE vs HAVING — Critical Difference</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- WHERE filters individual rows BEFORE aggregation</span>
+<span class="cm">-- HAVING filters groups AFTER GROUP BY aggregation</span>
+<span class="kw">SELECT</span>
+    dept_id,
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> student_count,
+    <span class="fn">AVG</span>(gpa) <span class="kw">AS</span> avg_gpa
+<span class="kw">FROM</span> students
+<span class="kw">WHERE</span>  status = <span class="st">'active'</span>          <span class="cm">-- step 2: filter rows BEFORE grouping</span>
+<span class="kw">GROUP BY</span> dept_id                   <span class="cm">-- step 3: group rows</span>
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) &gt; <span class="nm">5</span>               <span class="cm">-- step 4: filter groups AFTER aggregation</span>
+   <span class="kw">AND</span> <span class="fn">AVG</span>(gpa) &gt;= <span class="nm">2.5</span>
+<span class="kw">ORDER BY</span> avg_gpa <span class="kw">DESC</span>;</code></pre>
+
+        <h3>5.1.7 Subqueries</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Subquery in WHERE (scalar)</span>
+<span class="kw">SELECT</span> first_name, last_name, gpa
+<span class="kw">FROM</span> students
+<span class="kw">WHERE</span> gpa &gt; (<span class="kw">SELECT</span> <span class="fn">AVG</span>(gpa) <span class="kw">FROM</span> students <span class="kw">WHERE</span> status = <span class="st">'active'</span>);
+
+<span class="cm">-- Subquery with IN</span>
+<span class="kw">SELECT</span> first_name, last_name
+<span class="kw">FROM</span> students
+<span class="kw">WHERE</span> student_id <span class="kw">IN</span> (
+    <span class="kw">SELECT</span> student_id <span class="kw">FROM</span> enrollments
+    <span class="kw">WHERE</span> course_id = (<span class="kw">SELECT</span> course_id <span class="kw">FROM</span> courses <span class="kw">WHERE</span> code = <span class="st">'DB201'</span>)
+);
+
+<span class="cm">-- Derived table (subquery in FROM)</span>
+<span class="kw">SELECT</span> dept_name, dept_avg_gpa
+<span class="kw">FROM</span> (
+    <span class="kw">SELECT</span> d.name <span class="kw">AS</span> dept_name, <span class="fn">ROUND</span>(<span class="fn">AVG</span>(s.gpa), <span class="nm">2</span>) <span class="kw">AS</span> dept_avg_gpa
+    <span class="kw">FROM</span> departments d
+    <span class="kw">JOIN</span> students s <span class="kw">ON</span> d.dept_id = s.dept_id
+    <span class="kw">WHERE</span> s.status = <span class="st">'active'</span>
+    <span class="kw">GROUP BY</span> d.dept_id, d.name
+) <span class="kw">AS</span> dept_stats
+<span class="kw">WHERE</span> dept_avg_gpa &gt; (<span class="kw">SELECT</span> <span class="fn">ROUND</span>(<span class="fn">AVG</span>(gpa), <span class="nm">2</span>) <span class="kw">FROM</span> students <span class="kw">WHERE</span> status = <span class="st">'active'</span>)
+<span class="kw">ORDER BY</span> dept_avg_gpa <span class="kw">DESC</span>;
+
+<span class="cm">-- EXISTS (often faster than IN for large tables)</span>
+<span class="kw">SELECT</span> first_name, last_name
+<span class="kw">FROM</span> students s
+<span class="kw">WHERE EXISTS</span> (
+    <span class="kw">SELECT</span> <span class="nm">1</span> <span class="kw">FROM</span> enrollments e
+    <span class="kw">WHERE</span> e.student_id = s.student_id <span class="kw">AND</span> e.grade &gt; <span class="nm">90</span>
+);</code></pre>
+
+        <h3>5.1.8 Views</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Create a view</span>
+<span class="kw">CREATE VIEW</span> vw_student_details <span class="kw">AS</span>
+<span class="kw">SELECT</span>
+    s.student_id, s.s_code, s.first_name, s.last_name,
+    s.email, s.gpa, s.status,
+    d.name <span class="kw">AS</span> department, d.code <span class="kw">AS</span> dept_code
+<span class="kw">FROM</span> students s
+<span class="kw">JOIN</span> departments d <span class="kw">ON</span> s.dept_id = d.dept_id;
+
+<span class="cm">-- Use it like a table</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> vw_student_details <span class="kw">WHERE</span> department = <span class="st">'Computer Science'</span>;
+
+<span class="cm">-- Update a view</span>
+<span class="kw">CREATE OR REPLACE VIEW</span> vw_student_details <span class="kw">AS</span> <span class="kw">SELECT</span> ... ;
+
+<span class="cm">-- Drop a view</span>
+<span class="kw">DROP VIEW IF EXISTS</span> vw_student_details;</code></pre>
+
+        <table>
+            <tr><th>Advantage</th><th>Explanation</th></tr>
+            <tr><td><strong>Security</strong></td><td>Grant access to the VIEW, not the base table. Hide sensitive columns (salary, national_id).</td></tr>
+            <tr><td><strong>Simplicity</strong></td><td>Encapsulate a complex 5-table JOIN into a single view name.</td></tr>
+            <tr><td><strong>Consistency</strong></td><td>Business logic defined once in the view is automatically applied everywhere it's used.</td></tr>
+            <tr><td><strong>Stability</strong></td><td>Applications depend on the view interface. Schema refactoring is shielded by updating the view.</td></tr>
+        </table>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ CHEAT SHEET ━━━━━━━━━━━━ -->
+    <div class="section" id="cheatsheet">
+        <div class="section-label label-blue">⚡ QUICK CHEAT SHEET</div>
+        <h2>Must-Know Rules for the Exam</h2>
+
+        <h3>Key Rules to Memorize</h3>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <div class="rule-num">PRIMARY KEY</div>
+                <p>NEVER NULL. Always UNIQUE. Every table must have one. A NULL PK means "unknown identity" — impossible to reference.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">FOREIGN KEY</div>
+                <p>Must match existing PK value or be NULL. dept_id=999 rejected if no dept 999 exists.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">NULL VALUES</div>
+                <p>NULL ≠ 0 ≠ "" ≠ false → means UNKNOWN. <code>NULL = NULL</code> → UNKNOWN (not TRUE!). Always use <code>IS NULL</code> / <code>IS NOT NULL</code>.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">FLOAT vs DECIMAL</div>
+                <p>FLOAT for money → WRONG. <code>0.1 + 0.2 = 0.30000000000000004</code>. Always use DECIMAL for money and GPA.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">M:N RELATIONSHIP</div>
+                <p>MUST create a junction table. Cannot represent M:N with just two tables. Relationship attributes go in the junction table.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">DERIVED ATTRIBUTE</div>
+                <p>NOT stored in the database. Computed at query time. age (from birth_date) — dashed oval in Chen notation.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">WHERE vs HAVING</div>
+                <p>WHERE filters rows BEFORE GROUP BY. HAVING filters groups AFTER GROUP BY. CANNOT use COUNT() in WHERE.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">ANTI-JOIN PATTERN</div>
+                <p>LEFT JOIN + WHERE right.id IS NULL. Finds rows in left table with NO match in right table.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">6 FILE SYSTEM PROBLEMS</div>
+                <p>Redundancy · Inconsistency · Isolation · Integrity · Concurrency · Poor Security</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-num">6 DBMS FUNCTIONS</div>
+                <p>Definition (DDL) · Manipulation (DML) · Sharing · Security · Integrity · Backup/Recovery</p>
+            </div>
+        </div>
+
+        <h3>SQL Execution Order (Memorize This!)</h3>
+        <pre data-lang="Order"><code>FROM → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → LIMIT</code></pre>
+
+        <h3>JOIN Patterns Cheat Sheet</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Only matching rows</span>
+<span class="kw">FROM</span> A <span class="kw">INNER JOIN</span> B <span class="kw">ON</span> A.id = B.a_id
+
+<span class="cm">-- All A rows, including unmatched</span>
+<span class="kw">FROM</span> A <span class="kw">LEFT JOIN</span> B <span class="kw">ON</span> A.id = B.a_id
+
+<span class="cm">-- Find A rows with NO match in B (Anti-Join)</span>
+<span class="kw">FROM</span> A <span class="kw">LEFT JOIN</span> B <span class="kw">ON</span> A.id = B.a_id <span class="kw">WHERE</span> B.id <span class="kw">IS NULL</span>
+
+<span class="cm">-- Find pairs within same table (Self-Join)</span>
+<span class="kw">FROM</span> T a <span class="kw">JOIN</span> T b <span class="kw">ON</span> a.group_col = b.group_col <span class="kw">AND</span> a.id &lt; b.id
+
+<span class="cm">-- Cartesian product (every combination)</span>
+<span class="kw">FROM</span> A <span class="kw">CROSS JOIN</span> B <span class="kw">LIMIT</span> <span class="nm">100</span></code></pre>
+
+        <h3>LIKE Patterns Reference</h3>
+        <table>
+            <tr><th>Pattern</th><th>Matches</th><th>Example</th></tr>
+            <tr><td><code>LIKE 'Al%'</code></td><td>Starts with "Al" (any length after)</td><td>Ali, Alaa, Alexander</td></tr>
+            <tr><td><code>LIKE '%@uni.edu'</code></td><td>Ends with "@uni.edu"</td><td>ali@uni.edu, nour@uni.edu</td></tr>
+            <tr><td><code>LIKE '%DB%'</code></td><td>Contains "DB" anywhere</td><td>CS-DB201, My-DB-Course</td></tr>
+            <tr><td><code>LIKE 'CS-2024-%'</code></td><td>Starts with "CS-2024-"</td><td>CS-2024-001, CS-2024-099</td></tr>
+            <tr><td><code>LIKE '____'</code></td><td>Exactly 4 characters</td><td>Ali1, Nour, 2024</td></tr>
+            <tr><td><code>LIKE '_ali'</code></td><td>4 chars ending in "ali"</td><td>Hali, Mali, Kali</td></tr>
+        </table>
+
+        <div class="info-box" style="margin-top:24px;">
+            <strong>Good luck on your exam!</strong> Remember: understand the concepts, don't just memorize. Every SQL query you write should follow the logical execution order, and every schema design should start with an ER diagram.
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+<footer>
+    <p>Database Systems I &nbsp;·&nbsp; Dr. Muhammad Mahmoud &nbsp;·&nbsp; Faculty of Computers &amp; Information Systems</p>
+</footer>
+
+</body>
+</html>
