@@ -982,10 +982,10 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
     <div class="section" id="examples">
         <div class="section-label label-orange">📌 WORKED EXAMPLES</div>
         <h2>3 Complete Database Design Examples</h2>
-        <p>Each example takes you through the full pipeline: ER Diagram → Relational Schema Mapping → SQL CREATE TABLE → Sample Queries. Study all three — exam questions draw directly from these patterns.</p>
+        <p>Each example takes you through the full pipeline: ER Diagram → DFD → UML Class Diagram → Relational Schema Mapping → SQL CREATE TABLE → Sample Queries. Study all three — exam questions draw directly from these patterns.</p>
 
         <div class="info-box">
-            <strong>How to study these examples:</strong> For each example, first look at the ER diagram, try to write the mapping rules yourself, then check against the SQL. These exercises cover Rules 1–6 plus all five integrity constraints.
+            <strong>How to study these examples:</strong> For each example, first look at the ER diagram, trace the DFD inputs/outputs, convert entities into UML classes, then write the mapping rules yourself before checking the SQL. These exercises cover Rules 1–6 plus all five integrity constraints.
         </div>
 
         <!-- ─── EXAMPLE 1 ─── -->
@@ -1026,6 +1026,87 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
                     │  location        │
                     │  dept_id (FK)    │
                     └──────────────────┘</code></pre>
+
+        <h3>DFD Level 0 + Level 1</h3>
+        <pre data-lang="DFD"><code>CONTEXT / LEVEL 0
+
+┌─────────────┐        employee data, project assignments        ┌──────────────────────┐
+│ HR Officer  │ ───────────────────────────────────────────────► │  Company HR System   │
+└─────────────┘                                                  └──────────┬───────────┘
+       ▲                                                                       │
+       │ reports, employee/project summaries                                   │
+       └───────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐        department/project setup                 ┌──────────────────────┐
+│  Manager    │ ───────────────────────────────────────────────► │  Company HR System   │
+└─────────────┘                                                  └──────────┬───────────┘
+       ▲                                                                       │
+       │ department staff, workload reports                                     │
+       └───────────────────────────────────────────────────────────────────────┘
+
+
+LEVEL 1
+
+┌─────────────┐      employee details       ┌─────────────────────┐      employee record      ╔══════════════╗
+│ HR Officer  │ ─────────────────────────► │ 1.0 Manage Employees│ ────────────────────────► ║ D1 Employees ║
+└─────────────┘                             └──────────┬──────────┘                           ╚══════════════╝
+                                                       │ dependent/phone data
+                                                       ▼
+                                                ╔══════════════════╗
+                                                ║ D2 Dependents    ║
+                                                ║ D3 Emp Phones    ║
+                                                ╚══════════════════╝
+
+┌─────────────┐      department data        ┌────────────────────────┐      department record   ╔════════════════╗
+│  Manager    │ ─────────────────────────► │ 2.0 Manage Departments │ ───────────────────────► ║ D4 Departments ║
+└─────────────┘                             └────────────────────────┘                          ╚════════════════╝
+
+┌─────────────┐      project + hours        ┌─────────────────────┐      project/work data     ╔══════════════╗
+│  Manager    │ ─────────────────────────► │ 3.0 Assign Projects │ ────────────────────────► ║ D5 Projects  ║
+└─────────────┘                             └──────────┬──────────┘                            ║ D6 Works_On  ║
+                                                       │ workload queries                      ╚══════════════╝
+                                                       ▼
+                                                ┌────────────────────┐
+                                                │ 4.0 Produce Reports│ ───► reports to HR/Manager
+                                                └────────────────────┘</code></pre>
+
+        <h3>UML Class Diagram</h3>
+        <pre data-lang="UML"><code>+-----------------------------+        manages 0..1       +-----------------------------+
+| Department                  |◄──────────────────────────| Employee                    |
+|-----------------------------|                           |-----------------------------|
+| deptId: int                 |                           | empId: int                  |
+| name: string                |                           | fname: string               |
+| location: string            |                           | lname: string               |
+| manageDate: date            |                           | salary: decimal             |
++-----------------------------+                           | birthDate: date             |
+        1  ▲                                             +-----------------------------+
+           │ works in                                           1 │
+           │                                                     │ has
+           │ 0..*                                                │ 0..*
++-----------------------------+                           +-----------------------------+
+| Project                     |                           | Dependent                   |
+|-----------------------------|                           |-----------------------------|
+| projId: int                 |                           | depName: string             |
+| name: string                |                           | dob: date                   |
+| location: string            |                           | relationship: string        |
++-----------------------------+                           +-----------------------------+
+        0..* ▲
+             │ assigned through
+             │
++-----------------------------+                           +-----------------------------+
+| WorksOn                     |                           | EmpPhone                    |
+|-----------------------------|                           |-----------------------------|
+| empId: int                  |                           | empId: int                  |
+| projId: int                 |                           | phoneNumber: string         |
+| hours: decimal              |                           +-----------------------------+
++-----------------------------+
+
+Associations:
+Department 1 ── 0..* Employee
+Department 1 ── 0..* Project
+Employee   1 ── 0..* Dependent
+Employee   1 ── 0..* EmpPhone
+Employee   0..* ── 0..* Project through WorksOn</code></pre>
 
         <h3>Mapping Rules Applied</h3>
         <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities → tables</span>
@@ -1182,6 +1263,90 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
                              │ status ENUM       │
                              └──────────────────┘</code></pre>
 
+        <h3>DFD Level 0 + Level 1</h3>
+        <pre data-lang="DFD"><code>CONTEXT / LEVEL 0
+
+┌─────────────┐          book/member/loan data          ┌──────────────────────────┐
+│ Librarian   │ ──────────────────────────────────────► │ Library Management System│
+└─────────────┘                                         └────────────┬─────────────┘
+       ▲                                                              │
+       │ catalog, active loans, overdue/fine reports                   │
+       └──────────────────────────────────────────────────────────────┘
+
+┌─────────────┐          borrow/return requests         ┌──────────────────────────┐
+│  Member     │ ──────────────────────────────────────► │ Library Management System│
+└─────────────┘                                         └────────────┬─────────────┘
+       ▲                                                              │
+       │ loan status, due dates, fines                                 │
+       └──────────────────────────────────────────────────────────────┘
+
+
+LEVEL 1
+
+┌─────────────┐      publisher/book info     ┌───────────────────┐      catalog data       ╔══════════════╗
+│ Librarian   │ ───────────────────────────► │ 1.0 Manage Catalog│ ──────────────────────► ║ D1 Books     ║
+└─────────────┘                              └─────────┬─────────┘                         ║ D2 Publishers║
+                                                       │ author links                       ║ D3 Authors   ║
+                                                       ▼                                    ║ D4 BookAuthors║
+                                                ╔════════════════╗                          ╚══════════════╝
+                                                ║ D4 BookAuthors ║
+                                                ╚════════════════╝
+
+┌─────────────┐      registration/status      ┌───────────────────┐      member data       ╔══════════════╗
+│ Librarian   │ ───────────────────────────► │ 2.0 Manage Members│ ─────────────────────► ║ D5 Members   ║
+└─────────────┘                              └───────────────────┘                         ╚══════════════╝
+
+┌─────────────┐      borrow/return request    ┌──────────────────┐      loan transaction   ╔══════════════╗
+│  Member     │ ───────────────────────────► │ 3.0 Process Loans│ ──────────────────────► ║ D6 Loans     ║
+└─────────────┘                              └────────┬─────────┘                          ╚══════════════╝
+                                                      │ due/return/fine data
+                                                      ▼
+                                               ┌────────────────────┐
+                                               │ 4.0 Produce Reports│ ───► overdue list, active loan list
+                                               └────────────────────┘</code></pre>
+
+        <h3>UML Class Diagram</h3>
+        <pre data-lang="UML"><code>+-----------------------------+             1        +-----------------------------+
+| Publisher                   |─────────────────────►| Book                        |
+|-----------------------------|          publishes   |-----------------------------|
+| pubId: int                  |             0..*     | isbn: string                |
+| name: string                |                      | title: string               |
+| address: string             |                      | pages: int                  |
+| phone: string               |                      | pubYear: int                |
++-----------------------------+                      +-----------------------------+
+                                                            0..* ▲
+                                                                 │ written by
+                                                                 │
++-----------------------------+        through         +-----------------------------+
+| Author                      |◄──────────────────────►| BookAuthor                  |
+|-----------------------------|                        |-----------------------------|
+| authorId: int               |                        | isbn: string                |
+| name: string                |                        | authorId: int               |
+| nationality: string         |                        +-----------------------------+
++-----------------------------+
+
++-----------------------------+           borrows        +-----------------------------+
+| Member                      |─────────────────────────►| Loan                        |
+|-----------------------------|             0..*         |-----------------------------|
+| memberId: int               |                          | loanId: int                 |
+| name: string                |                          | loanDate: date              |
+| email: string               |                          | dueDate: date               |
+| phone: string               |                          | returnDate: date?           |
+| joinDate: date              |                          | fineAmount: decimal         |
+| status: string              |                          +-----------------------------+
++-----------------------------+                                   │ 1
+                                                                 │ for
+                                                                 ▼
+                                                          +-----------------------------+
+                                                          | Book                        |
+                                                          +-----------------------------+
+
+Associations:
+Publisher 1 ── 0..* Book
+Book      0..* ── 0..* Author through BookAuthor
+Member    1 ── 0..* Loan
+Book      1 ── 0..* Loan</code></pre>
+
         <h3>Mapping Rules Applied</h3>
         <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities</span>
 <span class="pp">PUBLISHERS</span>  (pub_id PK, name, address, phone)
@@ -1318,6 +1483,83 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
                             │ unit_price       │ ← snapshot │ address          │
                             └──────────────────┘            │ reg_date         │
                                                             └──────────────────┘</code></pre>
+
+        <h3>DFD Level 0 + Level 1</h3>
+        <pre data-lang="DFD"><code>CONTEXT / LEVEL 0
+
+┌─────────────┐          browsing, cart, checkout data          ┌────────────────────────┐
+│  Customer   │ ──────────────────────────────────────────────► │ E-Commerce Order System│
+└─────────────┘                                                 └───────────┬────────────┘
+       ▲                                                                      │
+       │ order receipt, order status, product information                      │
+       └──────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐          product/category updates              ┌────────────────────────┐
+│  Admin      │ ──────────────────────────────────────────────► │ E-Commerce Order System│
+└─────────────┘                                                 └───────────┬────────────┘
+       ▲                                                                      │
+       │ sales, stock, customer reports                                        │
+       └──────────────────────────────────────────────────────────────────────┘
+
+
+LEVEL 1
+
+┌─────────────┐      category/product data     ┌─────────────────────┐      catalog data       ╔══════════════╗
+│  Admin      │ ─────────────────────────────► │ 1.0 Manage Catalog  │ ──────────────────────► ║ D1 Categories║
+└─────────────┘                                └─────────────────────┘                         ║ D2 Products  ║
+                                                                                               ╚══════════════╝
+
+┌─────────────┐      registration/profile      ┌─────────────────────┐      customer data      ╔══════════════╗
+│  Customer   │ ─────────────────────────────► │ 2.0 Manage Customers│ ──────────────────────► ║ D3 Customers ║
+└─────────────┘                                └─────────────────────┘                         ╚══════════════╝
+
+┌─────────────┐      cart + checkout           ┌─────────────────────┐      order header       ╔══════════════╗
+│  Customer   │ ─────────────────────────────► │ 3.0 Process Orders  │ ──────────────────────► ║ D4 Orders    ║
+└─────────────┘                                └──────────┬──────────┘                          ║ D5 OrderItems║
+                                                          │ item quantities + price snapshots   ╚══════════════╝
+                                                          ▼
+                                                   ┌────────────────────┐
+                                                   │ 4.0 Produce Reports│ ───► receipts, revenue, best-sellers
+                                                   └────────────────────┘</code></pre>
+
+        <h3>UML Class Diagram</h3>
+        <pre data-lang="UML"><code>+-----------------------------+             1        +-----------------------------+
+| Category                    |─────────────────────►| Product                     |
+|-----------------------------|          contains    |-----------------------------|
+| catId: int                  |             0..*     | productId: int              |
+| name: string                |                      | name: string                |
+| description: string         |                      | price: decimal              |
++-----------------------------+                      | stockQty: int               |
+                                                     +-----------------------------+
+                                                               1 ▲
+                                                                 │ ordered through
+                                                                 │ 0..*
++-----------------------------+             1        +-----------------------------+
+| Customer                    |─────────────────────►| Order                       |
+|-----------------------------|          places      |-----------------------------|
+| customerId: int             |             0..*     | orderId: int                |
+| name: string                |                      | orderDate: datetime         |
+| email: string               |                      | totalAmount: decimal        |
+| phone: string               |                      | status: string              |
+| address: string             |                      +-----------------------------+
+| regDate: date               |                                1 │
++-----------------------------+                                  │ has
+                                                                 │ 1..*
+                                                          +-----------------------------+
+                                                          | OrderItem                  |
+                                                          |-----------------------------|
+                                                          | orderId: int               |
+                                                          | productId: int             |
+                                                          | quantity: int              |
+                                                          | unitPrice: decimal         |
+                                                          +-----------------------------+
+
+Associations:
+Category 1 ── 0..* Product
+Customer 1 ── 0..* Order
+Order    1 ── 1..* OrderItem
+Product  1 ── 0..* OrderItem
+Order    0..* ── 0..* Product through OrderItem</code></pre>
 
         <div class="highlight">
             <strong>Design Note — unit_price in ORDER_ITEM:</strong> The price in ORDER_ITEM is stored at the moment of purchase (not referenced from PRODUCT). This is because product prices change over time. Storing the snapshot ensures historical order accuracy. This is a common real-world pattern.
