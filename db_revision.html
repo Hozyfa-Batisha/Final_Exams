@@ -284,6 +284,7 @@
             <li><a href="#ch3">Chapter 3</a></li>
             <li><a href="#ch4">Chapter 4</a></li>
             <li><a href="#ch5">Chapter 5.1</a></li>
+            <li><a href="#examples">Worked Examples</a></li>
             <li><a href="#cheatsheet">Cheat Sheet</a></li>
             <li><a href="db_questions.html" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;">🧪 Take Quiz</a></li>
             <li><a href="index.html">🏠 Home</a></li>
@@ -933,6 +934,481 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
             <tr><td><strong>Consistency</strong></td><td>Business logic defined once in the view is automatically applied everywhere it's used.</td></tr>
             <tr><td><strong>Stability</strong></td><td>Applications depend on the view interface. Schema refactoring is shielded by updating the view.</td></tr>
         </table>
+    </div>
+
+    <!-- ━━━━━━━━━━━━ WORKED EXAMPLES ━━━━━━━━━━━━ -->
+    <div class="section" id="examples">
+        <div class="section-label label-orange">📌 WORKED EXAMPLES</div>
+        <h2>3 Complete Database Design Examples</h2>
+        <p>Each example takes you through the full pipeline: ER Diagram → Relational Schema Mapping → SQL CREATE TABLE → Sample Queries. Study all three — exam questions draw directly from these patterns.</p>
+
+        <div class="info-box">
+            <strong>How to study these examples:</strong> For each example, first look at the ER diagram, try to write the mapping rules yourself, then check against the SQL. These exercises cover Rules 1–6 plus all five integrity constraints.
+        </div>
+
+        <!-- ─── EXAMPLE 1 ─── -->
+        <h3 style="margin-top:36px; font-size:1.4em; color:#1a2e5a; border-left:5px solid #e65100; padding-left:14px;">
+            Example 1 — Company HR Database
+        </h3>
+        <p style="color:#555; margin-bottom:14px;">Classic company database with employees, departments, projects, and dependents. Tests: 1:N, M:N, weak entity, multi-valued attributes, and all mapping rules.</p>
+
+        <h3>ER Diagram (Chen Notation)</h3>
+        <pre data-lang="ER Diagram"><code>                    ┌──────────────────┐
+                    │   DEPARTMENT     │  (Strong Entity)
+                    │  dept_id (PK)    │
+                    │  name            │
+                    │  location        │
+                    └────────┬─────────┘
+                             │ 1
+                             │  MANAGES (1:1) ←── manager_id, start_date
+                             │ 1
+                    ┌────────┴─────────┐         ┌──────────────┐
+                    │    EMPLOYEE      │ ◄══HAS══ │  DEPENDENT   │  (Weak Entity)
+                    │  emp_id (PK)     │  (1:N)   │  partial key │
+                    │  fname, lname    │          │  name, DOB   │
+                    │  salary          │          │  relationship│
+                    │  birth_date      │          └──────────────┘
+                    │  phone_numbers ══╗  (Multi-valued)
+                    │  dept_id (FK)   ║
+                    └────────┬────────╝
+                             │
+                        WORKS_ON (M:N)
+                        ┌────┴─────────────┐
+                        │  hours           │  ← relationship attribute
+                        └────┬─────────────┘
+                             │
+                    ┌────────┴─────────┐
+                    │    PROJECT       │
+                    │  proj_id (PK)    │
+                    │  name            │
+                    │  location        │
+                    │  dept_id (FK)    │
+                    └──────────────────┘</code></pre>
+
+        <h3>Mapping Rules Applied</h3>
+        <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities → tables</span>
+<span class="pp">DEPARTMENT</span>  (dept_id PK, name, location)
+<span class="pp">EMPLOYEE</span>    (emp_id PK, fname, lname, salary, birth_date, dept_id FK)
+<span class="pp">PROJECT</span>     (proj_id PK, name, location, dept_id FK)
+
+<span class="cm">-- Rule 2: Weak entity → table, PK = (owner_FK + partial_key)</span>
+<span class="pp">DEPENDENT</span>   (emp_id FK, dep_name, dob, relationship)
+               PK = (emp_id, dep_name)   ← composite PK
+
+<span class="cm">-- Rule 3: 1:1 relationship (MANAGES) → FK on total-participation side</span>
+<span class="pp">DEPARTMENT</span>  ← add manager_id FK → EMPLOYEE, manage_start_date
+
+<span class="cm">-- Rule 4: 1:N relationship → FK on the "many" side</span>
+<span class="pp">EMPLOYEE</span>.dept_id FK → DEPARTMENT.dept_id
+<span class="pp">PROJECT</span>.dept_id  FK → DEPARTMENT.dept_id
+
+<span class="cm">-- Rule 5: M:N relationship → junction table</span>
+<span class="pp">WORKS_ON</span>    (emp_id FK, proj_id FK, hours)
+               PK = (emp_id, proj_id)
+
+<span class="cm">-- Rule 6: Multi-valued attribute → separate table</span>
+<span class="pp">EMP_PHONE</span>   (emp_id FK, phone_number)
+               PK = (emp_id, phone_number)</code></pre>
+
+        <h3>Full SQL DDL</h3>
+        <pre data-lang="SQL"><code><span class="kw">CREATE TABLE</span> departments (
+    dept_id     <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name        <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    location    <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">DEFAULT NULL</span>,
+    manager_id  <span class="tp">INT</span>          <span class="kw">DEFAULT NULL</span>,
+    manage_date <span class="tp">DATE</span>         <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_dept      <span class="kw">PRIMARY KEY</span> (dept_id),
+    <span class="kw">CONSTRAINT</span> uq_dept_name <span class="kw">UNIQUE</span> (name)
+);
+
+<span class="kw">CREATE TABLE</span> employees (
+    emp_id      <span class="tp">INT</span>            <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    fname       <span class="tp">VARCHAR</span>(<span class="nm">50</span>)   <span class="kw">NOT NULL</span>,
+    lname       <span class="tp">VARCHAR</span>(<span class="nm">50</span>)   <span class="kw">NOT NULL</span>,
+    salary      <span class="tp">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>) <span class="kw">NOT NULL</span>,
+    birth_date  <span class="tp">DATE</span>           <span class="kw">NOT NULL</span>,
+    dept_id     <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_emp          <span class="kw">PRIMARY KEY</span> (emp_id),
+    <span class="kw">CONSTRAINT</span> chk_salary      <span class="kw">CHECK</span> (salary &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_emp_dept     <span class="kw">FOREIGN KEY</span> (dept_id)
+        <span class="kw">REFERENCES</span> departments(dept_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- Add the FK back to departments for the manager (after employees table exists)</span>
+<span class="kw">ALTER TABLE</span> departments
+    <span class="kw">ADD CONSTRAINT</span> fk_dept_manager <span class="kw">FOREIGN KEY</span> (manager_id)
+        <span class="kw">REFERENCES</span> employees(emp_id) <span class="kw">ON DELETE SET NULL</span>;
+
+<span class="kw">CREATE TABLE</span> projects (
+    proj_id   <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name      <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    location  <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">DEFAULT NULL</span>,
+    dept_id   <span class="tp">INT</span>          <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_proj       <span class="kw">PRIMARY KEY</span> (proj_id),
+    <span class="kw">CONSTRAINT</span> fk_proj_dept  <span class="kw">FOREIGN KEY</span> (dept_id)
+        <span class="kw">REFERENCES</span> departments(dept_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- Weak entity: PK = composite (emp_id + dep_name)</span>
+<span class="kw">CREATE TABLE</span> dependents (
+    emp_id       <span class="tp">INT</span>         <span class="kw">NOT NULL</span>,
+    dep_name     <span class="tp">VARCHAR</span>(<span class="nm">80</span>) <span class="kw">NOT NULL</span>,
+    dob          <span class="tp">DATE</span>        <span class="kw">DEFAULT NULL</span>,
+    relationship <span class="tp">ENUM</span>(<span class="st">'spouse'</span>,<span class="st">'child'</span>,<span class="st">'parent'</span>) <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_dependent    <span class="kw">PRIMARY KEY</span> (emp_id, dep_name),
+    <span class="kw">CONSTRAINT</span> fk_dep_emp      <span class="kw">FOREIGN KEY</span> (emp_id)
+        <span class="kw">REFERENCES</span> employees(emp_id) <span class="kw">ON DELETE CASCADE</span>
+);
+
+<span class="cm">-- M:N junction table with relationship attribute (hours)</span>
+<span class="kw">CREATE TABLE</span> works_on (
+    emp_id   <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    proj_id  <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    hours    <span class="tp">DECIMAL</span>(<span class="nm">5</span>,<span class="nm">2</span>)  <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_works_on      <span class="kw">PRIMARY KEY</span> (emp_id, proj_id),
+    <span class="kw">CONSTRAINT</span> chk_hours        <span class="kw">CHECK</span> (hours &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_wo_emp        <span class="kw">FOREIGN KEY</span> (emp_id)
+        <span class="kw">REFERENCES</span> employees(emp_id) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_wo_proj       <span class="kw">FOREIGN KEY</span> (proj_id)
+        <span class="kw">REFERENCES</span> projects(proj_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- Multi-valued attribute: separate table (Rule 6)</span>
+<span class="kw">CREATE TABLE</span> emp_phones (
+    emp_id       <span class="tp">INT</span>         <span class="kw">NOT NULL</span>,
+    phone_number <span class="tp">VARCHAR</span>(<span class="nm">20</span>) <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_phone        <span class="kw">PRIMARY KEY</span> (emp_id, phone_number),
+    <span class="kw">CONSTRAINT</span> fk_phone_emp    <span class="kw">FOREIGN KEY</span> (emp_id)
+        <span class="kw">REFERENCES</span> employees(emp_id) <span class="kw">ON DELETE CASCADE</span>
+);</code></pre>
+
+        <h3>Sample Queries</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Q: List all employees with their department name and total project hours</span>
+<span class="kw">SELECT</span>
+    <span class="fn">CONCAT</span>(e.fname, <span class="st">' '</span>, e.lname) <span class="kw">AS</span> employee_name,
+    d.name                        <span class="kw">AS</span> department,
+    <span class="fn">COALESCE</span>(<span class="fn">SUM</span>(w.hours), <span class="nm">0</span>)      <span class="kw">AS</span> total_hours
+<span class="kw">FROM</span> employees e
+<span class="kw">JOIN</span> departments d  <span class="kw">ON</span> e.dept_id  = d.dept_id
+<span class="kw">LEFT JOIN</span> works_on w <span class="kw">ON</span> e.emp_id = w.emp_id
+<span class="kw">GROUP BY</span> e.emp_id, e.fname, e.lname, d.name
+<span class="kw">ORDER BY</span> total_hours <span class="kw">DESC</span>;
+
+<span class="cm">-- Q: Employees who work on NO projects (Anti-Join)</span>
+<span class="kw">SELECT</span> <span class="fn">CONCAT</span>(e.fname, <span class="st">' '</span>, e.lname) <span class="kw">AS</span> employee_name
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> works_on w <span class="kw">ON</span> e.emp_id = w.emp_id
+<span class="kw">WHERE</span> w.emp_id <span class="kw">IS NULL</span>;
+
+<span class="cm">-- Q: Department name with count of employees and avg salary (HAVING)</span>
+<span class="kw">SELECT</span> d.name, <span class="fn">COUNT</span>(e.emp_id) <span class="kw">AS</span> headcount, <span class="fn">ROUND</span>(<span class="fn">AVG</span>(e.salary), <span class="nm">2</span>) <span class="kw">AS</span> avg_salary
+<span class="kw">FROM</span> departments d
+<span class="kw">JOIN</span> employees e <span class="kw">ON</span> d.dept_id = e.dept_id
+<span class="kw">GROUP BY</span> d.dept_id, d.name
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(e.emp_id) &gt; <span class="nm">2</span>
+<span class="kw">ORDER BY</span> avg_salary <span class="kw">DESC</span>;</code></pre>
+
+        <!-- ─── EXAMPLE 2 ─── -->
+        <h3 style="margin-top:48px; font-size:1.4em; color:#1a2e5a; border-left:5px solid #00695c; padding-left:14px;">
+            Example 2 — Library Management System
+        </h3>
+        <p style="color:#555; margin-bottom:14px;">Multi-author books, members borrowing books, publishers. Tests: M:N between Book and Author, 1:N relationships, CHECK constraints, and the full FK cascade chain.</p>
+
+        <h3>ER Diagram (Chen Notation)</h3>
+        <pre data-lang="ER Diagram"><code>┌───────────────┐    1:N     ┌──────────────────┐    M:N     ┌──────────────┐
+│   PUBLISHER   │ ─────────► │      BOOK        │ ◄────────► │    AUTHOR    │
+│  pub_id (PK)  │            │  isbn (PK)       │            │ author_id PK │
+│  name         │            │  title           │            │ name         │
+│  address      │            │  pages           │            │ nationality  │
+│  phone        │            │  pub_year        │            └──────────────┘
+└───────────────┘            │  pub_id (FK)     │
+                             └────────┬─────────┘
+                                      │
+                                   BORROWS (M:N)
+                                   loan_date
+                                   due_date
+                                   return_date ← nullable (null = not returned)
+                                   fine_amount
+                                      │
+                             ┌────────┴─────────┐
+                             │     MEMBER        │
+                             │ member_id (PK)    │
+                             │ name              │
+                             │ email             │
+                             │ phone             │
+                             │ join_date         │
+                             │ status ENUM       │
+                             └──────────────────┘</code></pre>
+
+        <h3>Mapping Rules Applied</h3>
+        <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities</span>
+<span class="pp">PUBLISHERS</span>  (pub_id PK, name, address, phone)
+<span class="pp">BOOKS</span>       (isbn PK, title, pages, pub_year, pub_id FK)
+<span class="pp">AUTHORS</span>     (author_id PK, name, nationality)
+<span class="pp">MEMBERS</span>     (member_id PK, name, email, phone, join_date, status)
+
+<span class="cm">-- Rule 4: 1:N (Publisher → Books) → FK on many side</span>
+<span class="pp">BOOKS</span>.pub_id FK → PUBLISHERS.pub_id
+
+<span class="cm">-- Rule 5: M:N (Book ↔ Author) → junction table</span>
+<span class="pp">BOOK_AUTHORS</span> (isbn FK, author_id FK)  PK = (isbn, author_id)
+
+<span class="cm">-- Rule 5: M:N (Member ↔ Book via BORROWS) → junction table with attributes</span>
+<span class="pp">LOANS</span>       (loan_id PK, member_id FK, isbn FK,
+             loan_date, due_date, return_date NULL, fine_amount)</code></pre>
+
+        <h3>Full SQL DDL</h3>
+        <pre data-lang="SQL"><code><span class="kw">CREATE TABLE</span> publishers (
+    pub_id  <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name    <span class="tp">VARCHAR</span>(<span class="nm">150</span>) <span class="kw">NOT NULL</span>,
+    address <span class="tp">VARCHAR</span>(<span class="nm">255</span>) <span class="kw">DEFAULT NULL</span>,
+    phone   <span class="tp">VARCHAR</span>(<span class="nm">20</span>)  <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_pub      <span class="kw">PRIMARY KEY</span> (pub_id),
+    <span class="kw">CONSTRAINT</span> uq_pub_name <span class="kw">UNIQUE</span> (name)
+);
+
+<span class="kw">CREATE TABLE</span> books (
+    isbn     <span class="tp">VARCHAR</span>(<span class="nm">20</span>)  <span class="kw">NOT NULL</span>,    <span class="cm">-- natural key: ISBN is globally unique</span>
+    title    <span class="tp">VARCHAR</span>(<span class="nm">200</span>) <span class="kw">NOT NULL</span>,
+    pages    <span class="tp">INT</span>          <span class="kw">DEFAULT NULL</span>,
+    pub_year <span class="tp">YEAR</span>         <span class="kw">NOT NULL</span>,
+    pub_id   <span class="tp">INT</span>          <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_book      <span class="kw">PRIMARY KEY</span> (isbn),
+    <span class="kw">CONSTRAINT</span> chk_pages    <span class="kw">CHECK</span> (pages &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_book_pub  <span class="kw">FOREIGN KEY</span> (pub_id)
+        <span class="kw">REFERENCES</span> publishers(pub_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="kw">CREATE TABLE</span> authors (
+    author_id   <span class="tp">INT</span>         <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name        <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    nationality <span class="tp">VARCHAR</span>(<span class="nm">60</span>)  <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_author <span class="kw">PRIMARY KEY</span> (author_id)
+);
+
+<span class="cm">-- M:N: Book ↔ Author (a book can have many authors, an author writes many books)</span>
+<span class="kw">CREATE TABLE</span> book_authors (
+    isbn      <span class="tp">VARCHAR</span>(<span class="nm">20</span>) <span class="kw">NOT NULL</span>,
+    author_id <span class="tp">INT</span>         <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_book_author   <span class="kw">PRIMARY KEY</span> (isbn, author_id),
+    <span class="kw">CONSTRAINT</span> fk_ba_book       <span class="kw">FOREIGN KEY</span> (isbn)
+        <span class="kw">REFERENCES</span> books(isbn) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_ba_author     <span class="kw">FOREIGN KEY</span> (author_id)
+        <span class="kw">REFERENCES</span> authors(author_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="kw">CREATE TABLE</span> members (
+    member_id <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name      <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    email     <span class="tp">VARCHAR</span>(<span class="nm">150</span>) <span class="kw">NOT NULL</span>,
+    phone     <span class="tp">VARCHAR</span>(<span class="nm">20</span>)  <span class="kw">DEFAULT NULL</span>,
+    join_date <span class="tp">DATE</span>          <span class="kw">NOT NULL</span>,
+    status    <span class="tp">ENUM</span>(<span class="st">'active'</span>,<span class="st">'suspended'</span>,<span class="st">'expired'</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="st">'active'</span>,
+    <span class="kw">CONSTRAINT</span> pk_member    <span class="kw">PRIMARY KEY</span> (member_id),
+    <span class="kw">CONSTRAINT</span> uq_email     <span class="kw">UNIQUE</span> (email)
+);
+
+<span class="cm">-- M:N junction with relationship attributes (loan details)</span>
+<span class="kw">CREATE TABLE</span> loans (
+    loan_id     <span class="tp">INT</span>            <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    member_id   <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    isbn        <span class="tp">VARCHAR</span>(<span class="nm">20</span>)   <span class="kw">NOT NULL</span>,
+    loan_date   <span class="tp">DATE</span>           <span class="kw">NOT NULL</span>,
+    due_date    <span class="tp">DATE</span>           <span class="kw">NOT NULL</span>,
+    return_date <span class="tp">DATE</span>           <span class="kw">DEFAULT NULL</span>,  <span class="cm">-- NULL = not yet returned</span>
+    fine_amount <span class="tp">DECIMAL</span>(<span class="nm">6</span>,<span class="nm">2</span>)  <span class="kw">DEFAULT</span> <span class="nm">0.00</span>,
+    <span class="kw">CONSTRAINT</span> pk_loan          <span class="kw">PRIMARY KEY</span> (loan_id),
+    <span class="kw">CONSTRAINT</span> chk_fine         <span class="kw">CHECK</span> (fine_amount &gt;= <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> chk_dates        <span class="kw">CHECK</span> (due_date &gt; loan_date),
+    <span class="kw">CONSTRAINT</span> fk_loan_member   <span class="kw">FOREIGN KEY</span> (member_id)
+        <span class="kw">REFERENCES</span> members(member_id) <span class="kw">ON DELETE RESTRICT</span>,
+    <span class="kw">CONSTRAINT</span> fk_loan_book     <span class="kw">FOREIGN KEY</span> (isbn)
+        <span class="kw">REFERENCES</span> books(isbn) <span class="kw">ON DELETE RESTRICT</span>
+);</code></pre>
+
+        <h3>Sample Queries</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Q: Books currently on loan (return_date IS NULL)</span>
+<span class="kw">SELECT</span> b.isbn, b.title, m.name <span class="kw">AS</span> borrower, l.loan_date, l.due_date
+<span class="kw">FROM</span> loans l
+<span class="kw">JOIN</span> books b   <span class="kw">ON</span> l.isbn      = b.isbn
+<span class="kw">JOIN</span> members m <span class="kw">ON</span> l.member_id = m.member_id
+<span class="kw">WHERE</span> l.return_date <span class="kw">IS NULL</span>
+<span class="kw">ORDER BY</span> l.due_date;
+
+<span class="cm">-- Q: Books with ALL their authors (multi-row aggregated)</span>
+<span class="kw">SELECT</span> b.isbn, b.title, <span class="fn">GROUP_CONCAT</span>(a.name <span class="kw">ORDER BY</span> a.name <span class="kw">SEPARATOR</span> <span class="st">', '</span>) <span class="kw">AS</span> authors
+<span class="kw">FROM</span> books b
+<span class="kw">JOIN</span> book_authors ba <span class="kw">ON</span> b.isbn      = ba.isbn
+<span class="kw">JOIN</span> authors a       <span class="kw">ON</span> ba.author_id = a.author_id
+<span class="kw">GROUP BY</span> b.isbn, b.title
+<span class="kw">ORDER BY</span> b.title;
+
+<span class="cm">-- Q: Books that have NEVER been borrowed (Anti-Join)</span>
+<span class="kw">SELECT</span> b.isbn, b.title
+<span class="kw">FROM</span> books b
+<span class="kw">LEFT JOIN</span> loans l <span class="kw">ON</span> b.isbn = l.isbn
+<span class="kw">WHERE</span> l.isbn <span class="kw">IS NULL</span>;</code></pre>
+
+        <!-- ─── EXAMPLE 3 ─── -->
+        <h3 style="margin-top:48px; font-size:1.4em; color:#1a2e5a; border-left:5px solid #6a1b9a; padding-left:14px;">
+            Example 3 — E-Commerce Order System
+        </h3>
+        <p style="color:#555; margin-bottom:14px;">Customers placing orders with multiple products. Tests: hierarchical 1:N chain, M:N with quantity attribute, DECIMAL for money, and multi-level JOIN queries.</p>
+
+        <h3>ER Diagram (Chen Notation)</h3>
+        <pre data-lang="ER Diagram"><code>┌──────────────┐    1:N     ┌──────────────────┐    M:N     ┌──────────────────┐
+│   CATEGORY   │ ─────────► │     PRODUCT      │ ◄────────► │      ORDER       │
+│ cat_id (PK)  │            │ product_id (PK)  │            │  order_id (PK)   │
+│ name         │            │ name             │            │  order_date      │
+│ description  │            │ price DECIMAL    │            │  total_amount    │
+└──────────────┘            │ stock_qty        │            │  status ENUM     │
+                            │ cat_id (FK)      │            │  customer_id (FK)│
+                            └──────────────────┘            └────────┬─────────┘
+                                                                     │ N
+                                                                  PLACES
+                                                                     │ 1
+                                                            ┌────────┴─────────┐
+                            ORDER_ITEM (junction)           │    CUSTOMER      │
+                            ┌──────────────────┐            │ customer_id (PK) │
+                            │ order_id FK      │            │ name             │
+                            │ product_id FK    │            │ email UNIQUE     │
+                            │ quantity         │            │ phone            │
+                            │ unit_price       │ ← snapshot │ address          │
+                            └──────────────────┘            │ reg_date         │
+                                                            └──────────────────┘</code></pre>
+
+        <div class="highlight">
+            <strong>Design Note — unit_price in ORDER_ITEM:</strong> The price in ORDER_ITEM is stored at the moment of purchase (not referenced from PRODUCT). This is because product prices change over time. Storing the snapshot ensures historical order accuracy. This is a common real-world pattern.
+        </div>
+
+        <h3>Mapping Rules Applied</h3>
+        <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities</span>
+<span class="pp">CATEGORIES</span>   (cat_id PK, name, description)
+<span class="pp">PRODUCTS</span>     (product_id PK, name, price, stock_qty, cat_id FK)
+<span class="pp">CUSTOMERS</span>    (customer_id PK, name, email, phone, address, reg_date)
+<span class="pp">ORDERS</span>       (order_id PK, order_date, total_amount, status, customer_id FK)
+
+<span class="cm">-- Rule 4: 1:N → FK on "many" side</span>
+<span class="pp">PRODUCTS</span>.cat_id      FK → CATEGORIES.cat_id
+<span class="pp">ORDERS</span>.customer_id   FK → CUSTOMERS.customer_id
+
+<span class="cm">-- Rule 5: M:N (Order ↔ Product) → junction table with attributes</span>
+<span class="pp">ORDER_ITEMS</span>  (order_id FK, product_id FK, quantity, unit_price)
+              PK = (order_id, product_id)</code></pre>
+
+        <h3>Full SQL DDL</h3>
+        <pre data-lang="SQL"><code><span class="kw">CREATE TABLE</span> categories (
+    cat_id      <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name        <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    description <span class="tp">TEXT</span>         <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_cat      <span class="kw">PRIMARY KEY</span> (cat_id),
+    <span class="kw">CONSTRAINT</span> uq_cat_name <span class="kw">UNIQUE</span> (name)
+);
+
+<span class="kw">CREATE TABLE</span> products (
+    product_id <span class="tp">INT</span>            <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name       <span class="tp">VARCHAR</span>(<span class="nm">150</span>)  <span class="kw">NOT NULL</span>,
+    price      <span class="tp">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>) <span class="kw">NOT NULL</span>,
+    stock_qty  <span class="tp">INT</span>            <span class="kw">NOT NULL DEFAULT</span> <span class="nm">0</span>,
+    cat_id     <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_product     <span class="kw">PRIMARY KEY</span> (product_id),
+    <span class="kw">CONSTRAINT</span> chk_price      <span class="kw">CHECK</span> (price &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> chk_stock      <span class="kw">CHECK</span> (stock_qty &gt;= <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_prod_cat    <span class="kw">FOREIGN KEY</span> (cat_id)
+        <span class="kw">REFERENCES</span> categories(cat_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="kw">CREATE TABLE</span> customers (
+    customer_id <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name        <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    email       <span class="tp">VARCHAR</span>(<span class="nm">150</span>) <span class="kw">NOT NULL</span>,
+    phone       <span class="tp">VARCHAR</span>(<span class="nm">20</span>)  <span class="kw">DEFAULT NULL</span>,
+    address     <span class="tp">TEXT</span>          <span class="kw">DEFAULT NULL</span>,
+    reg_date    <span class="tp">DATE</span>          <span class="kw">NOT NULL DEFAULT</span> (<span class="fn">CURDATE</span>()),
+    <span class="kw">CONSTRAINT</span> pk_customer   <span class="kw">PRIMARY KEY</span> (customer_id),
+    <span class="kw">CONSTRAINT</span> uq_cust_email <span class="kw">UNIQUE</span> (email)
+);
+
+<span class="kw">CREATE TABLE</span> orders (
+    order_id     <span class="tp">INT</span>            <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    order_date   <span class="tp">DATETIME</span>       <span class="kw">NOT NULL DEFAULT CURRENT_TIMESTAMP</span>,
+    total_amount <span class="tp">DECIMAL</span>(<span class="nm">12</span>,<span class="nm">2</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="nm">0.00</span>,
+    status       <span class="tp">ENUM</span>(<span class="st">'pending'</span>,<span class="st">'confirmed'</span>,<span class="st">'shipped'</span>,<span class="st">'delivered'</span>,<span class="st">'cancelled'</span>)
+                               <span class="kw">NOT NULL DEFAULT</span> <span class="st">'pending'</span>,
+    customer_id  <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_order        <span class="kw">PRIMARY KEY</span> (order_id),
+    <span class="kw">CONSTRAINT</span> chk_total       <span class="kw">CHECK</span> (total_amount &gt;= <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_order_cust   <span class="kw">FOREIGN KEY</span> (customer_id)
+        <span class="kw">REFERENCES</span> customers(customer_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- M:N junction: each order has many products, each product appears in many orders</span>
+<span class="kw">CREATE TABLE</span> order_items (
+    order_id   <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    product_id <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    quantity   <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    unit_price <span class="tp">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>) <span class="kw">NOT NULL</span>,  <span class="cm">-- price snapshot at time of order</span>
+    <span class="kw">CONSTRAINT</span> pk_order_item    <span class="kw">PRIMARY KEY</span> (order_id, product_id),
+    <span class="kw">CONSTRAINT</span> chk_qty          <span class="kw">CHECK</span> (quantity &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> chk_unit_price   <span class="kw">CHECK</span> (unit_price &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_oi_order      <span class="kw">FOREIGN KEY</span> (order_id)
+        <span class="kw">REFERENCES</span> orders(order_id) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_oi_product    <span class="kw">FOREIGN KEY</span> (product_id)
+        <span class="kw">REFERENCES</span> products(product_id) <span class="kw">ON DELETE RESTRICT</span>
+);</code></pre>
+
+        <h3>Sample Queries</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Q: Full order receipt — customer, items, prices, totals</span>
+<span class="kw">SELECT</span>
+    o.order_id,
+    c.name          <span class="kw">AS</span> customer,
+    p.name          <span class="kw">AS</span> product,
+    oi.quantity,
+    oi.unit_price,
+    (oi.quantity * oi.unit_price) <span class="kw">AS</span> line_total
+<span class="kw">FROM</span> orders o
+<span class="kw">JOIN</span> customers c  <span class="kw">ON</span> o.customer_id = c.customer_id
+<span class="kw">JOIN</span> order_items oi <span class="kw">ON</span> o.order_id   = oi.order_id
+<span class="kw">JOIN</span> products p   <span class="kw">ON</span> oi.product_id = p.product_id
+<span class="kw">WHERE</span> o.order_id = <span class="nm">1001</span>
+<span class="kw">ORDER BY</span> p.name;
+
+<span class="cm">-- Q: Top 5 best-selling products by total quantity sold</span>
+<span class="kw">SELECT</span> p.name, <span class="fn">SUM</span>(oi.quantity) <span class="kw">AS</span> total_sold
+<span class="kw">FROM</span> products p
+<span class="kw">JOIN</span> order_items oi <span class="kw">ON</span> p.product_id = oi.product_id
+<span class="kw">JOIN</span> orders o       <span class="kw">ON</span> oi.order_id  = o.order_id
+<span class="kw">WHERE</span> o.status = <span class="st">'delivered'</span>
+<span class="kw">GROUP BY</span> p.product_id, p.name
+<span class="kw">ORDER BY</span> total_sold <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="nm">5</span>;
+
+<span class="cm">-- Q: Customers who have NEVER placed an order (Anti-Join)</span>
+<span class="kw">SELECT</span> c.name, c.email
+<span class="kw">FROM</span> customers c
+<span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> c.customer_id = o.customer_id
+<span class="kw">WHERE</span> o.order_id <span class="kw">IS NULL</span>;
+
+<span class="cm">-- Q: Revenue per category (multi-level JOIN + aggregation)</span>
+<span class="kw">SELECT</span>
+    cat.name <span class="kw">AS</span> category,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> o.order_id)        <span class="kw">AS</span> num_orders,
+    <span class="fn">SUM</span>(oi.quantity * oi.unit_price)   <span class="kw">AS</span> total_revenue
+<span class="kw">FROM</span> categories cat
+<span class="kw">JOIN</span> products p   <span class="kw">ON</span> cat.cat_id    = p.cat_id
+<span class="kw">JOIN</span> order_items oi <span class="kw">ON</span> p.product_id = oi.product_id
+<span class="kw">JOIN</span> orders o     <span class="kw">ON</span> oi.order_id   = o.order_id
+<span class="kw">WHERE</span> o.status <span class="kw">NOT IN</span> (<span class="st">'cancelled'</span>, <span class="st">'pending'</span>)
+<span class="kw">GROUP BY</span> cat.cat_id, cat.name
+<span class="kw">HAVING</span> total_revenue &gt; <span class="nm">0</span>
+<span class="kw">ORDER BY</span> total_revenue <span class="kw">DESC</span>;</code></pre>
+
+        <div class="success-box">
+            <strong>What these 3 examples cover together:</strong><br>
+            ✓ All 6 ER Mapping Rules &nbsp;·&nbsp; ✓ Weak entities &amp; composite PKs &nbsp;·&nbsp; ✓ Multi-valued attributes<br>
+            ✓ Circular FK dependencies (DEPT ↔ EMPLOYEE) &nbsp;·&nbsp; ✓ Price snapshots (design pattern)<br>
+            ✓ NULL = "not yet returned" pattern &nbsp;·&nbsp; ✓ GROUP BY + HAVING + Anti-Join &nbsp;·&nbsp; ✓ Multi-level 4-table JOINs
+        </div>
     </div>
 
     <!-- ━━━━━━━━━━━━ CHEAT SHEET ━━━━━━━━━━━━ -->
