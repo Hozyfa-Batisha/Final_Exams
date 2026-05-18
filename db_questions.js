@@ -95,4 +95,8 @@ DB|Which SQL function concatenates two or more strings together?|SUBSTRING()|UPP
 DB|The DATEDIFF(date1, date2) function in MySQL returns the difference between two dates in days.|True|False|Cannot be determined|A|DATEDIFF(date1, date2) returns the number of days between date1 and date2 (date1 - date2). Example: DATEDIFF(NOW(), created_at) AS days_since_reg gives the number of days since a student registered.
 DB|CREATE OR REPLACE VIEW updates an existing view's definition without needing to DROP and recreate it.|True|False|Cannot be determined|A|CREATE OR REPLACE VIEW is the recommended way to modify a view. If the view exists, it replaces its definition. If it doesn't exist, it creates it. This is safer than DROP VIEW followed by CREATE VIEW because applications using the view remain unaffected during the replacement.
 DB|To find the top student by GPA in EACH department using SQL, which approach is most appropriate?|A simple SELECT with ORDER BY GPA DESC LIMIT 1|A derived table or subquery that calculates MAX(gpa) per dept_id then JOINs back|A CROSS JOIN between students and departments|B|You need GROUP BY dept_id to get the max GPA per department, then JOIN back to the students table to get the student's name. A derived table approach: SELECT s.* FROM students s JOIN (SELECT dept_id, MAX(gpa) AS max_gpa FROM students GROUP BY dept_id) d ON s.dept_id = d.dept_id AND s.gpa = d.max_gpa.
+<<<<<<< HEAD
 `;
+=======
+`;
+>>>>>>> 689f5a916a6d74b63f8b8b627a6e22b8fcce3882
