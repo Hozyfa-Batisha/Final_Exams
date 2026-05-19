@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Systems I — Chapters 1-5 Complete Revision</title>
+    <title>Database Systems I — Complete Revision</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -140,7 +140,7 @@
         pre {
             background: #1e1e2e;
             border-radius: 12px;
-            padding: 46px 26px 22px;
+            padding: 22px 26px;
             overflow-x: auto;
             margin: 16px 0;
             font-size: 13.5px;
@@ -152,54 +152,12 @@
             content: attr(data-lang);
             position: absolute;
             top: 10px;
-            left: 18px;
+            right: 16px;
             color: #888;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .copy-code-btn {
-            position: absolute;
-            top: 9px;
-            right: 10px;
-            width: 34px;
-            height: 34px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(205, 214, 244, 0.18);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.08);
-            color: #cdd6f4;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
-            z-index: 2;
-        }
-
-        .copy-code-btn:hover {
-            background: rgba(255,255,255,0.14);
-            border-color: rgba(205, 214, 244, 0.35);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .copy-code-btn:focus-visible {
-            outline: 2px solid #89b4fa;
-            outline-offset: 2px;
-        }
-
-        .copy-code-btn.copied {
-            background: rgba(166, 227, 161, 0.16);
-            border-color: rgba(166, 227, 161, 0.5);
-            color: #a6e3a1;
-        }
-
-        .copy-code-btn svg {
-            width: 17px;
-            height: 17px;
-            stroke: currentColor;
         }
 
         code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; color: #cdd6f4; }
@@ -212,228 +170,6 @@
         .nm  { color: #fab387; }   /* numbers */
         .pp  { color: #f38ba8; }   /* preprocessor / SQL keywords */
         .cl  { color: #f9e2af; }   /* SQL clauses */
-
-        /* ── Visual diagrams ── */
-        .visual-diagram {
-            background:
-                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0),
-                #171923;
-            background-size: 18px 18px;
-            border: 1px solid #2f3651;
-            border-radius: 6px;
-            padding: 24px;
-            margin: 16px 0 24px;
-            overflow-x: auto;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 10px 28px rgba(0,0,0,0.22);
-        }
-
-        .diagram-title {
-            color: #f3f4f6;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin: 4px 0 18px;
-            text-align: center;
-        }
-
-        .diagram-level {
-            min-width: 760px;
-            margin-bottom: 20px;
-        }
-
-        .diagram-level:last-child { margin-bottom: 0; }
-
-        .dfd-row,
-        .uml-row {
-            display: grid;
-            grid-template-columns: 180px 1fr 210px 1fr 210px;
-            align-items: center;
-            gap: 12px;
-            margin: 12px 0;
-        }
-
-        .uml-row { grid-template-columns: 1fr 180px 1fr; }
-
-        .diagram-node {
-            border-radius: 3px;
-            padding: 11px 13px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.28);
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, filter 0.2s;
-        }
-
-        .diagram-node:hover,
-        .diagram-node.is-active {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 0 0 2px rgba(245,158,11,0.35), 0 14px 26px rgba(0,0,0,0.38);
-            filter: brightness(1.12);
-        }
-
-        .external {
-            background: #075985;
-            border: 1px solid #7dd3fc;
-            color: #e0f2fe;
-            text-align: center;
-            font-weight: 800;
-        }
-
-        .process {
-            background: #7c2d12;
-            border: 1px solid #fdba74;
-            color: #ffedd5;
-            text-align: center;
-            font-weight: 800;
-            border-radius: 999px;
-            min-height: 64px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .store {
-            background: #172033;
-            border: 1px solid #5eead4;
-            border-left: 5px solid #14b8a6;
-            border-right: 5px solid #14b8a6;
-            color: #ccfbf1;
-            font-weight: 700;
-        }
-
-        .store span,
-        .process span,
-        .external span {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            opacity: 0.75;
-            margin-top: 4px;
-        }
-
-        .flow {
-            color: #e879f9;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            min-width: 130px;
-            text-align: center;
-            text-shadow: 0 1px 0 rgba(0,0,0,0.6);
-        }
-
-        .flow::before,
-        .flow::after {
-            content: "";
-            height: 2px;
-            background: #e879f9;
-            flex: 1;
-            min-width: 18px;
-        }
-
-        .flow::after {
-            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
-            height: 8px;
-        }
-
-        .flow.back::before {
-            clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%);
-            height: 8px;
-        }
-
-        .flow.back::after {
-            clip-path: none;
-            height: 2px;
-        }
-
-        .diagram-stack {
-            display: grid;
-            gap: 8px;
-        }
-
-        .uml-grid {
-            min-width: 760px;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(220px, 1fr));
-            gap: 16px;
-            align-items: start;
-            position: relative;
-            z-index: 1;
-        }
-
-        .uml-class {
-            background: #111827;
-            border: 1px solid #475569;
-            border-radius: 3px;
-            overflow: hidden;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        .uml-class h4 {
-            background: #0f766e;
-            color: #ecfeff;
-            margin: 0;
-            padding: 8px 11px;
-            font-size: 14px;
-            border-bottom: 1px solid #5eead4;
-        }
-
-        .uml-class ul {
-            list-style: none;
-            padding: 10px 12px;
-            margin: 0;
-            color: #e5e7eb;
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 12px;
-            line-height: 1.7;
-        }
-
-        .uml-class li::before {
-            content: "+ ";
-            color: #22c55e;
-            font-weight: 800;
-        }
-
-        .uml-links {
-            min-width: 760px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        .uml-link {
-            background: #581c87;
-            border: 1px solid #d8b4fe;
-            border-radius: 3px;
-            color: #f3e8ff;
-            padding: 7px 12px;
-            font-size: 12px;
-            font-weight: 700;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-        }
-
-        .uml-connected {
-            position: relative;
-        }
-
-        .uml-lines {
-            position: absolute;
-            inset: 0;
-            min-width: 760px;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .uml-lines line {
-            stroke: #facc15;
-            stroke-width: 2;
-            stroke-linecap: round;
-            filter: drop-shadow(0 0 4px rgba(250,204,21,0.28));
-        }
 
         /* ── Highlight boxes ── */
         .highlight {
@@ -532,13 +268,7 @@
             .hero h1 { font-size: 2em; }
             .section { padding: 25px 20px; }
             .nav-content { padding: 12px 20px; }
-            pre { font-size: 12px; padding: 44px 16px 16px; }
-            .visual-diagram { padding: 14px; }
-            .diagram-level,
-            .uml-grid,
-            .uml-links { min-width: 680px; }
-            .dfd-row { grid-template-columns: 150px 150px 190px 150px 170px; }
-            .uml-grid { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+            pre { font-size: 12px; padding: 16px; }
         }
     </style>
 </head>
@@ -553,7 +283,7 @@
             <li><a href="#ch2">Chapter 2</a></li>
             <li><a href="#ch3">Chapter 3</a></li>
             <li><a href="#ch4">Chapter 4</a></li>
-            <li><a href="#ch5">Chapter 5</a></li>
+            <li><a href="#ch5">Chapter 5.1</a></li>
             <li><a href="#examples">Worked Examples</a></li>
             <li><a href="#cheatsheet">Cheat Sheet</a></li>
             <li><a href="db_questions.html" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;">🧪 Take Quiz</a></li>
@@ -567,14 +297,14 @@
     <!-- Hero -->
     <div class="hero">
         <h1>Database Systems I — Complete Revision</h1>
-        <p>Chapters 1 → 5 · Dr. Muhammad Mahmoud · Faculty of Computers & Information Systems</p>
-        <p style="color:#999;font-size:0.95em;">ER Modeling · Relational Model · SQL DDL & DML · JOINs · Subqueries · Views · Transactions · Triggers</p>
+        <p>Chapters 1 → 5.1 · Dr. Muhammad Mahmoud · Faculty of Computers & Information Systems</p>
+        <p style="color:#999;font-size:0.95em;">ER Modeling · Relational Model · SQL DDL & DML · JOINs · Subqueries · Views</p>
         <div class="hero-pills">
             <span class="pill">Chapter 1 — Intro & DBMS</span>
             <span class="pill">Chapter 2 — ER Modeling</span>
             <span class="pill">Chapter 3 — Relational Model</span>
             <span class="pill">Chapter 4 — SQL Fundamentals</span>
-            <span class="pill">Chapter 5 — Advanced SQL</span>
+            <span class="pill">Chapter 5.1 — JOINs</span>
         </div>
     </div>
 
@@ -1019,11 +749,11 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
         </div>
     </div>
 
-    <!-- ━━━━━━━━━━━━ CHAPTER 5 ━━━━━━━━━━━━ -->
+    <!-- ━━━━━━━━━━━━ CHAPTER 5.1 ━━━━━━━━━━━━ -->
     <div class="section" id="ch5">
-        <div class="section-label label-teal">🔗 CHAPTER 5</div>
-        <h2>Advanced SQL — Joins, Views, Transactions &amp; Programmability</h2>
-        <p>Chapter 5 moves beyond basic SELECT/DDL into multi-table queries, reusable database objects, performance tools, transaction safety, and database-side logic.</p>
+        <div class="section-label label-teal">🔗 CHAPTER 5.1</div>
+        <h2>JOIN Operations — The Heart of SQL</h2>
+        <p>JOINs combine rows from two or more tables based on a related column — the fundamental operation of relational databases.</p>
 
         <h3>5.1.1 JOIN Types Overview</h3>
         <div class="join-grid">
@@ -1204,174 +934,16 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
             <tr><td><strong>Consistency</strong></td><td>Business logic defined once in the view is automatically applied everywhere it's used.</td></tr>
             <tr><td><strong>Stability</strong></td><td>Applications depend on the view interface. Schema refactoring is shielded by updating the view.</td></tr>
         </table>
-
-        <h3>5.2 Set Operations</h3>
-        <p>Set operations combine results from multiple SELECT statements. Each SELECT must return the same number of columns, and matching columns should have compatible data types.</p>
-        <table>
-            <tr><th>Operator</th><th>Meaning</th><th>Duplicate Handling</th><th>Common Use</th></tr>
-            <tr><td><code>UNION</code></td><td>Rows from query A or query B</td><td>Removes duplicates</td><td>Merge similar lists safely</td></tr>
-            <tr><td><code>UNION ALL</code></td><td>Rows from query A or query B</td><td>Keeps duplicates</td><td>Faster when duplicates are allowed</td></tr>
-            <tr><td><code>INTERSECT</code></td><td>Rows common to both queries</td><td>Usually removes duplicates</td><td>Find overlap between two sets</td></tr>
-            <tr><td><code>EXCEPT / MINUS</code></td><td>Rows in A but not in B</td><td>Usually removes duplicates</td><td>Find missing/unmatched rows</td></tr>
-        </table>
-        <pre data-lang="SQL"><code><span class="cm">-- Students who are either active OR graduated</span>
-<span class="kw">SELECT</span> student_id, first_name, last_name, <span class="st">'active'</span> <span class="kw">AS</span> source
-<span class="kw">FROM</span> students
-<span class="kw">WHERE</span> status = <span class="st">'active'</span>
-
-<span class="kw">UNION</span>
-
-<span class="kw">SELECT</span> student_id, first_name, last_name, <span class="st">'graduated'</span> <span class="kw">AS</span> source
-<span class="kw">FROM</span> students
-<span class="kw">WHERE</span> status = <span class="st">'graduated'</span>;
-
-<span class="cm">-- Students with no enrollments: portable EXCEPT-style version using NOT EXISTS</span>
-<span class="kw">SELECT</span> s.student_id, s.first_name, s.last_name
-<span class="kw">FROM</span> students s
-<span class="kw">WHERE NOT EXISTS</span> (
-    <span class="kw">SELECT</span> <span class="nm">1</span>
-    <span class="kw">FROM</span> enrollments e
-    <span class="kw">WHERE</span> e.student_id = s.student_id
-);</code></pre>
-
-        <h3>5.3 Aggregate Functions &amp; GROUP BY Rules</h3>
-        <table>
-            <tr><th>Function</th><th>Purpose</th><th>NULL Behavior</th></tr>
-            <tr><td><code>COUNT(*)</code></td><td>Counts all rows</td><td>Includes rows with NULL values</td></tr>
-            <tr><td><code>COUNT(column)</code></td><td>Counts non-NULL values in one column</td><td>Ignores NULL</td></tr>
-            <tr><td><code>SUM</code>, <code>AVG</code></td><td>Total and average</td><td>Ignore NULL</td></tr>
-            <tr><td><code>MIN</code>, <code>MAX</code></td><td>Smallest and largest value</td><td>Ignore NULL</td></tr>
-            <tr><td><code>GROUP_CONCAT</code></td><td>Combines grouped text values</td><td>Ignores NULL</td></tr>
-        </table>
-        <pre data-lang="SQL"><code><span class="cm">-- Every selected non-aggregate column must appear in GROUP BY</span>
-<span class="kw">SELECT</span>
-    d.dept_id,
-    d.name,
-    <span class="fn">COUNT</span>(s.student_id) <span class="kw">AS</span> total_students,
-    <span class="fn">ROUND</span>(<span class="fn">AVG</span>(s.gpa), <span class="nm">2</span>) <span class="kw">AS</span> avg_gpa
-<span class="kw">FROM</span> departments d
-<span class="kw">LEFT JOIN</span> students s <span class="kw">ON</span> d.dept_id = s.dept_id
-<span class="kw">GROUP BY</span> d.dept_id, d.name
-<span class="kw">HAVING</span> <span class="fn">COUNT</span>(s.student_id) &gt;= <span class="nm">3</span>;</code></pre>
-
-        <h3>5.4 Indexes &amp; Query Performance</h3>
-        <p>An index is a separate search structure that speeds up reads on frequently searched, joined, sorted, or grouped columns. It costs extra storage and makes INSERT/UPDATE/DELETE slightly slower because the index must also be maintained.</p>
-        <table>
-            <tr><th>Index Type</th><th>Use</th><th>Example</th></tr>
-            <tr><td><strong>Primary index</strong></td><td>Created automatically for PRIMARY KEY</td><td><code>PRIMARY KEY(student_id)</code></td></tr>
-            <tr><td><strong>Unique index</strong></td><td>Speeds lookup and prevents duplicates</td><td><code>UNIQUE(email)</code></td></tr>
-            <tr><td><strong>Composite index</strong></td><td>Multiple-column searches</td><td><code>(dept_id, status)</code></td></tr>
-            <tr><td><strong>Foreign-key index</strong></td><td>Speeds joins and relationship checks</td><td><code>students.dept_id</code></td></tr>
-        </table>
-        <pre data-lang="SQL"><code><span class="cm">-- Good for WHERE dept_id = ? AND status = ?</span>
-<span class="kw">CREATE INDEX</span> idx_students_dept_status
-<span class="kw">ON</span> students (dept_id, status);
-
-<span class="cm">-- Good for JOIN enrollments → students</span>
-<span class="kw">CREATE INDEX</span> idx_enrollments_student
-<span class="kw">ON</span> enrollments (student_id);
-
-<span class="cm">-- Inspect the execution plan</span>
-<span class="kw">EXPLAIN</span>
-<span class="kw">SELECT</span> *
-<span class="kw">FROM</span> students
-<span class="kw">WHERE</span> dept_id = <span class="nm">2</span> <span class="kw">AND</span> status = <span class="st">'active'</span>;</code></pre>
-
-        <h3>5.5 Transactions &amp; ACID Properties</h3>
-        <table>
-            <tr><th>ACID Property</th><th>Meaning</th><th>Exam Phrase</th></tr>
-            <tr><td><strong>Atomicity</strong></td><td>All transaction steps succeed or all are undone</td><td>All or nothing</td></tr>
-            <tr><td><strong>Consistency</strong></td><td>Database moves from one valid state to another</td><td>Constraints remain valid</td></tr>
-            <tr><td><strong>Isolation</strong></td><td>Concurrent transactions do not interfere incorrectly</td><td>Acts like transactions ran alone</td></tr>
-            <tr><td><strong>Durability</strong></td><td>Committed data survives crashes</td><td>Commit is permanent</td></tr>
-        </table>
-        <pre data-lang="SQL"><code><span class="cm">-- Transfer seats between course sections safely</span>
-<span class="kw">START TRANSACTION</span>;
-
-<span class="kw">UPDATE</span> course_sections
-<span class="kw">SET</span> available_seats = available_seats - <span class="nm">1</span>
-<span class="kw">WHERE</span> section_id = <span class="nm">10</span> <span class="kw">AND</span> available_seats &gt; <span class="nm">0</span>;
-
-<span class="kw">INSERT INTO</span> enrollments (student_id, course_id, semester, year, status)
-<span class="kw">VALUES</span> (<span class="nm">101</span>, <span class="nm">20</span>, <span class="st">'Spring'</span>, <span class="nm">2026</span>, <span class="st">'enrolled'</span>);
-
-<span class="kw">COMMIT</span>;
-
-<span class="cm">-- If anything fails before COMMIT:</span>
-<span class="kw">ROLLBACK</span>;</code></pre>
-
-        <h3>5.6 Stored Procedures &amp; Functions</h3>
-        <p>Stored procedures perform actions and can change data. Functions return a value and are commonly used inside expressions.</p>
-        <pre data-lang="SQL"><code><span class="cm">-- Procedure: reusable operation</span>
-<span class="kw">DELIMITER</span> //
-<span class="kw">CREATE PROCEDURE</span> enroll_student(
-    <span class="kw">IN</span> p_student_id <span class="tp">INT</span>,
-    <span class="kw">IN</span> p_course_id  <span class="tp">INT</span>
-)
-<span class="kw">BEGIN</span>
-    <span class="kw">INSERT INTO</span> enrollments (student_id, course_id, status)
-    <span class="kw">VALUES</span> (p_student_id, p_course_id, <span class="st">'enrolled'</span>);
-<span class="kw">END</span>//
-<span class="kw">DELIMITER</span> ;
-
-<span class="kw">CALL</span> enroll_student(<span class="nm">101</span>, <span class="nm">20</span>);
-
-<span class="cm">-- Function: returns a value</span>
-<span class="kw">CREATE FUNCTION</span> full_name(first_name <span class="tp">VARCHAR</span>(<span class="nm">50</span>), last_name <span class="tp">VARCHAR</span>(<span class="nm">50</span>))
-<span class="kw">RETURNS</span> <span class="tp">VARCHAR</span>(<span class="nm">120</span>)
-<span class="kw">DETERMINISTIC</span>
-<span class="kw">RETURN</span> <span class="fn">CONCAT</span>(first_name, <span class="st">' '</span>, last_name);</code></pre>
-
-        <h3>5.7 Triggers</h3>
-        <p>A trigger runs automatically when an INSERT, UPDATE, or DELETE happens on a table. Use triggers for auditing, derived values, and automatic validation that belongs inside the database.</p>
-        <pre data-lang="SQL"><code><span class="cm">-- Audit salary changes automatically</span>
-<span class="kw">CREATE TABLE</span> salary_audit (
-    audit_id   <span class="tp">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
-    emp_id     <span class="tp">INT</span> <span class="kw">NOT NULL</span>,
-    old_salary <span class="tp">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>),
-    new_salary <span class="tp">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>),
-    changed_at <span class="tp">TIMESTAMP</span> <span class="kw">DEFAULT CURRENT_TIMESTAMP</span>
-);
-
-<span class="kw">CREATE TRIGGER</span> trg_employee_salary_audit
-<span class="kw">AFTER UPDATE ON</span> employees
-<span class="kw">FOR EACH ROW</span>
-<span class="kw">BEGIN</span>
-    <span class="kw">IF</span> OLD.salary &lt;&gt; NEW.salary <span class="kw">THEN</span>
-        <span class="kw">INSERT INTO</span> salary_audit (emp_id, old_salary, new_salary)
-        <span class="kw">VALUES</span> (OLD.emp_id, OLD.salary, NEW.salary);
-    <span class="kw">END IF</span>;
-<span class="kw">END</span>;</code></pre>
-
-        <h3>5.8 Security: Users, Privileges, GRANT &amp; REVOKE</h3>
-        <table>
-            <tr><th>Privilege</th><th>Allows</th><th>Risk if Overused</th></tr>
-            <tr><td><code>SELECT</code></td><td>Read data</td><td>Leaking sensitive information</td></tr>
-            <tr><td><code>INSERT</code></td><td>Add rows</td><td>Invalid or spam data</td></tr>
-            <tr><td><code>UPDATE</code></td><td>Modify rows</td><td>Accidental data corruption</td></tr>
-            <tr><td><code>DELETE</code></td><td>Remove rows</td><td>Data loss</td></tr>
-            <tr><td><code>ALL PRIVILEGES</code></td><td>Full control</td><td>Should be rare</td></tr>
-        </table>
-        <pre data-lang="SQL"><code><span class="cm">-- Create a limited reporting user</span>
-<span class="kw">CREATE USER</span> <span class="st">'report_user'</span>@<span class="st">'localhost'</span> <span class="kw">IDENTIFIED BY</span> <span class="st">'StrongPassword!'</span>;
-
-<span class="kw">GRANT SELECT</span>
-<span class="kw">ON</span> university_db.vw_student_details
-<span class="kw">TO</span> <span class="st">'report_user'</span>@<span class="st">'localhost'</span>;
-
-<span class="kw">REVOKE SELECT</span>
-<span class="kw">ON</span> university_db.vw_student_details
-<span class="kw">FROM</span> <span class="st">'report_user'</span>@<span class="st">'localhost'</span>;</code></pre>
     </div>
 
     <!-- ━━━━━━━━━━━━ WORKED EXAMPLES ━━━━━━━━━━━━ -->
     <div class="section" id="examples">
         <div class="section-label label-orange">📌 WORKED EXAMPLES</div>
         <h2>3 Complete Database Design Examples</h2>
-        <p>Each example takes you through the full pipeline: ER Diagram → DFD → UML Class Diagram → Relational Schema Mapping → SQL CREATE TABLE → Sample Queries. Study all three — exam questions draw directly from these patterns.</p>
+        <p>Each example takes you through the full pipeline: ER Diagram → Relational Schema Mapping → SQL CREATE TABLE → Sample Queries. Study all three — exam questions draw directly from these patterns.</p>
 
         <div class="info-box">
-            <strong>How to study these examples:</strong> For each example, first look at the ER diagram, trace the DFD inputs/outputs, convert entities into UML classes, then write the mapping rules yourself before checking the SQL. These exercises cover Rules 1–6 plus all five integrity constraints.
+            <strong>How to study these examples:</strong> For each example, first look at the ER diagram, try to write the mapping rules yourself, then check against the SQL. These exercises cover Rules 1–6 plus all five integrity constraints.
         </div>
 
         <!-- ─── EXAMPLE 1 ─── -->
@@ -1412,103 +984,6 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
                     │  location        │
                     │  dept_id (FK)    │
                     └──────────────────┘</code></pre>
-
-        <h3>DFD Level 0 + Level 1</h3>
-        <div class="visual-diagram">
-            <div class="diagram-level">
-                <div class="diagram-title">Context / Level 0</div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">HR Officer<span>External entity</span></div>
-                    <div class="flow">employee data</div>
-                    <div class="diagram-node process">Company HR System<span>Process 0</span></div>
-                    <div class="flow back">reports</div>
-                    <div class="diagram-node external">HR Officer<span>Receives summaries</span></div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Manager<span>External entity</span></div>
-                    <div class="flow">department setup</div>
-                    <div class="diagram-node process">Company HR System<span>Process 0</span></div>
-                    <div class="flow back">workload reports</div>
-                    <div class="diagram-node external">Manager<span>Receives reports</span></div>
-                </div>
-            </div>
-            <div class="diagram-level">
-                <div class="diagram-title">Level 1</div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">HR Officer</div>
-                    <div class="flow">employee details</div>
-                    <div class="diagram-node process">1.0 Manage Employees</div>
-                    <div class="flow">records</div>
-                    <div class="diagram-stack">
-                        <div class="diagram-node store">D1 Employees</div>
-                        <div class="diagram-node store">D2 Dependents</div>
-                        <div class="diagram-node store">D3 Emp Phones</div>
-                    </div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Manager</div>
-                    <div class="flow">department data</div>
-                    <div class="diagram-node process">2.0 Manage Departments</div>
-                    <div class="flow">department record</div>
-                    <div class="diagram-node store">D4 Departments</div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Manager</div>
-                    <div class="flow">project + hours</div>
-                    <div class="diagram-node process">3.0 Assign Projects</div>
-                    <div class="flow">project work</div>
-                    <div class="diagram-stack">
-                        <div class="diagram-node store">D5 Projects</div>
-                        <div class="diagram-node store">D6 Works On</div>
-                    </div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">HR / Manager</div>
-                    <div class="flow">report request</div>
-                    <div class="diagram-node process">4.0 Produce Reports</div>
-                    <div class="flow">summaries</div>
-                    <div class="diagram-node external">Reports</div>
-                </div>
-            </div>
-        </div>
-
-        <h3>UML Class Diagram</h3>
-        <div class="visual-diagram uml-connected">
-            <svg class="uml-lines" aria-hidden="true"></svg>
-            <div class="uml-grid">
-                <div class="diagram-node uml-class">
-                    <h4>Department</h4>
-                    <ul><li>deptId: int</li><li>name: string</li><li>location: string</li><li>manageDate: date</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Employee</h4>
-                    <ul><li>empId: int</li><li>fname: string</li><li>lname: string</li><li>salary: decimal</li><li>birthDate: date</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Project</h4>
-                    <ul><li>projId: int</li><li>name: string</li><li>location: string</li><li>deptId: int</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Dependent</h4>
-                    <ul><li>empId: int</li><li>depName: string</li><li>dob: date</li><li>relationship: string</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>WorksOn</h4>
-                    <ul><li>empId: int</li><li>projId: int</li><li>hours: decimal</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>EmpPhone</h4>
-                    <ul><li>empId: int</li><li>phoneNumber: string</li></ul>
-                </div>
-            </div>
-            <div class="uml-links">
-                <span class="uml-link">Department 1 → 0..* Employee</span>
-                <span class="uml-link">Department 1 → 0..* Project</span>
-                <span class="uml-link">Employee 1 → 0..* Dependent</span>
-                <span class="uml-link">Employee 1 → 0..* EmpPhone</span>
-                <span class="uml-link">Employee 0..* ↔ 0..* Project through WorksOn</span>
-            </div>
-        </div>
 
         <h3>Mapping Rules Applied</h3>
         <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities → tables</span>
@@ -1665,100 +1140,6 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
                              │ status ENUM       │
                              └──────────────────┘</code></pre>
 
-        <h3>DFD Level 0 + Level 1</h3>
-        <div class="visual-diagram">
-            <div class="diagram-level">
-                <div class="diagram-title">Context / Level 0</div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Librarian<span>External entity</span></div>
-                    <div class="flow">catalog + loan data</div>
-                    <div class="diagram-node process">Library Management System<span>Process 0</span></div>
-                    <div class="flow back">catalog reports</div>
-                    <div class="diagram-node external">Librarian<span>Receives reports</span></div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Member<span>External entity</span></div>
-                    <div class="flow">borrow / return</div>
-                    <div class="diagram-node process">Library Management System<span>Process 0</span></div>
-                    <div class="flow back">due dates + fines</div>
-                    <div class="diagram-node external">Member<span>Receives status</span></div>
-                </div>
-            </div>
-            <div class="diagram-level">
-                <div class="diagram-title">Level 1</div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Librarian</div>
-                    <div class="flow">book info</div>
-                    <div class="diagram-node process">1.0 Manage Catalog</div>
-                    <div class="flow">catalog data</div>
-                    <div class="diagram-stack">
-                        <div class="diagram-node store">D1 Books</div>
-                        <div class="diagram-node store">D2 Publishers</div>
-                        <div class="diagram-node store">D3 Authors</div>
-                        <div class="diagram-node store">D4 Book Authors</div>
-                    </div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Librarian</div>
-                    <div class="flow">member status</div>
-                    <div class="diagram-node process">2.0 Manage Members</div>
-                    <div class="flow">member data</div>
-                    <div class="diagram-node store">D5 Members</div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Member</div>
-                    <div class="flow">borrow / return</div>
-                    <div class="diagram-node process">3.0 Process Loans</div>
-                    <div class="flow">loan transaction</div>
-                    <div class="diagram-node store">D6 Loans</div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Librarian</div>
-                    <div class="flow">report request</div>
-                    <div class="diagram-node process">4.0 Produce Reports</div>
-                    <div class="flow">overdue list</div>
-                    <div class="diagram-node external">Reports</div>
-                </div>
-            </div>
-        </div>
-
-        <h3>UML Class Diagram</h3>
-        <div class="visual-diagram uml-connected">
-            <svg class="uml-lines" aria-hidden="true"></svg>
-            <div class="uml-grid">
-                <div class="diagram-node uml-class">
-                    <h4>Publisher</h4>
-                    <ul><li>pubId: int</li><li>name: string</li><li>address: string</li><li>phone: string</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Book</h4>
-                    <ul><li>isbn: string</li><li>title: string</li><li>pages: int</li><li>pubYear: int</li><li>pubId: int</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Author</h4>
-                    <ul><li>authorId: int</li><li>name: string</li><li>nationality: string</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>BookAuthor</h4>
-                    <ul><li>isbn: string</li><li>authorId: int</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Member</h4>
-                    <ul><li>memberId: int</li><li>name: string</li><li>email: string</li><li>phone: string</li><li>joinDate: date</li><li>status: string</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Loan</h4>
-                    <ul><li>loanId: int</li><li>memberId: int</li><li>isbn: string</li><li>loanDate: date</li><li>dueDate: date</li><li>returnDate: date?</li><li>fineAmount: decimal</li></ul>
-                </div>
-            </div>
-            <div class="uml-links">
-                <span class="uml-link">Publisher 1 → 0..* Book</span>
-                <span class="uml-link">Book 0..* ↔ 0..* Author through BookAuthor</span>
-                <span class="uml-link">Member 1 → 0..* Loan</span>
-                <span class="uml-link">Book 1 → 0..* Loan</span>
-            </div>
-        </div>
-
         <h3>Mapping Rules Applied</h3>
         <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities</span>
 <span class="pp">PUBLISHERS</span>  (pub_id PK, name, address, phone)
@@ -1896,98 +1277,6 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
                             └──────────────────┘            │ reg_date         │
                                                             └──────────────────┘</code></pre>
 
-        <h3>DFD Level 0 + Level 1</h3>
-        <div class="visual-diagram">
-            <div class="diagram-level">
-                <div class="diagram-title">Context / Level 0</div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Customer<span>External entity</span></div>
-                    <div class="flow">cart + checkout</div>
-                    <div class="diagram-node process">E-Commerce Order System<span>Process 0</span></div>
-                    <div class="flow back">receipt + status</div>
-                    <div class="diagram-node external">Customer<span>Receives order info</span></div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Admin<span>External entity</span></div>
-                    <div class="flow">product updates</div>
-                    <div class="diagram-node process">E-Commerce Order System<span>Process 0</span></div>
-                    <div class="flow back">sales reports</div>
-                    <div class="diagram-node external">Admin<span>Receives reports</span></div>
-                </div>
-            </div>
-            <div class="diagram-level">
-                <div class="diagram-title">Level 1</div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Admin</div>
-                    <div class="flow">catalog data</div>
-                    <div class="diagram-node process">1.0 Manage Catalog</div>
-                    <div class="flow">product records</div>
-                    <div class="diagram-stack">
-                        <div class="diagram-node store">D1 Categories</div>
-                        <div class="diagram-node store">D2 Products</div>
-                    </div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Customer</div>
-                    <div class="flow">profile data</div>
-                    <div class="diagram-node process">2.0 Manage Customers</div>
-                    <div class="flow">customer record</div>
-                    <div class="diagram-node store">D3 Customers</div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Customer</div>
-                    <div class="flow">cart + checkout</div>
-                    <div class="diagram-node process">3.0 Process Orders</div>
-                    <div class="flow">order data</div>
-                    <div class="diagram-stack">
-                        <div class="diagram-node store">D4 Orders</div>
-                        <div class="diagram-node store">D5 Order Items</div>
-                    </div>
-                </div>
-                <div class="dfd-row">
-                    <div class="diagram-node external">Admin</div>
-                    <div class="flow">report request</div>
-                    <div class="diagram-node process">4.0 Produce Reports</div>
-                    <div class="flow">revenue + stock</div>
-                    <div class="diagram-node external">Reports</div>
-                </div>
-            </div>
-        </div>
-
-        <h3>UML Class Diagram</h3>
-        <div class="visual-diagram uml-connected">
-            <svg class="uml-lines" aria-hidden="true"></svg>
-            <div class="uml-grid">
-                <div class="diagram-node uml-class">
-                    <h4>Category</h4>
-                    <ul><li>catId: int</li><li>name: string</li><li>description: string</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Product</h4>
-                    <ul><li>productId: int</li><li>name: string</li><li>price: decimal</li><li>stockQty: int</li><li>catId: int</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Customer</h4>
-                    <ul><li>customerId: int</li><li>name: string</li><li>email: string</li><li>phone: string</li><li>address: string</li><li>regDate: date</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>Order</h4>
-                    <ul><li>orderId: int</li><li>orderDate: datetime</li><li>totalAmount: decimal</li><li>status: string</li><li>customerId: int</li></ul>
-                </div>
-                <div class="diagram-node uml-class">
-                    <h4>OrderItem</h4>
-                    <ul><li>orderId: int</li><li>productId: int</li><li>quantity: int</li><li>unitPrice: decimal</li></ul>
-                </div>
-            </div>
-            <div class="uml-links">
-                <span class="uml-link">Category 1 → 0..* Product</span>
-                <span class="uml-link">Customer 1 → 0..* Order</span>
-                <span class="uml-link">Order 1 → 1..* OrderItem</span>
-                <span class="uml-link">Product 1 → 0..* OrderItem</span>
-                <span class="uml-link">Order 0..* ↔ 0..* Product through OrderItem</span>
-            </div>
-        </div>
-
         <div class="highlight">
             <strong>Design Note — unit_price in ORDER_ITEM:</strong> The price in ORDER_ITEM is stored at the moment of purchase (not referenced from PRODUCT). This is because product prices change over time. Storing the snapshot ensures historical order accuracy. This is a common real-world pattern.
         </div>
@@ -2120,6 +1409,247 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
             ✓ Circular FK dependencies (DEPT ↔ EMPLOYEE) &nbsp;·&nbsp; ✓ Price snapshots (design pattern)<br>
             ✓ NULL = "not yet returned" pattern &nbsp;·&nbsp; ✓ GROUP BY + HAVING + Anti-Join &nbsp;·&nbsp; ✓ Multi-level 4-table JOINs
         </div>
+
+        <!-- ─── EXAMPLE 4 ─── -->
+        <h3 style="margin-top:48px; font-size:1.4em; color:#1a2e5a; border-left:5px solid #c62828; padding-left:14px;">
+            Example 4 — Tool-Selling Marketplace (Phone App)
+        </h3>
+        <p style="color:#555; margin-bottom:6px;">
+            A mobile app where users sell used tools by uploading a photo, setting a price, and choosing a tool type.
+            Buyers can filter listings by city. Users can flag suspicious listings as spam.
+        </p>
+        <div style="background:#fff8e1; border-left:4px solid #f9a825; padding:10px 16px; border-radius:6px; margin-bottom:18px; font-size:0.93em;">
+            <strong>From the student's notes (DDL draft):</strong><br>
+            The handwritten draft uses <code>nvarchar</code> (SQL Server) and <code>bool</code> — both are wrong in MySQL.<br>
+            ✗ <code>nvarchar(25)</code> → ✓ <code>VARCHAR(25)</code> &nbsp;·&nbsp;
+            ✗ <code>bool</code> → ✓ <code>TINYINT(1)</code> (or <code>BOOLEAN</code>, which is an alias) &nbsp;·&nbsp;
+            ✗ <code>int(15)</code> display width is deprecated in MySQL 8.0 — use just <code>INT</code>.
+        </div>
+
+        <h3>Entities Identified (6 total)</h3>
+        <table>
+            <tr><th>#</th><th>Entity</th><th>Role</th></tr>
+            <tr><td>1</td><td><strong>USERS</strong></td><td>Accounts — both sellers and buyers in the same table</td></tr>
+            <tr><td>2</td><td><strong>TOOL_TYPES</strong></td><td>Category selected when listing a tool (e.g. Power Tool, Hand Tool)</td></tr>
+            <tr><td>3</td><td><strong>CITIES</strong></td><td>Geographic reference used for listings and buyer search preferences</td></tr>
+            <tr><td>4</td><td><strong>TOOLS</strong></td><td>The physical item for sale (photo, description, price, condition)</td></tr>
+            <tr><td>5</td><td><strong>LISTINGS</strong> (SELL)</td><td>The act of posting a tool for sale — links SELLER → TOOL → CITY</td></tr>
+            <tr><td>6</td><td><strong>SPAM_REPORTS</strong> (SPAM)</td><td>A buyer reports a listing as spam or fraudulent</td></tr>
+        </table>
+        <p style="color:#555; font-size:0.93em; margin-top:4px;">Plus one M:N junction: <strong>USER_CITIES</strong> — the set of cities each buyer wants to search in.</p>
+
+        <h3>ER Diagram (Chen Notation)</h3>
+        <pre data-lang="ER Diagram"><code>┌────────────────┐   N:1    ┌──────────────┐
+│   TOOL_TYPES   │ ◄─────── │    TOOLS     │
+│ type_id (PK)   │          │ tool_id (PK) │
+│ name           │          │ name         │
+│ description    │          │ description  │
+└────────────────┘          │ image_url    │
+                            │ price        │
+                            │ condition    │
+                            │ type_id (FK) │
+                            │ listing_id?  │
+                            └──────┬───────┘
+                                   │ 1:1 or 1:N
+                                   │
+┌──────────────┐   1:N    ┌────────┴──────┐   N:1    ┌──────────────┐
+│    USERS     │ ────────►│   LISTINGS    │ ────────►│    CITIES    │
+│ user_id (PK) │  (sells) │ listing_id PK │ (in city)│ city_id (PK) │
+│ username     │          │ seller_id FK  │          │ name         │
+│ email UNIQUE │          │ tool_id FK    │          │ region       │
+│ password_hash│          │ city_id FK    │          └──────┬───────┘
+│ address      │          │ price         │                 │
+│ contact      │          │ image_url     │                 │ M:N
+│ gender       │          │ status ENUM   │                 │
+│ birth_date   │          │ listed_at     │        ┌────────┴───────┐
+│ is_enabled   │          └───────┬───────┘        │  USER_CITIES   │
+└──────┬───────┘                  │ 1:N            │ user_id FK     │
+       │                          │                │ city_id FK     │
+       │ 1:N (reports)   ┌────────┴────────┐       └────────────────┘
+       └────────────────►│  SPAM_REPORTS   │   ← buyer reports a listing
+                         │ spam_id (PK)    │
+                         │ reporter_id FK  │
+                         │ listing_id FK   │
+                         │ reason TEXT     │
+                         │ reported_at     │
+                         └─────────────────┘</code></pre>
+
+        <h3>Mapping Rules Applied</h3>
+        <pre data-lang="Schema"><code><span class="cm">-- Rule 1: Strong entities → tables</span>
+<span class="pp">USERS</span>        (user_id PK, username, email, password_hash, address, contact,
+              gender, birth_date, is_enabled, created_at)
+<span class="pp">TOOL_TYPES</span>   (type_id PK, name, description)
+<span class="pp">CITIES</span>       (city_id PK, name, region)
+<span class="pp">TOOLS</span>        (tool_id PK, name, description, condition, type_id FK)
+
+<span class="cm">-- Rule 4: 1:N → FK on the "many" side</span>
+<span class="pp">LISTINGS</span>     (listing_id PK, seller_id FK→USERS, tool_id FK→TOOLS,
+              city_id FK→CITIES, price, image_url, status, listed_at)
+<span class="pp">SPAM_REPORTS</span> (spam_id PK, reporter_id FK→USERS, listing_id FK→LISTINGS,
+              reason, reported_at)
+
+<span class="cm">-- Rule 5: M:N (User ↔ Cities search preferences) → junction table</span>
+<span class="pp">USER_CITIES</span>  (user_id FK, city_id FK)   PK = (user_id, city_id)</code></pre>
+
+        <h3>Full SQL DDL</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- ① Independent tables first (no FK dependencies)</span>
+<span class="kw">CREATE TABLE</span> tool_types (
+    type_id     <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name        <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    description <span class="tp">TEXT</span>         <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_tool_type      <span class="kw">PRIMARY KEY</span> (type_id),
+    <span class="kw">CONSTRAINT</span> uq_tool_type_name <span class="kw">UNIQUE</span> (name)
+);
+
+<span class="kw">CREATE TABLE</span> cities (
+    city_id <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name    <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">NOT NULL</span>,
+    region  <span class="tp">VARCHAR</span>(<span class="nm">100</span>) <span class="kw">DEFAULT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_city      <span class="kw">PRIMARY KEY</span> (city_id),
+    <span class="kw">CONSTRAINT</span> uq_city_name <span class="kw">UNIQUE</span> (name)
+);
+
+<span class="cm">-- ② Users table (corrected from student's draft)</span>
+<span class="cm">--   nvarchar → VARCHAR  |  bool → TINYINT(1)  |  int(15) → INT  |  age Date → birth_date DATE</span>
+<span class="kw">CREATE TABLE</span> users (
+    user_id       <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    username      <span class="tp">VARCHAR</span>(<span class="nm">50</span>)  <span class="kw">NOT NULL</span>,
+    email         <span class="tp">VARCHAR</span>(<span class="nm">150</span>) <span class="kw">NOT NULL</span>,
+    password_hash <span class="tp">VARCHAR</span>(<span class="nm">255</span>) <span class="kw">NOT NULL</span>,
+    address       <span class="tp">TEXT</span>          <span class="kw">DEFAULT NULL</span>,
+    contact       <span class="tp">VARCHAR</span>(<span class="nm">20</span>)  <span class="kw">DEFAULT NULL</span>,
+    gender        <span class="tp">CHAR</span>(<span class="nm">1</span>)       <span class="kw">DEFAULT NULL</span>,
+    birth_date    <span class="tp">DATE</span>          <span class="kw">DEFAULT NULL</span>,
+    is_enabled    <span class="tp">TINYINT</span>(<span class="nm">1</span>)   <span class="kw">NOT NULL DEFAULT</span> <span class="nm">1</span>,
+    created_at    <span class="tp">DATETIME</span>      <span class="kw">NOT NULL DEFAULT CURRENT_TIMESTAMP</span>,
+    <span class="kw">CONSTRAINT</span> pk_user         <span class="kw">PRIMARY KEY</span> (user_id),
+    <span class="kw">CONSTRAINT</span> uq_username     <span class="kw">UNIQUE</span> (username),
+    <span class="kw">CONSTRAINT</span> uq_email        <span class="kw">UNIQUE</span> (email),
+    <span class="kw">CONSTRAINT</span> chk_gender      <span class="kw">CHECK</span> (gender <span class="kw">IN</span> (<span class="st">'M'</span>, <span class="st">'F'</span>))
+);
+
+<span class="cm">-- ③ Tools — describes the physical item (independent of who is selling it)</span>
+<span class="kw">CREATE TABLE</span> tools (
+    tool_id     <span class="tp">INT</span>          <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    name        <span class="tp">VARCHAR</span>(<span class="nm">150</span>) <span class="kw">NOT NULL</span>,
+    description <span class="tp">TEXT</span>         <span class="kw">DEFAULT NULL</span>,
+    condition   <span class="tp">ENUM</span>(<span class="st">'new'</span>,<span class="st">'good'</span>,<span class="st">'fair'</span>,<span class="st">'poor'</span>) <span class="kw">NOT NULL</span>,
+    type_id     <span class="tp">INT</span>          <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_tool       <span class="kw">PRIMARY KEY</span> (tool_id),
+    <span class="kw">CONSTRAINT</span> fk_tool_type  <span class="kw">FOREIGN KEY</span> (type_id)
+        <span class="kw">REFERENCES</span> tool_types(type_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- ④ Listings (the SELL entity) — a user lists a tool for sale in a city</span>
+<span class="kw">CREATE TABLE</span> listings (
+    listing_id  <span class="tp">INT</span>            <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    seller_id   <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    tool_id     <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    city_id     <span class="tp">INT</span>            <span class="kw">NOT NULL</span>,
+    price       <span class="tp">DECIMAL</span>(<span class="nm">10</span>,<span class="nm">2</span>) <span class="kw">NOT NULL</span>,
+    image_url   <span class="tp">VARCHAR</span>(<span class="nm">500</span>)  <span class="kw">DEFAULT NULL</span>,
+    status      <span class="tp">ENUM</span>(<span class="st">'available'</span>,<span class="st">'sold'</span>,<span class="st">'removed'</span>) <span class="kw">NOT NULL DEFAULT</span> <span class="st">'available'</span>,
+    listed_at   <span class="tp">DATETIME</span>       <span class="kw">NOT NULL DEFAULT CURRENT_TIMESTAMP</span>,
+    <span class="kw">CONSTRAINT</span> pk_listing         <span class="kw">PRIMARY KEY</span> (listing_id),
+    <span class="kw">CONSTRAINT</span> chk_price          <span class="kw">CHECK</span> (price &gt; <span class="nm">0</span>),
+    <span class="kw">CONSTRAINT</span> fk_listing_seller  <span class="kw">FOREIGN KEY</span> (seller_id)
+        <span class="kw">REFERENCES</span> users(user_id) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_listing_tool    <span class="kw">FOREIGN KEY</span> (tool_id)
+        <span class="kw">REFERENCES</span> tools(tool_id) <span class="kw">ON DELETE RESTRICT</span>,
+    <span class="kw">CONSTRAINT</span> fk_listing_city    <span class="kw">FOREIGN KEY</span> (city_id)
+        <span class="kw">REFERENCES</span> cities(city_id) <span class="kw">ON DELETE RESTRICT</span>
+);
+
+<span class="cm">-- ⑤ M:N: buyer sets which cities they want to search in</span>
+<span class="kw">CREATE TABLE</span> user_cities (
+    user_id <span class="tp">INT</span> <span class="kw">NOT NULL</span>,
+    city_id <span class="tp">INT</span> <span class="kw">NOT NULL</span>,
+    <span class="kw">CONSTRAINT</span> pk_user_city        <span class="kw">PRIMARY KEY</span> (user_id, city_id),
+    <span class="kw">CONSTRAINT</span> fk_uc_user          <span class="kw">FOREIGN KEY</span> (user_id)
+        <span class="kw">REFERENCES</span> users(user_id) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_uc_city          <span class="kw">FOREIGN KEY</span> (city_id)
+        <span class="kw">REFERENCES</span> cities(city_id) <span class="kw">ON DELETE CASCADE</span>
+);
+
+<span class="cm">-- ⑥ Spam reports — a user flags a listing as spam/fraud</span>
+<span class="kw">CREATE TABLE</span> spam_reports (
+    spam_id     <span class="tp">INT</span>      <span class="kw">NOT NULL AUTO_INCREMENT</span>,
+    reporter_id <span class="tp">INT</span>      <span class="kw">NOT NULL</span>,
+    listing_id  <span class="tp">INT</span>      <span class="kw">NOT NULL</span>,
+    reason      <span class="tp">TEXT</span>     <span class="kw">DEFAULT NULL</span>,
+    reported_at <span class="tp">DATETIME</span> <span class="kw">NOT NULL DEFAULT CURRENT_TIMESTAMP</span>,
+    <span class="kw">CONSTRAINT</span> pk_spam              <span class="kw">PRIMARY KEY</span> (spam_id),
+    <span class="kw">CONSTRAINT</span> uq_one_report        <span class="kw">UNIQUE</span> (reporter_id, listing_id),  <span class="cm">-- one report per user per listing</span>
+    <span class="kw">CONSTRAINT</span> fk_spam_reporter     <span class="kw">FOREIGN KEY</span> (reporter_id)
+        <span class="kw">REFERENCES</span> users(user_id) <span class="kw">ON DELETE CASCADE</span>,
+    <span class="kw">CONSTRAINT</span> fk_spam_listing      <span class="kw">FOREIGN KEY</span> (listing_id)
+        <span class="kw">REFERENCES</span> listings(listing_id) <span class="kw">ON DELETE CASCADE</span>
+);</code></pre>
+
+        <h3>DROP TABLE (Correct Order)</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Must drop in REVERSE dependency order (children before parents)</span>
+<span class="kw">DROP TABLE IF EXISTS</span> spam_reports;
+<span class="kw">DROP TABLE IF EXISTS</span> user_cities;
+<span class="kw">DROP TABLE IF EXISTS</span> listings;
+<span class="kw">DROP TABLE IF EXISTS</span> tools;
+<span class="kw">DROP TABLE IF EXISTS</span> users;
+<span class="kw">DROP TABLE IF EXISTS</span> cities;
+<span class="kw">DROP TABLE IF EXISTS</span> tool_types;</code></pre>
+
+        <h3>Sample Queries</h3>
+        <pre data-lang="SQL"><code><span class="cm">-- Q1: Show all available listings in a buyer's preferred cities</span>
+<span class="kw">SELECT</span>
+    l.listing_id,
+    t.name          <span class="kw">AS</span> tool_name,
+    tt.name         <span class="kw">AS</span> tool_type,
+    l.price,
+    t.condition,
+    c.name          <span class="kw">AS</span> city,
+    u.username      <span class="kw">AS</span> seller
+<span class="kw">FROM</span> listings l
+<span class="kw">JOIN</span> tools t        <span class="kw">ON</span> l.tool_id    = t.tool_id
+<span class="kw">JOIN</span> tool_types tt  <span class="kw">ON</span> t.type_id    = tt.type_id
+<span class="kw">JOIN</span> cities c       <span class="kw">ON</span> l.city_id    = c.city_id
+<span class="kw">JOIN</span> users u        <span class="kw">ON</span> l.seller_id  = u.user_id
+<span class="kw">JOIN</span> user_cities uc <span class="kw">ON</span> uc.city_id   = l.city_id
+<span class="kw">WHERE</span> uc.user_id  = <span class="nm">42</span>           <span class="cm">-- the logged-in buyer's ID</span>
+  <span class="kw">AND</span> l.status    = <span class="st">'available'</span>
+  <span class="kw">AND</span> u.is_enabled = <span class="nm">1</span>
+<span class="kw">ORDER BY</span> l.listed_at <span class="kw">DESC</span>;
+
+<span class="cm">-- Q2: Listings that have been spam-reported more than 3 times (flag for review)</span>
+<span class="kw">SELECT</span> l.listing_id, t.name <span class="kw">AS</span> tool, <span class="fn">COUNT</span>(sr.spam_id) <span class="kw">AS</span> report_count
+<span class="kw">FROM</span> listings l
+<span class="kw">JOIN</span> tools t        <span class="kw">ON</span> l.tool_id   = t.tool_id
+<span class="kw">JOIN</span> spam_reports sr <span class="kw">ON</span> l.listing_id = sr.listing_id
+<span class="kw">GROUP BY</span> l.listing_id, t.name
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(sr.spam_id) &gt; <span class="nm">3</span>
+<span class="kw">ORDER BY</span> report_count <span class="kw">DESC</span>;
+
+<span class="cm">-- Q3: Sellers who have NEVER had a spam report (trusted sellers)</span>
+<span class="kw">SELECT</span> u.username, u.email, <span class="fn">COUNT</span>(l.listing_id) <span class="kw">AS</span> total_listings
+<span class="kw">FROM</span> users u
+<span class="kw">JOIN</span> listings l      <span class="kw">ON</span> u.user_id   = l.seller_id
+<span class="kw">LEFT JOIN</span> spam_reports sr <span class="kw">ON</span> l.listing_id = sr.listing_id
+<span class="kw">WHERE</span> sr.spam_id <span class="kw">IS NULL</span>        <span class="cm">-- Anti-Join: no spam report found</span>
+<span class="kw">GROUP BY</span> u.user_id, u.username, u.email
+<span class="kw">ORDER BY</span> total_listings <span class="kw">DESC</span>;
+
+<span class="cm">-- Q4: Most popular tool types by number of available listings</span>
+<span class="kw">SELECT</span> tt.name <span class="kw">AS</span> type, <span class="fn">COUNT</span>(l.listing_id) <span class="kw">AS</span> active_listings
+<span class="kw">FROM</span> tool_types tt
+<span class="kw">LEFT JOIN</span> tools t   <span class="kw">ON</span> tt.type_id   = t.type_id
+<span class="kw">LEFT JOIN</span> listings l <span class="kw">ON</span> t.tool_id   = l.tool_id <span class="kw">AND</span> l.status = <span class="st">'available'</span>
+<span class="kw">GROUP BY</span> tt.type_id, tt.name
+<span class="kw">ORDER BY</span> active_listings <span class="kw">DESC</span>;</code></pre>
+
+        <div class="highlight">
+            <strong>Design decisions to know for the exam:</strong><br>
+            • <strong>LISTINGS</strong> is a separate table from <strong>TOOLS</strong> — the same physical tool model can be listed multiple times (different sellers, different conditions).<br>
+            • <strong>USER_CITIES</strong> (M:N) models "search area preferences" — a buyer chooses many cities, a city can be chosen by many buyers.<br>
+            • <strong>UNIQUE(reporter_id, listing_id)</strong> in SPAM_REPORTS prevents a user from reporting the same listing twice.<br>
+            • <strong>DROP order</strong> is always the reverse of CREATE order — children (FK-holders) must be dropped before parents.
+        </div>
     </div>
 
     <!-- ━━━━━━━━━━━━ CHEAT SHEET ━━━━━━━━━━━━ -->
@@ -2211,149 +1741,6 @@ ALTERNATE KEYS → enforced with UNIQUE constraint</code></pre>
 <footer>
     <p>Database Systems I &nbsp;·&nbsp; Dr. Muhammad Mahmoud &nbsp;·&nbsp; Faculty of Computers &amp; Information Systems</p>
 </footer>
-
-<script>
-    const copyIcon = `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2"></path>
-        </svg>`;
-    const checkIcon = `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>`;
-
-    function copyTextFallback(text) {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        textarea.remove();
-    }
-
-    document.querySelectorAll('pre').forEach((block) => {
-        const code = block.querySelector('code');
-        if (!code) return;
-
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'copy-code-btn';
-        button.setAttribute('aria-label', 'Copy code');
-        button.title = 'Copy code';
-        button.innerHTML = copyIcon;
-
-        button.addEventListener('click', async () => {
-            const text = code.innerText;
-
-            try {
-                if (navigator.clipboard && window.isSecureContext) {
-                    await navigator.clipboard.writeText(text);
-                } else {
-                    copyTextFallback(text);
-                }
-
-                button.classList.add('copied');
-                button.setAttribute('aria-label', 'Copied');
-                button.title = 'Copied';
-                button.innerHTML = checkIcon;
-
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.setAttribute('aria-label', 'Copy code');
-                    button.title = 'Copy code';
-                    button.innerHTML = copyIcon;
-                }, 1400);
-            } catch (error) {
-                button.setAttribute('aria-label', 'Copy failed');
-                button.title = 'Copy failed';
-            }
-        });
-
-        block.appendChild(button);
-    });
-
-    document.querySelectorAll('.visual-diagram').forEach((diagram) => {
-        diagram.addEventListener('click', (event) => {
-            const node = event.target.closest('.diagram-node');
-            if (!node || !diagram.contains(node)) return;
-
-            diagram.querySelectorAll('.diagram-node.is-active').forEach((activeNode) => {
-                activeNode.classList.remove('is-active');
-            });
-            node.classList.add('is-active');
-        });
-    });
-
-    function drawUmlConnectors() {
-        document.querySelectorAll('.uml-connected').forEach((diagram) => {
-            const svg = diagram.querySelector('.uml-lines');
-            const classes = [...diagram.querySelectorAll('.uml-class')];
-            if (!svg || classes.length === 0) return;
-
-            const diagramRect = diagram.getBoundingClientRect();
-            const classMap = new Map(classes.map((card) => {
-                const name = card.querySelector('h4')?.textContent.trim();
-                return [name, card];
-            }));
-            const hasClassName = (text, name) => {
-                const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                return new RegExp(`\\b${escaped}\\b`).test(text);
-            };
-
-            svg.innerHTML = '';
-            svg.setAttribute('viewBox', `0 0 ${diagram.scrollWidth} ${diagram.scrollHeight}`);
-            svg.setAttribute('width', diagram.scrollWidth);
-            svg.setAttribute('height', diagram.scrollHeight);
-
-            const addLine = (fromName, toName) => {
-                const from = classMap.get(fromName);
-                const to = classMap.get(toName);
-                if (!from || !to) return;
-
-                const fromRect = from.getBoundingClientRect();
-                const toRect = to.getBoundingClientRect();
-                const x1 = fromRect.left - diagramRect.left + diagram.scrollLeft + fromRect.width / 2;
-                const y1 = fromRect.top - diagramRect.top + diagram.scrollTop + fromRect.height / 2;
-                const x2 = toRect.left - diagramRect.left + diagram.scrollLeft + toRect.width / 2;
-                const y2 = toRect.top - diagramRect.top + diagram.scrollTop + toRect.height / 2;
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', x1);
-                line.setAttribute('y1', y1);
-                line.setAttribute('x2', x2);
-                line.setAttribute('y2', y2);
-                svg.appendChild(line);
-            };
-
-            diagram.querySelectorAll('.uml-link').forEach((link) => {
-                const text = link.textContent;
-                const names = [...classMap.keys()]
-                    .filter((name) => hasClassName(text, name))
-                    .sort((a, b) => text.indexOf(a) - text.indexOf(b));
-                const through = text.match(/through\s+([A-Za-z]+)/i)?.[1];
-
-                if (through && classMap.has(through)) {
-                    const endpoints = names.filter((name) => name !== through).slice(0, 2);
-                    if (endpoints.length === 2) {
-                        addLine(endpoints[0], through);
-                        addLine(through, endpoints[1]);
-                    }
-                    return;
-                }
-
-                if (names.length >= 2) {
-                    addLine(names[0], names[1]);
-                }
-            });
-        });
-    }
-
-    drawUmlConnectors();
-    window.addEventListener('resize', drawUmlConnectors);
-</script>
 
 </body>
 </html>
