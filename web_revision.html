@@ -448,6 +448,7 @@
             <li><a href="#ch5">Ch5 JavaScript</a></li>
             <li><a href="#ch6">Ch6 Adv JS</a></li>
             <li><a href="#ch7">Ch7 PHP 8</a></li>
+            <li><a href="#essay">✍️ Essay</a></li>
         </ul>
     </div>
 </nav>
@@ -1290,6 +1291,284 @@
             • <strong>NEVER</strong> concatenate user input into SQL queries<br>
             • Use <code>password_hash($password, PASSWORD_BCRYPT)</code> for storing passwords<br>
             • Use <code>password_verify($input, $hash)</code> for checking passwords
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- ESSAY QUESTION                                    -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div class="section-divider" id="essay" style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);">
+        <h2>✍️ Essay Question</h2>
+        <p>Comprehensive Long-Answer Question</p>
+    </div>
+
+    <div class="section">
+        <div class="section-label label-green" style="background: #e8f5e9; color: #2e7d32;">ESSAY — FULL MARKS QUESTION</div>
+        <h2>Write Everything You Know About HTML5</h2>
+
+        <div class="q-box" style="border-left-color: #00b894; background: #f0fff4;">
+            <strong style="color: #00b894; font-size: 1.1em;">📝 Question:</strong><br><br>
+            <strong style="font-size: 1.15em;">"Write a comprehensive and well-organized summary about HTML5 — the standard markup language for the web. Your answer should cover everything you have learned about this topic in the course, including but not limited to: what HTML is, document structure, elements, semantic tags, forms, tables, media, and best practices."</strong>
+        </div>
+
+        <div class="a-box" style="border-left-color: #00cec9; background: #f0fffe;">
+            <strong style="color: #00cec9; font-size: 1.1em;">✅ Model Answer — Complete HTML5 Summary:</strong>
+        </div>
+
+        <h3>1. What is HTML & HTML5?</h3>
+        <ul>
+            <li><strong>HTML</strong> = <strong>HyperText Markup Language</strong> — the standard markup language used to create and structure content on the web</li>
+            <li><strong>HTML5</strong> = the fifth and current major version of HTML (standardized in 2014 by W3C)</li>
+            <li>HTML is <strong>NOT a programming language</strong> — it's a <strong>markup language</strong> that describes the <em>structure</em> of a page using tags and elements</li>
+            <li>HTML5 introduced: <strong>semantic elements</strong>, <strong>native audio/video</strong>, <strong>Canvas API</strong>, <strong>local storage</strong>, <strong>geolocation</strong>, and <strong>form enhancements</strong></li>
+            <li>Every web page you see in a browser is built with HTML as its foundation</li>
+        </ul>
+
+        <h3>2. Basic Document Structure</h3>
+        <p>Every HTML5 document follows a standard structure:</p>
+        <pre data-lang="HTML"><code><span class="op">&lt;!DOCTYPE html&gt;</span>        <span class="cm">&lt;!-- Declares HTML5 to the browser --&gt;</span>
+<span class="op">&lt;</span><span class="kw">html</span> <span class="at">lang</span>=<span class="st">"en"</span><span class="op">&gt;</span>           <span class="cm">&lt;!-- Root element, lang for accessibility --&gt;</span>
+<span class="op">&lt;</span><span class="kw">head</span><span class="op">&gt;</span>                       <span class="cm">&lt;!-- Metadata (not visible) --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">meta</span> <span class="at">charset</span>=<span class="st">"UTF-8"</span><span class="op">&gt;</span>    <span class="cm">&lt;!-- Character encoding --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">meta</span> <span class="at">name</span>=<span class="st">"viewport"</span> <span class="at">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">title</span><span class="op">&gt;</span>Page Title<span class="op">&lt;/</span><span class="kw">title</span><span class="op">&gt;</span>  <span class="cm">&lt;!-- Browser tab title --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">link</span> <span class="at">rel</span>=<span class="st">"stylesheet"</span> <span class="at">href</span>=<span class="st">"styles.css"</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">head</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="kw">body</span><span class="op">&gt;</span>                       <span class="cm">&lt;!-- All visible content --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">h1</span><span class="op">&gt;</span>Hello World<span class="op">&lt;/</span><span class="kw">h1</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">script</span> <span class="at">src</span>=<span class="st">"script.js"</span><span class="op">&gt;&lt;/</span><span class="kw">script</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">body</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">html</span><span class="op">&gt;</span></code></pre>
+        <div class="info-box">
+            <strong>💡 Key Points:</strong><br>
+            • <code>&lt;!DOCTYPE html&gt;</code> must be the very first line — tells browser to use HTML5<br>
+            • <code>&lt;head&gt;</code> contains metadata (title, charset, stylesheets) — not visible<br>
+            • <code>&lt;body&gt;</code> contains all visible content<br>
+            • <code>lang="en"</code> helps screen readers and search engines
+        </div>
+
+        <h3>3. HTML Elements & Tags</h3>
+        <p>HTML uses <strong>tags</strong> (enclosed in <code>&lt; &gt;</code>) to define elements. Most elements have an opening and closing tag:</p>
+        <table>
+            <tr><th>Category</th><th>Elements</th><th>Purpose</th></tr>
+            <tr><td><strong>Headings</strong></td><td><code>&lt;h1&gt;</code> – <code>&lt;h6&gt;</code></td><td>h1 = most important (one per page), h6 = least</td></tr>
+            <tr><td><strong>Text</strong></td><td><code>&lt;p&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code></td><td>Paragraph, bold, italic, line break, horizontal rule</td></tr>
+            <tr><td><strong>Containers</strong></td><td><code>&lt;div&gt;</code>, <code>&lt;span&gt;</code></td><td>Block container (full width), Inline container</td></tr>
+            <tr><td><strong>Code</strong></td><td><code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code></td><td>Inline code, Preformatted text (preserves spaces)</td></tr>
+            <tr><td><strong>Self-closing</strong></td><td><code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;input&gt;</code></td><td>No closing tag needed</td></tr>
+        </table>
+
+        <h3>4. Semantic HTML5 Elements</h3>
+        <p>Semantic elements clearly describe their meaning to both the browser and developer. They replaced the old practice of using <code>&lt;div id="header"&gt;</code> everywhere.</p>
+        <div class="info-box">
+            <strong>💡 Why use Semantic HTML?</strong><br>
+            • <strong>Accessibility:</strong> Screen readers navigate by semantic landmarks<br>
+            • <strong>SEO:</strong> Search engines understand page structure better<br>
+            • <strong>Readability:</strong> Code is self-documenting and easier to maintain
+        </div>
+        <table>
+            <tr><th>Element</th><th>Purpose</th><th>Example</th></tr>
+            <tr><td><code>&lt;header&gt;</code></td><td>Site or section header (logo, title)</td><td>Page top with logo</td></tr>
+            <tr><td><code>&lt;nav&gt;</code></td><td>Navigation links</td><td>Main menu bar</td></tr>
+            <tr><td><code>&lt;main&gt;</code></td><td>Primary content (only ONE per page)</td><td>Article body</td></tr>
+            <tr><td><code>&lt;article&gt;</code></td><td>Self-contained, independently distributable content</td><td>Blog post, news story</td></tr>
+            <tr><td><code>&lt;section&gt;</code></td><td>Thematic grouping of content with a heading</td><td>Chapter, tab content</td></tr>
+            <tr><td><code>&lt;aside&gt;</code></td><td>Sidebar or tangentially related content</td><td>Related links, ads</td></tr>
+            <tr><td><code>&lt;footer&gt;</code></td><td>Site or section footer</td><td>Copyright, contact info</td></tr>
+            <tr><td><code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code></td><td>Image/diagram with caption</td><td>Photo with description</td></tr>
+        </table>
+
+        <h3>5. Links & Navigation</h3>
+        <p>The <code>&lt;a&gt;</code> (anchor) element creates hyperlinks — the foundation of the "web":</p>
+        <table>
+            <tr><th>Type</th><th>Code Example</th><th>Description</th></tr>
+            <tr><td>External</td><td><code>&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;Link&lt;/a&gt;</code></td><td>Opens external site in new tab</td></tr>
+            <tr><td>Internal</td><td><code>&lt;a href="/about.html"&gt;About&lt;/a&gt;</code></td><td>Links to page within same site</td></tr>
+            <tr><td>Anchor</td><td><code>&lt;a href="#section-id"&gt;Jump&lt;/a&gt;</code></td><td>Jumps to element on same page</td></tr>
+            <tr><td>Email</td><td><code>&lt;a href="mailto:info@example.com"&gt;Email&lt;/a&gt;</code></td><td>Opens email client</td></tr>
+            <tr><td>Phone</td><td><code>&lt;a href="tel:+201234567890"&gt;Call&lt;/a&gt;</code></td><td>Dials number on mobile</td></tr>
+            <tr><td>Download</td><td><code>&lt;a href="/file.pdf" download="name.pdf"&gt;Download&lt;/a&gt;</code></td><td>Forces file download</td></tr>
+        </table>
+        <div class="warning-box">
+            ⚠️ <strong>Security:</strong> Always add <code>rel="noopener noreferrer"</code> when using <code>target="_blank"</code> to prevent reverse tabnapping attacks.
+        </div>
+
+        <h3>6. Images & Multimedia</h3>
+        <pre data-lang="HTML"><code><span class="cm">&lt;!-- Basic image (alt is REQUIRED for accessibility) --&gt;</span>
+<span class="op">&lt;</span><span class="kw">img</span> <span class="at">src</span>=<span class="st">"photo.jpg"</span> <span class="at">alt</span>=<span class="st">"Description of image"</span> <span class="at">width</span>=<span class="st">"800"</span> <span class="at">loading</span>=<span class="st">"lazy"</span><span class="op">&gt;</span>
+
+<span class="cm">&lt;!-- Responsive images with picture element --&gt;</span>
+<span class="op">&lt;</span><span class="kw">picture</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">source</span> <span class="at">media</span>=<span class="st">"(min-width: 768px)"</span> <span class="at">srcset</span>=<span class="st">"large.jpg"</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">source</span> <span class="at">media</span>=<span class="st">"(min-width: 480px)"</span> <span class="at">srcset</span>=<span class="st">"medium.jpg"</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">img</span> <span class="at">src</span>=<span class="st">"small.jpg"</span> <span class="at">alt</span>=<span class="st">"Responsive image"</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">picture</span><span class="op">&gt;</span>
+
+<span class="cm">&lt;!-- Native video (no plugin needed!) --&gt;</span>
+<span class="op">&lt;</span><span class="kw">video</span> <span class="at">controls</span> <span class="at">width</span>=<span class="st">"640"</span> <span class="at">poster</span>=<span class="st">"thumbnail.jpg"</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">source</span> <span class="at">src</span>=<span class="st">"video.mp4"</span> <span class="at">type</span>=<span class="st">"video/mp4"</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">source</span> <span class="at">src</span>=<span class="st">"video.webm"</span> <span class="at">type</span>=<span class="st">"video/webm"</span><span class="op">&gt;</span>
+  Your browser does not support video.
+<span class="op">&lt;/</span><span class="kw">video</span><span class="op">&gt;</span>
+
+<span class="cm">&lt;!-- Native audio --&gt;</span>
+<span class="op">&lt;</span><span class="kw">audio</span> <span class="at">controls</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">source</span> <span class="at">src</span>=<span class="st">"audio.mp3"</span> <span class="at">type</span>=<span class="st">"audio/mpeg"</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">audio</span><span class="op">&gt;</span></code></pre>
+        <div class="info-box">
+            <strong>💡 HTML5 Media Advantages:</strong><br>
+            • No Flash or plugins needed — works natively in all modern browsers<br>
+            • <code>controls</code> attribute adds play/pause/volume UI<br>
+            • <code>loading="lazy"</code> defers image loading until visible (performance)<br>
+            • Multiple <code>&lt;source&gt;</code> tags provide format fallbacks
+        </div>
+
+        <h3>7. HTML Lists</h3>
+        <table>
+            <tr><th>Type</th><th>Tag</th><th>Use</th></tr>
+            <tr><td>Unordered</td><td><code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code></td><td>Bullet points (order doesn't matter)</td></tr>
+            <tr><td>Ordered</td><td><code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code></td><td>Numbered steps (order matters)</td></tr>
+            <tr><td>Description</td><td><code>&lt;dl&gt;</code> + <code>&lt;dt&gt;</code> + <code>&lt;dd&gt;</code></td><td>Term-definition pairs (glossary)</td></tr>
+        </table>
+        <p>Ordered list attributes: <code>type="1"</code> (numbers), <code>type="A"</code> (uppercase letters), <code>start="5"</code> (start from 5)</p>
+
+        <h3>8. HTML Tables</h3>
+        <div class="warning-box">⚠️ Tables are for <strong>TABULAR DATA ONLY</strong> — never use for page layout (use CSS Flexbox/Grid instead).</div>
+        <pre data-lang="HTML"><code><span class="op">&lt;</span><span class="kw">table</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">caption</span><span class="op">&gt;</span>Student Grades<span class="op">&lt;/</span><span class="kw">caption</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">thead</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">tr</span><span class="op">&gt;</span>
+      <span class="op">&lt;</span><span class="kw">th</span> <span class="at">scope</span>=<span class="st">"col"</span><span class="op">&gt;</span>Name<span class="op">&lt;/</span><span class="kw">th</span><span class="op">&gt;</span>
+      <span class="op">&lt;</span><span class="kw">th</span> <span class="at">scope</span>=<span class="st">"col"</span><span class="op">&gt;</span>Grade<span class="op">&lt;/</span><span class="kw">th</span><span class="op">&gt;</span>
+    <span class="op">&lt;/</span><span class="kw">tr</span><span class="op">&gt;</span>
+  <span class="op">&lt;/</span><span class="kw">thead</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">tbody</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">tr</span><span class="op">&gt;&lt;</span><span class="kw">td</span><span class="op">&gt;</span>Ahmed<span class="op">&lt;/</span><span class="kw">td</span><span class="op">&gt;&lt;</span><span class="kw">td</span><span class="op">&gt;</span>A+<span class="op">&lt;/</span><span class="kw">td</span><span class="op">&gt;&lt;/</span><span class="kw">tr</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">tr</span><span class="op">&gt;&lt;</span><span class="kw">td</span><span class="op">&gt;</span>Sara<span class="op">&lt;/</span><span class="kw">td</span><span class="op">&gt;&lt;</span><span class="kw">td</span><span class="op">&gt;</span>B<span class="op">&lt;/</span><span class="kw">td</span><span class="op">&gt;&lt;/</span><span class="kw">tr</span><span class="op">&gt;</span>
+  <span class="op">&lt;/</span><span class="kw">tbody</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">tfoot</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">tr</span><span class="op">&gt;&lt;</span><span class="kw">td</span><span class="op">&gt;</span>Average<span class="op">&lt;/</span><span class="kw">td</span><span class="op">&gt;&lt;</span><span class="kw">td</span><span class="op">&gt;</span>A-<span class="op">&lt;/</span><span class="kw">td</span><span class="op">&gt;&lt;/</span><span class="kw">tr</span><span class="op">&gt;</span>
+  <span class="op">&lt;/</span><span class="kw">tfoot</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">table</span><span class="op">&gt;</span></code></pre>
+        <table>
+            <tr><th>Element</th><th>Purpose</th></tr>
+            <tr><td><code>&lt;caption&gt;</code></td><td>Table title/description</td></tr>
+            <tr><td><code>&lt;thead&gt;</code></td><td>Groups header rows</td></tr>
+            <tr><td><code>&lt;tbody&gt;</code></td><td>Groups body rows</td></tr>
+            <tr><td><code>&lt;tfoot&gt;</code></td><td>Groups footer/summary rows</td></tr>
+            <tr><td><code>&lt;th scope="col/row"&gt;</code></td><td>Header cell (bold, centered by default)</td></tr>
+            <tr><td><code>&lt;td&gt;</code></td><td>Data cell</td></tr>
+            <tr><td><code>colspan</code> / <code>rowspan</code></td><td>Merge cells horizontally / vertically</td></tr>
+        </table>
+
+        <h3>9. HTML Forms</h3>
+        <p>Forms collect user input and send it to a server for processing:</p>
+        <pre data-lang="HTML"><code><span class="op">&lt;</span><span class="kw">form</span> <span class="at">action</span>=<span class="st">"/submit.php"</span> <span class="at">method</span>=<span class="st">"POST"</span><span class="op">&gt;</span>
+  <span class="cm">&lt;!-- Text input with label --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"name"</span><span class="op">&gt;</span>Full Name:<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">input</span> <span class="at">type</span>=<span class="st">"text"</span> <span class="at">id</span>=<span class="st">"name"</span> <span class="at">name</span>=<span class="st">"name"</span> <span class="at">required</span> <span class="at">minlength</span>=<span class="st">"2"</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- Email with validation --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"email"</span><span class="op">&gt;</span>Email:<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">input</span> <span class="at">type</span>=<span class="st">"email"</span> <span class="at">id</span>=<span class="st">"email"</span> <span class="at">name</span>=<span class="st">"email"</span> <span class="at">required</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- Password --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"pass"</span><span class="op">&gt;</span>Password:<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">input</span> <span class="at">type</span>=<span class="st">"password"</span> <span class="at">id</span>=<span class="st">"pass"</span> <span class="at">name</span>=<span class="st">"password"</span> <span class="at">minlength</span>=<span class="st">"8"</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- Dropdown select --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"city"</span><span class="op">&gt;</span>City:<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">select</span> <span class="at">id</span>=<span class="st">"city"</span> <span class="at">name</span>=<span class="st">"city"</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">option</span> <span class="at">value</span>=<span class="st">""</span><span class="op">&gt;</span>Select...<span class="op">&lt;/</span><span class="kw">option</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">option</span> <span class="at">value</span>=<span class="st">"cairo"</span><span class="op">&gt;</span>Cairo<span class="op">&lt;/</span><span class="kw">option</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">option</span> <span class="at">value</span>=<span class="st">"alex"</span><span class="op">&gt;</span>Alexandria<span class="op">&lt;/</span><span class="kw">option</span><span class="op">&gt;</span>
+  <span class="op">&lt;/</span><span class="kw">select</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- Radio buttons --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">fieldset</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">legend</span><span class="op">&gt;</span>Gender:<span class="op">&lt;/</span><span class="kw">legend</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">input</span> <span class="at">type</span>=<span class="st">"radio"</span> <span class="at">id</span>=<span class="st">"male"</span> <span class="at">name</span>=<span class="st">"gender"</span> <span class="at">value</span>=<span class="st">"male"</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"male"</span><span class="op">&gt;</span>Male<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">input</span> <span class="at">type</span>=<span class="st">"radio"</span> <span class="at">id</span>=<span class="st">"female"</span> <span class="at">name</span>=<span class="st">"gender"</span> <span class="at">value</span>=<span class="st">"female"</span><span class="op">&gt;</span>
+    <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"female"</span><span class="op">&gt;</span>Female<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;/</span><span class="kw">fieldset</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- Textarea --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"msg"</span><span class="op">&gt;</span>Message:<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">textarea</span> <span class="at">id</span>=<span class="st">"msg"</span> <span class="at">name</span>=<span class="st">"message"</span> <span class="at">rows</span>=<span class="st">"4"</span><span class="op">&gt;&lt;/</span><span class="kw">textarea</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- File upload --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">label</span> <span class="at">for</span>=<span class="st">"file"</span><span class="op">&gt;</span>Upload:<span class="op">&lt;/</span><span class="kw">label</span><span class="op">&gt;</span>
+  <span class="op">&lt;</span><span class="kw">input</span> <span class="at">type</span>=<span class="st">"file"</span> <span class="at">id</span>=<span class="st">"file"</span> <span class="at">name</span>=<span class="st">"document"</span><span class="op">&gt;</span>
+
+  <span class="cm">&lt;!-- Submit button --&gt;</span>
+  <span class="op">&lt;</span><span class="kw">button</span> <span class="at">type</span>=<span class="st">"submit"</span><span class="op">&gt;</span>Submit<span class="op">&lt;/</span><span class="kw">button</span><span class="op">&gt;</span>
+<span class="op">&lt;/</span><span class="kw">form</span><span class="op">&gt;</span></code></pre>
+
+        <h4>HTML5 Input Types</h4>
+        <table>
+            <tr><th>Type</th><th>Purpose</th><th>Browser Support</th></tr>
+            <tr><td><code>text</code></td><td>Single-line text</td><td>Universal</td></tr>
+            <tr><td><code>email</code></td><td>Email with built-in validation</td><td>All modern</td></tr>
+            <tr><td><code>password</code></td><td>Masked input</td><td>Universal</td></tr>
+            <tr><td><code>number</code></td><td>Numeric with min/max/step</td><td>All modern</td></tr>
+            <tr><td><code>date</code></td><td>Date picker</td><td>All modern</td></tr>
+            <tr><td><code>tel</code></td><td>Telephone number</td><td>All modern</td></tr>
+            <tr><td><code>url</code></td><td>URL with validation</td><td>All modern</td></tr>
+            <tr><td><code>search</code></td><td>Search field</td><td>All modern</td></tr>
+            <tr><td><code>color</code></td><td>Color picker</td><td>All modern</td></tr>
+            <tr><td><code>range</code></td><td>Slider control</td><td>All modern</td></tr>
+            <tr><td><code>file</code></td><td>File upload</td><td>Universal</td></tr>
+            <tr><td><code>radio</code></td><td>Single choice from group</td><td>Universal</td></tr>
+            <tr><td><code>checkbox</code></td><td>Multiple choices</td><td>Universal</td></tr>
+            <tr><td><code>hidden</code></td><td>Invisible data</td><td>Universal</td></tr>
+        </table>
+
+        <h4>Form Validation Attributes</h4>
+        <p><code>required</code> • <code>minlength</code> / <code>maxlength</code> • <code>min</code> / <code>max</code> • <code>pattern</code> (regex) • <code>placeholder</code> • <code>autofocus</code> • <code>disabled</code> • <code>readonly</code></p>
+
+        <div class="warning-box">
+            ⚠️ <strong>Form Security Rules:</strong><br>
+            • Use <code>method="POST"</code> for sensitive data (passwords, personal info)<br>
+            • Add <code>enctype="multipart/form-data"</code> for file uploads<br>
+            • <strong>Always validate on the server side</strong> — client-side validation can be bypassed<br>
+            • Never trust user input — sanitize and validate everything
+        </div>
+
+        <h3>10. HTML Attributes — Global Attributes</h3>
+        <p>These attributes work on <strong>almost every</strong> HTML element:</p>
+        <table>
+            <tr><th>Attribute</th><th>Purpose</th><th>Example</th></tr>
+            <tr><td><code>id</code></td><td>Unique identifier (one per page)</td><td><code>id="header"</code></td></tr>
+            <tr><td><code>class</code></td><td>CSS class (reusable, multiple allowed)</td><td><code>class="btn primary"</code></td></tr>
+            <tr><td><code>style</code></td><td>Inline CSS (avoid when possible)</td><td><code>style="color: red"</code></td></tr>
+            <tr><td><code>title</code></td><td>Tooltip on hover</td><td><code>title="More info"</code></td></tr>
+            <tr><td><code>data-*</code></td><td>Custom data for JavaScript</td><td><code>data-user-id="42"</code></td></tr>
+            <tr><td><code>hidden</code></td><td>Hides element</td><td><code>hidden</code></td></tr>
+            <tr><td><code>lang</code></td><td>Language of content</td><td><code>lang="ar"</code></td></tr>
+            <tr><td><code>dir</code></td><td>Text direction</td><td><code>dir="rtl"</code></td></tr>
+            <tr><td><code>tabindex</code></td><td>Keyboard navigation order</td><td><code>tabindex="1"</code></td></tr>
+            <tr><td><code>contenteditable</code></td><td>Make element editable</td><td><code>contenteditable="true"</code></td></tr>
+            <tr><td><code>draggable</code></td><td>Allow drag and drop</td><td><code>draggable="true"</code></td></tr>
+        </table>
+
+        <h3>11. Best Practices & Key Takeaways</h3>
+        <div class="highlight">
+            <strong>✅ HTML5 Best Practices:</strong><br><br>
+            1. <strong>Always use <code>&lt;!DOCTYPE html&gt;</code></strong> as the first line<br>
+            2. <strong>Always include <code>alt</code> attribute</strong> on images (accessibility & SEO)<br>
+            3. <strong>Use semantic elements</strong> — <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code><br>
+            4. <strong>One <code>&lt;h1&gt;</code> per page</strong> — use heading hierarchy (h1 → h2 → h3)<br>
+            5. <strong>Always pair form inputs with <code>&lt;label&gt;</code></strong> using <code>for</code>/<code>id</code><br>
+            6. <strong>Use <code>method="POST"</code></strong> for sensitive form data<br>
+            7. <strong>Validate server-side</strong> — never rely only on client-side validation<br>
+            8. <strong>Use <code>lang</code> attribute</code></strong> on <code>&lt;html&gt;</code> element<br>
+            9. <strong>Tables for data only</strong> — never for layout<br>
+            10. <strong>Keep code indented and clean</strong> — readability matters
+        </div>
+
+        <div class="info-box" style="background: #f0fff4; border-left-color: #00b894;">
+            <strong style="color: #00b894;">📌 Summary:</strong> HTML5 is the backbone of every web page. It provides the <strong>structure</strong> (elements, tags), <strong>meaning</strong> (semantic elements), <strong>interactivity</strong> (forms, links), and <strong>media</strong> (images, video, audio) that make the web work. Combined with CSS for styling and JavaScript for behavior, HTML5 forms the essential foundation of modern web development.
         </div>
     </div>
 
